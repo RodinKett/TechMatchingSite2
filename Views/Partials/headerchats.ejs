@@ -6,16 +6,18 @@
     </li>
 
     <li class="header-midden">
-      <img src="../../static/afbeeldingen/logoDualr.svg" alt="logo">
+      <img src="/afbeeldingen/logoDualr.svg" alt="logo">
       </a>
     </li>
 
     <li class="header-rechts">
       <a href="/verzoeken" class="header-knop">
       Verzoeken
-      <% if (verzoekAantal > 0) { %>
+      <span class="header-knop-achtergrond">
+              <% if (verzoekAantal > 0) { %>
       <span class="header-knop-achtergrond"><%= verzoekAantal %></span>
       <% } %>
+      </span>
       </a>
     </li>
 

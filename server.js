@@ -27,6 +27,12 @@ app.use(
 
 /////////////////////////////////////////////////////////////////////////
 
+app.use(express.static(path.join(__dirname, "static")));
+
+app.get("/", (req, res) => {
+  res.render("Pages/index");
+});
+
 async function startServer() {
   try {
     await client.connect();
