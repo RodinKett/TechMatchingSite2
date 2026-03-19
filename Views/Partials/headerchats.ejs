@@ -1,0 +1,23 @@
+<nav class="header-nav">
+  <ul class="header-lijst">
+
+    <li class="header-links">
+
+    </li>
+
+    <li class="header-midden">
+      <img src="../../static/afbeeldingen/logoDualr.svg" alt="logo">
+      </a>
+    </li>
+
+    <li class="header-rechts">
+      <a href="/verzoeken" class="header-knop">
+      Verzoeken
+      <% if (verzoekAantal > 0) { %>
+      <span class="header-knop-achtergrond"><%= verzoekAantal %></span>
+      <% } %>
+      </a>
+    </li>
+
+  </ul>
+</nav>
