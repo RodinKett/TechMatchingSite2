@@ -1,23 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%- include('../partials/head'); %>
+  <meta charset="UTF-8">
+  <title>EJS Is Fun</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/login-register.css">
 </head>
 <body class="container">
 
 <header>
-  <%- include('../partials/header'); %>
 </header>
 
 <main>
-<div class="row">
-  <div class="col-sm-8">
-    <div class="jumbotron">
-      <h1>Login</h1>
-    </div> 
-  </div>
-</div>
+  <section class="container" id="container">
+
+    <!-- Login -->
+    <section class="section" aria-labelledby="login-title">
+      <form class="form-box">
+        <h2 id="login-title">Login</h2>
+
+        <label for="login-username">Gebruikersnaam</label>
+        <input id="login-username" type="text" name="username" required>
+
+        <label for="login-password">Wachtwoord</label>
+        <input id="login-password" type="password" name="password" required>
+
+        <button type="submit" class="btn-secondary">Inloggen</button>
+
+        <button type="button" class="link" onclick="goTo(1)">
+          Nog geen account? Registreer
+        </button>
+      </form>
+    </section>
+
+    <!-- Register Step 1 -->
+    <section class="section" aria-labelledby="register-step1-title">
+      <form class="form-box" id="register-form">
+      <!-- Step 1 -->
+      <fieldset class="step" id="step1">
+        <legend id="register-step1-title">Register - Stap 1</legend>
+
+        <label for="reg-username">Gebruikersnaam</label>
+        <input id="reg-username" type="text" name="username" required>
+
+        <label for="reg-email">Email</label>
+        <input id="reg-email" type="email" name="email" required>
+
+        <label for="reg-password">Wachtwoord</label>
+        <input id="reg-password" type="password" name="password" required>
+
+        <button type="button" class="btn-primary" onclick="goTo(2)">Volgende</button>
+      </fieldset>
+
+      <!-- Step 2 -->
+      <fieldset class="step" id="step2" style="display:none;">
+        <legend id="register-step2-title">Register - Stap 2</legend>
+
+        <label for="reg-dob">Geboortedatum</label>
+        <input id="reg-dob" type="date" name="dob" required>
+
+        <label for="reg-gender">Geslacht</label>
+        <select id="reg-gender" name="gender">
+          <option value="man">Man</option>
+          <option value="vrouw">Vrouw</option>
+        </select>
+
+        <button type="button" class="btn-secondary" onclick="goTo(1)">Terug</button>
+        <button type="button" class="btn-primary" onclick="goTo(3)">Volgende</button>
+      </fieldset>
+
+      <!-- Step 3 -->
+      <fieldset class="step" id="step3" style="display:none;">
+        <legend id="register-step3-title">Register - Stap 3</legend>
+
+        <label for="reg-password2">Wachtwoord</label>
+        <input id="reg-password2" type="password" name="reg-password2" required>
+
+        <label for="reg-password-confirm">Bevestig wachtwoord</label>
+        <input id="reg-password-confirm" type="password" name="confirm_password" required>
+
+        <button type="button" class="btn-secondary" onclick="goTo(2)">Terug</button>
+        <button type="submit" class="btn-primary">Registreren</button>
+      </fieldset>
+    </form>
+    </section>
+
+  </section>
 </main>
+
+<script>
+  let currentStep = 0;
+
+  function goTo(step) {
+    const container = document.getElementById('container');
+
+    // LOGIN -> REGISTER (slide animation)
+    if (step === 1 && currentStep === 0) {
+      container.style.transition = 'transform 0.6s ease';
+      container.style.transform = 'translateY(-100vh)';
+    }
+
+    // Inside register: show steps
+    if (step >= 1) {
+      document.querySelectorAll('.step').forEach(s => {
+        s.style.display = 'none';
+      });
+
+      document.getElementById('step' + step).style.display = 'block';
+    }
+
+    currentStep = step;
+  }
+</script>
 
 <footer>
   <%- include('../partials/footer'); %>

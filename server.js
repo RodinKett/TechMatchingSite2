@@ -33,6 +33,12 @@ app.get("/", (req, res) => {
   res.render("Pages/index");
 });
 
+app.get("/login", (req, res) => {
+  res.render("Pages/Login");
+});
+
+/////////////////////////////////////////////////////////////////////////
+
 async function startServer() {
   try {
     await client.connect();

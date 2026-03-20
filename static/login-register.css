@@ -1,0 +1,99 @@
+:root{
+    --kleur-tekst:hsl(0deg 0% 100%);
+    --kleur-border-zijkant:hsl(0deg 0% 100%);
+    --kleur-accent:hsl(356deg 69% 50%);
+    --kleur-achtergrond:hsl(203deg 26%, 12%);
+    --kleur-invulveld:hsl(204deg 55% 18%);
+    --kleur-tekst-links-knop:hsl(204deg 55% 18%);
+    --kleur-achtergrond-linker-knop:hsl(0deg 0% 100%);
+    --kleur-achtergrond-blok-verzoek:hsl(204deg 55% 18%);
+    --kleur-tekst-inlog:hsl(0deg 0% 75%);
+    --kleur-leaderbord-1:hsl(41deg 93% 52%);
+    --kleur-leaderbord-2:hsl(206deg 4% 65%);
+    --kleur-leaderbord-3:hsl(30deg 70% 45%);
+    --kleur-rank:hsl(41deg 93% 52%);
+    --kleur-footer-achtergrond:hsl(205deg 58% 21%);
+    --kleur-footer-aangeklikt:hsl(41deg 93% 52%);
+    --kleur-chatbericht-ik:hsl(205deg 54% 63%);
+    --kleur-chatbericht-hun:hsl(0deg 0% 100%);
+    --font-size-normal: 16px;
+}
+
+html, body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--kleur-achtergrond);
+  background-image: url("afbeeldingen/login-page.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+main {
+  height: 100vh;
+}
+
+.container {
+  width: 100%;
+  height: 400vh;
+  transition: none;
+}
+
+.section {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.form-box {
+  background: #1e293b;
+  padding: 30px;
+  border-radius: 10px;
+  width: 300px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: red;
+  color: white;
+}
+
+.btn-secondary {
+  background: lightgray;
+}
+
+.link {
+  margin-top: 10px;
+  display: block;
+  cursor: pointer; 
+  color: pink;
+  background: none;
+  border: none;
+  text-align: left;
+} 
