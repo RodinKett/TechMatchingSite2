@@ -1,0 +1,33 @@
+{
+  "name": "techmatchingsite",
+  "version": "1.0.0",
+  "description": "een matching site voor het vak Tech in blok 3 van CMD",
+  "homepage": "https://github.com/RodinKett/TechMatchingSite#readme",
+  "bugs": {
+    "url": "https://github.com/RodinKett/TechMatchingSite/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RodinKett/TechMatchingSite.git"
+  },
+  "license": "ISC",
+  "author": "Rodin Kettmann, Jada Secod, Emilie García van Dongen, Tess Goossens",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "ejs": "^4.0.1",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "mongodb": "^7.1.0",
+    "multer": "^2.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14",
+    "stylelint": "^17.4.0",
+    "stylelint-config-standard": "^40.0.0"
+  }
+}
