@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="/style.css">
   <link rel="stylesheet" href="/login-register.css">
 </head>
-<body class="container">
+<body>
 
 <header>
 </header>
@@ -16,7 +16,7 @@
 
     <!-- Login -->
     <section class="section" aria-labelledby="login-title">
-      <form class="form-box">
+      <form class="form-box-login">
         <h2 id="login-title">Login</h2>
 
         <label for="login-username">Gebruikersnaam</label>
@@ -25,10 +25,10 @@
         <label for="login-password">Wachtwoord</label>
         <input id="login-password" type="password" name="password" required>
 
-        <button type="submit" class="btn-secondary">Inloggen</button>
+        <button type="submit">Inloggen</button>
 
         <button type="button" class="link" onclick="goTo(1)">
-          Nog geen account? Registreer
+          Nog geen account? <u><strong>Registreer</strong></u>
         </button>
       </form>
     </section>
@@ -37,8 +37,8 @@
     <section class="section" aria-labelledby="register-step1-title">
       <form class="form-box" id="register-form">
       <!-- Step 1 -->
-      <fieldset class="step" id="step1">
-        <legend id="register-step1-title">Register - Stap 1</legend>
+      <fieldset class="step" id="step1" style="display:none;">
+        <h2 id="register-step1-title">Register - Stap 1</h2>
 
         <label for="reg-username">Gebruikersnaam</label>
         <input id="reg-username" type="text" name="username" required>
@@ -50,11 +50,14 @@
         <input id="reg-password" type="password" name="password" required>
 
         <button type="button" class="btn-primary" onclick="goTo(2)">Volgende</button>
+        <button type="button" class="link" onclick="goBackTo(0)">
+          Heb je al een account <u><strong>login</strong></u> hier.        
+        </button>
       </fieldset>
 
       <!-- Step 2 -->
       <fieldset class="step" id="step2" style="display:none;">
-        <legend id="register-step2-title">Register - Stap 2</legend>
+        <h2 id="register-step2-title">Register - Stap 2</h2>
 
         <label for="reg-dob">Geboortedatum</label>
         <input id="reg-dob" type="date" name="dob" required>
@@ -65,13 +68,18 @@
           <option value="vrouw">Vrouw</option>
         </select>
 
-        <button type="button" class="btn-secondary" onclick="goTo(1)">Terug</button>
-        <button type="button" class="btn-primary" onclick="goTo(3)">Volgende</button>
+        <div>
+          <button type="button" class="btn-secondary" onclick="goTo(1)">Terug</button>
+          <button type="button" class="btn-primary" onclick="goTo(3)">Volgende</button>
+        </div>
+        <button type="button" class="link" onclick="goBackTo(0)">
+          Heb je al een account <u><strong>login</strong></u> hier.        
+        </button>
       </fieldset>
 
       <!-- Step 3 -->
       <fieldset class="step" id="step3" style="display:none;">
-        <legend id="register-step3-title">Register - Stap 3</legend>
+        <h2 id="register-step3-title">Register - Stap 3</h2>
 
         <label for="reg-password2">Wachtwoord</label>
         <input id="reg-password2" type="password" name="reg-password2" required>
@@ -79,8 +87,13 @@
         <label for="reg-password-confirm">Bevestig wachtwoord</label>
         <input id="reg-password-confirm" type="password" name="confirm_password" required>
 
-        <button type="button" class="btn-secondary" onclick="goTo(2)">Terug</button>
-        <button type="submit" class="btn-primary">Registreren</button>
+        <div>
+          <button type="button" class="btn-secondary" onclick="goTo(2)">Terug</button>
+          <button type="submit" class="btn-primary">Registreren</button>
+        </div>
+        <button type="button" class="link" onclick="goBackTo(0)">
+          Heb je al een account <u><strong>login</strong></u> hier.        
+        </button>
       </fieldset>
     </form>
     </section>
@@ -88,33 +101,9 @@
   </section>
 </main>
 
-<script>
-  let currentStep = 0;
-
-  function goTo(step) {
-    const container = document.getElementById('container');
-
-    // LOGIN -> REGISTER (slide animation)
-    if (step === 1 && currentStep === 0) {
-      container.style.transition = 'transform 0.6s ease';
-      container.style.transform = 'translateY(-100vh)';
-    }
-
-    // Inside register: show steps
-    if (step >= 1) {
-      document.querySelectorAll('.step').forEach(s => {
-        s.style.display = 'none';
-      });
-
-      document.getElementById('step' + step).style.display = 'block';
-    }
-
-    currentStep = step;
-  }
-</script>
+<script src="/js/login-register.js"></script>
 
 <footer>
-  <%- include('../partials/footer'); %>
 </footer>
 
 </body>

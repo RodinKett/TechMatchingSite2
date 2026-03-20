@@ -1,8 +1,9 @@
 :root{
+    /* Kleur */
     --kleur-tekst:hsl(0deg 0% 100%);
     --kleur-border-zijkant:hsl(0deg 0% 100%);
     --kleur-accent:hsl(356deg 69% 50%);
-    --kleur-achtergrond:hsl(203deg 26%, 12%);
+    --kleur-achtergrond: hsl(202deg 26% 12%);
     --kleur-invulveld:hsl(204deg 55% 18%);
     --kleur-tekst-links-knop:hsl(204deg 55% 18%);
     --kleur-achtergrond-linker-knop:hsl(0deg 0% 100%);
@@ -16,7 +17,70 @@
     --kleur-footer-aangeklikt:hsl(41deg 93% 52%);
     --kleur-chatbericht-ik:hsl(205deg 54% 63%);
     --kleur-chatbericht-hun:hsl(0deg 0% 100%);
-    --font-size-normal: 16px;
+    --kleur-corner-border:hsl(0deg 0% 100%);
+
+    /* Font */
+    --font-size-form-title: 3rem;
+    --font-size-form-label: 2.5rem;
+    --font-size-form-lnput: 2rem;
+    --font-size-normal: 2rem;
+    --font-family-kopjes: arial, sans-serif;    /* Racing Sans One */
+    --font-family-text: arial, sans-serif;      /*   Nunito Sans   */
+
+    /* Ruimte tussen de ruimtes */
+    --lijn-hoogte-s: 1rem;
+    --lijn-hoogte-m: 2.5rem;
+    --lijn-hoogte-m-l: 3rem;
+    --lijn-hoogte-l: 4rem;
+    --lijn-hoogte-xl: 8rem;
+
+    /* wit-ruimte één keuze */
+    --wit-ruimte-geen: 0;
+    --wit-ruimte-xs: 0.5em;
+    --wit-ruimte-s: 1em;
+    --wit-ruimte-m: 2em;
+    --wit-ruimte-l: 4em;
+    --wit-ruimte-xl: 8em;
+    --wit-ruimte-xxl: 12em;
+
+    /* wit-ruimte geen boven onder */
+    --wit-ruimte-geen-xs: 0 0.5em;
+    --wit-ruimte-geen-s: 0 1em;
+    --wit-ruimte-geen-m: 0 2em;
+    --wit-ruimte-geen-l: 0 4em;
+    --wit-ruimte-geen-xl: 0 8em;
+
+    /* wit-ruimte geen links rechts */
+    --wit-ruimte-xs-geen: 0.5em 0;
+    --wit-ruimte-s-geen: 1em 0;
+    --wit-ruimte-m-geen: 2em 0;
+    --wit-ruimte-l-geen: 4em 0;
+    --wit-ruimte-xl-geen: 8em 0em;
+
+    /* wit-ruimte klein */
+    --wit-ruimte-s-xs: 1em 0.5em;
+    --wit-ruimte-s-m: 1em 2em;
+    --wit-ruimte-s-l: 1em 4em;
+    --wit-ruimte-s-xl: 1em 8em;
+
+    /* wit-ruimte middel */
+    --wit-ruimte-m-xs: 2em 0.5em;
+    --wit-ruimte-m-s: 2em 1em;
+    --wit-ruimte-m-l: 2em 4em;
+    --wit-ruimte-m-xl: 2em 8em;
+
+    /* wit-ruimte groot */
+    --wit-ruimte-l-xs: 4em 0.5em;
+    --wit-ruimte-l-s: 4em 1em;
+    --wit-ruimte-l-m: 4em 2em;
+    --wit-ruimte-l-xl: 4em 8em;
+    --wit-ruimte-xl-xxl: 8em 12em;
+
+    /* wit-ruimte super groot */
+    --wit-ruimte-xl-xs: 8em 0.5em;
+    --wit-ruimte-xl-s: 8em 1em;
+    --wit-ruimte-xl-m: 8em 2em;
+    --wit-ruimte-xl-l: 8em 4em;
 }
 
 html, body {
@@ -29,7 +93,7 @@ html, body {
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
-  font-family: Arial, sans-serif;
+  font-family: var(--font-family-text);
   overflow: hidden;
 }
 
@@ -47,53 +111,97 @@ main {
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   color: white;
 }
 
 .form-box {
-  background: #1e293b;
-  padding: 30px;
-  border-radius: 10px;
-  width: 300px;
+  background: var(--kleur-achtergrond);
+  border-radius: 4rem 4rem 0 0;
+  padding: var(--wit-ruimte-l-xl);
+  width: 100vw;
+  height: 60vh; 
+}
+
+.form-box-login {
+  border-radius: 4rem 4rem 0 0;
+  padding: var(--wit-ruimte-l-xl);
+  width: 100vw;
+  height: 60vh;  
 }
 
 label {
   display: block;
-  margin-top: 10px;
+  font-size: var(--font-size-form-label);
+  margin-top: var(--lijn-hoogte-l);
 }
 
 input, select {
   width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border: none;
-  border-radius: 5px;
+  padding: var(--wit-ruimte-s-m);
+  margin-top: var(--lijn-hoogte-m);
+  border: 3px solid #FFF;
+  background-color: var(--kleur-invulveld);
+  font-size: var(--font-size-form-lnput);
+  box-sizing: border-box;
 }
 
 button {
-  padding: 10px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+    margin-top: var(--lijn-hoogte-xl);
+    width: 100%;
+    background: white;
+    color: hsl(202deg 26% 12%);
+    padding: var(--wit-ruimte-s-m);
+    font-size: var(--font-size-normal);
+    cursor: pointer;
+    font-family: var(--font-family-kopjes);
 }
 
 .btn-primary {
-  background: red;
+  background: var(--kleur-accent);
   color: white;
+  width: 50%;
+  align-self: flex-end;
+  border-radius: 0.5em;
 }
 
 .btn-secondary {
   background: lightgray;
+  width: 50%;
+  align-self: flex-start;
+  border-radius: 0.5em;
+}
+
+.step div {
+  display: flex;               /* Arrange children horizontally */
+  justify-content: space-between; /* Push buttons to opposite sides */
+  margin-top: var(--lijn-hoogte-m);
+}
+
+/* Make buttons take up almost half width */
+.step div button {
+  width: 48%;                  /* Adjust to fit nicely */
+  margin: 0;                   /* Remove extra margin */
 }
 
 .link {
-  margin-top: 10px;
+  margin-top: var(--lijn-hoogte-m);
   display: block;
   cursor: pointer; 
-  color: pink;
+  color: var(--kleur-tekst);
+  font-size: var(--font-size-normal);
   background: none;
+  padding: 0;
   border: none;
   text-align: left;
 } 
+
+form h2 {
+  font-size: var(--font-size-form-title);
+  margin-top: var(--lijn-hoogte-l);
+}
+
+fieldset{
+    border:none;
+}
+
