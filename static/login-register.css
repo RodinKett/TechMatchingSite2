@@ -91,7 +91,7 @@ html, body {
   background-image: url("afbeeldingen/login-page.svg");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center bottom; /* align bottom initially */
+  background-position: center bottom;
   font-family: var(--font-family-text);
   overflow: hidden;
 }
@@ -106,7 +106,7 @@ main {
   transition: none;
 }
 
-.section {
+.sectie {
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -114,7 +114,7 @@ main {
   color: white;
 }
 
-.form-box {
+.formulier-box {
   background: var(--kleur-achtergrond);
   border-radius: 4rem 4rem 0 0;
   padding: var(--wit-ruimte-l-xl);
@@ -122,7 +122,7 @@ main {
   height: 60vh; 
 }
 
-.form-box-login {
+.formulier-box-login {
   border-radius: 4rem 4rem 0 0;
   padding: var(--wit-ruimte-l-xl);
   width: 100vw;
@@ -145,6 +145,14 @@ input, select {
   box-sizing: border-box;
 }
 
+input:focus {
+  color: var(--kleur-tekst); 
+}
+
+input::placeholder {
+  color: hsl(0deg 0% 75%);
+}
+
 button {
     margin-top: var(--lijn-hoogte-xl);
     width: 100%;
@@ -156,7 +164,7 @@ button {
     font-family: var(--font-family-kopjes);
 }
 
-.btn-primary {
+.knop-primaire {
   background: var(--kleur-accent);
   color: white;
   width: 50%;
@@ -164,23 +172,22 @@ button {
   border-radius: 0.5em;
 }
 
-.btn-secondary {
+.knop-secundaire {
   background: lightgray;
   width: 50%;
   align-self: flex-start;
   border-radius: 0.5em;
 }
 
-.buttons-row {
-  display: flex;               /* Arrange children horizontally */
-  justify-content: space-between; /* Push buttons to opposite sides */
+.knoppen-rij {
+  display: flex;
+  justify-content: space-between;
   margin-top: var(--lijn-hoogte-xl);
 }
 
-/* Make buttons take up almost half width */
-.buttons-row button {
-  width: 48%;                  /* Adjust to fit nicely */
-  margin: 0;                   /* Remove extra margin */
+.knoppen-rij button {
+  width: 48%;
+  margin: 0;
 }
 
 .link {
@@ -218,30 +225,23 @@ select {
     padding-right: 2.5em; 
     background-image: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>');
     background-repeat: no-repeat;
-    background-position: right 0.8em center; /* Position the arrow */
-    background-size: 2em auto;              /* Control the size */
+    background-position: right 0.8em center;
+    background-size: 2em auto;
     cursor: pointer;
 }
 
-#register-form {
+#formulier-registratie {
   position: relative;
 }
 
-/* Insert logo above the form */
-#register-form::before {
+#formulier-registratie::before {
   content: "";
   display: block;
-  width: auto;                  /* adjust logo width */
-  height: 20vh;                 /* adjust logo height */
-  margin: -30vh auto 10vh;      /* center horizontally + spacing below */
-  background-image: url('afbeeldingen/logoDualr.svg'); /* your logo path */
+  width: auto;
+  height: 20vh;
+  margin: -30vh auto 10vh;
+  background-image: url('afbeeldingen/logoDualr.svg');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-}
-
-
-
-
-
-
+}  

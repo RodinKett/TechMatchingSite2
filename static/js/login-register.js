@@ -1,41 +1,54 @@
-let currentStep = 0; // 0 = login, 1-3 = register steps
+// Huidige stap bijhouden
+let huidigeStap = 0;
 
-function goTo(step) {
+// Functie om naar een bepaalde stap te navigeren
+function gaNaar(stap) {
+  // Haal de container, body en formulier element op
   const container = document.getElementById('container');
   const body = document.body;
-  const form = document.querySelector('.form-box'); // select form for logo
+  const formulier = document.querySelector('.formulier-box');
 
+  // Variabele voor verticale verschuiving
   let translateY = 0;
 
-  if (step === 0) {
-    translateY = 0; // login
-    showStep(1);    // reset register
-    form.classList.remove('slide-up'); // move logo back down
-  } else if (step >= 1 && step <= 3) {
-    translateY = -100; // slide container up
-    form.classList.add('slide-up');    // move logo up with form
+  // Als we naar de eerste stap (0) gaan
+  if (stap === 0) {
+    translateY = 0;                     // Geen verticale verschuiving
+    toonStap(1);                         // Toon stap 1 van registratie
+    formulier.classList.remove('slide-up'); // Verwijder slide-up animatie
+  } 
+  // Voor stappen 1 t/m 3
+  else if (stap >= 1 && stap <= 3) {
+    translateY = -100;                   // Verplaats container omhoog
+    formulier.classList.add('slide-up'); // Voeg slide-up animatie toe
   }
 
-  // Slide container
+  // Animatie voor container
   container.style.transition = 'transform 0.6s ease';
   container.style.transform = `translateY(${translateY}vh)`;
 
-  // Move background so bottom aligns with top of form (60vh)
+  // Animatie voor achtergrondpositie van body
   body.style.transition = 'background-position 0.6s ease';
-  body.style.backgroundPosition = step === 0 ? 'center bottom' : 'center calc(100% - 60vh)';
+  body.style.backgroundPosition = stap === 0 ? 'center bottom' : 'center calc(100% - 60vh)';
 
-  // Show correct register step
-  if (step > 0) showStep(step);
+  // Toon stap als deze groter is dan 0
+  if (stap > 0) toonStap(stap);
 
-  currentStep = step;
+  // Update huidige stap
+  huidigeStap = stap;
 }
 
-function goBackTo(step) {
-  goTo(0);
+// Functie om terug te gaan naar de eerste stap
+function gaTerugNaar(stap) {
+  gaNaar(0); // Altijd terug naar stap 0
 }
 
-function showStep(step) {
-  document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
-  const el = document.getElementById('step' + step);
+// Functie om een specifieke stap zichtbaar te maken
+function toonStap(stap) {
+  // Verberg alle stappen
+  document.querySelectorAll('.stap').forEach(s => s.style.display = 'none');
+  
+  // Toon de gevraagde stap
+  const el = document.getElementById('stap' + stap);
   if (el) el.style.display = 'block';
 }

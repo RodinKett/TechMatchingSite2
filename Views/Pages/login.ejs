@@ -14,90 +14,90 @@
 <main>
   <section class="container" id="container">
 
-    <!-- Login -->
-    <section class="section" aria-labelledby="login-title">
-      <form class="form-box-login">
-        <h2 id="login-title">Login</h2>
+    <!-- Inloggen -->
+    <section class="sectie" aria-labelledby="titel-inloggen">
+      <form class="formulier-box-login">
+        <h2 id="titel-inloggen">Inloggen</h2>
 
-        <label for="login-username">Gebruikersnaam</label>
-        <input id="login-username" type="text" name="username" required>
+        <label for="inlog-gebruikersnaam">Gebruikersnaam</label>
+        <input id="inlog-gebruikersnaam" type="text" name="username" required>
 
-        <label for="login-password">Wachtwoord</label>
-        <input id="login-password" type="password" name="password" required>
+        <label for="inlog-wachtwoord">Wachtwoord</label>
+        <input id="inlog-wachtwoord" type="password" name="password" required>
 
         <button type="submit">Inloggen</button>
 
-        <button type="button" class="link" onclick="goTo(1)">
+        <button type="button" class="link" onclick="gaNaar(1)">
           Nog geen account? <u><strong>Registreer</strong></u>
         </button>
       </form>
     </section>
 
-    <!-- Register Step 1 -->
-    <section class="section" aria-labelledby="register-step1-title">
-      <form class="form-box" id="register-form">
-      <!-- Step 1 -->
-      <fieldset class="step" id="step1" style="display:none;">
-        <h2 id="register-step1-title">Register - Stap 1</h2>
+    <!-- Registratie Stap 1 -->
+    <section class="sectie" aria-labelledby="titel-registratie-stap1">
+      <form class="formulier-box" id="formulier-registratie">
 
-        <label for="reg-username">Gebruikersnaam</label>
-        <input id="reg-username" type="text" name="username" required>
+      <fieldset class="stap" id="stap1" style="display:none;">
+        <h2 id="titel-registratie-stap1">Registreren - Stap 1</h2>
+
+        <label for="reg-gebruikersnaam">Gebruikersnaam</label>
+        <input id="reg-gebruikersnaam" type="text" name="username" required>
 
         <label for="reg-email">Email</label>
         <input id="reg-email" type="email" name="email" required>
 
-        <label for="reg-password">Wachtwoord</label>
-        <input id="reg-password" type="password" name="password" required>
+        <label for="reg-wachtwoord">Wachtwoord</label>
+        <input id="reg-wachtwoord" type="password" name="password" required>
 
         <div>
-          <button type="button" class="btn-primary" onclick="goTo(2)">Volgende</button>
-          <button type="button" class="link" onclick="goBackTo(0)">
-            Heb je al een account <u><strong>login</strong></u> hier.        
+          <button type="button" class="knop-primaire" onclick="gaNaar(2)">Volgende</button>
+          <button type="button" class="link" onclick="gaTerugNaar(0)">
+            Heb je al een account <u><strong>log hier in</strong></u>      
           </button>
         </div>
       </fieldset>
 
-      <!-- Step 2 -->
-      <fieldset class="step" id="step2" style="display:none;">
-        <h2 id="register-step2-title">Register - Stap 2</h2>
+      <!-- Stap 2 -->
+      <fieldset class="stap" id="stap2" style="display:none;">
+        <h2 id="titel-registratie-stap2">Registreren - Stap 2</h2>
 
-        <label for="reg-dob">Geboortedatum</label>
-        <input id="reg-dob" type="date" name="dob" required>
+        <label for="reg-geboortedatum">Geboortedatum</label>
+        <input id="reg-geboortedatum" type="date" name="dob" required>
 
-        <label for="reg-gender">Geslacht</label>
-        <select id="reg-gender" name="gender">
+        <label for="reg-geslacht">Geslacht</label>
+        <select id="reg-geslacht" name="gender">
           <option value="man">Man</option>
           <option value="vrouw">Vrouw</option>
         </select>
 
         <div>
-          <div class="buttons-row">
-            <button type="button" class="btn-secondary" onclick="goTo(1)">Terug</button>
-            <button type="button" class="btn-primary" onclick="goTo(3)">Volgende</button>
+          <div class="knoppen-rij">
+            <button type="button" class="knop-secundaire" onclick="gaNaar(1)">Terug</button>
+            <button type="button" class="knop-primaire" onclick="gaNaar(3)">Volgende</button>
           </div>
-          <button type="button" class="link" onclick="goBackTo(0)">
-            Heb je al een account <u><strong>login</strong></u> hier.        
+          <button type="button" class="link" onclick="gaTerugNaar(0)">
+            Heb je al een account <u><strong>log hier in</strong></u>       
           </button>
         </div>
       </fieldset>
 
-      <!-- Step 3 -->
-      <fieldset class="step" id="step3" style="display:none;">
-        <h2 id="register-step3-title">Register - Stap 3</h2>
+      <!-- Stap 3 -->
+      <fieldset class="stap" id="stap3" style="display:none;">
+        <h2 id="titel-registratie-stap3">Registreren - Stap 3</h2>
 
-        <label for="reg-password2">Wachtwoord</label>
-        <input id="reg-password2" type="password" name="reg-password2" required>
+        <label for="reg-wachtwoord2">Wachtwoord</label>
+        <input id="reg-wachtwoord2" type="password" name="reg-password2" required>
 
-        <label for="reg-password-confirm">Bevestig wachtwoord</label>
-        <input id="reg-password-confirm" type="password" name="confirm_password" required>
+        <label for="reg-wachtwoord-bevestigen">Bevestig wachtwoord</label>
+        <input id="reg-wachtwoord-bevestigen" type="password" name="confirm_password" required>
 
         <div>
-          <div class="buttons-row">
-            <button type="button" class="btn-secondary" onclick="goTo(2)">Terug</button>
-            <button type="submit" class="btn-primary">Registreren</button>
+          <div class="knoppen-rij">
+            <button type="button" class="knop-secundaire" onclick="gaNaar(2)">Terug</button>
+            <button type="submit" class="knop-primaire">Registreren</button>
           </div>
-          <button type="button" class="link" onclick="goBackTo(0)">
-            Heb je al een account <u><strong>login</strong></u> hier.        
+          <button type="button" class="link" onclick="gaTerugNaar(0)">
+            Heb je al een account <u><strong>log hier in</strong></u>       
           </button>
         </div>
       </fieldset>
