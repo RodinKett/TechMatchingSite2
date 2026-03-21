@@ -22,10 +22,21 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-  })
+  }),
 );
 
 /////////////////////////////////////////////////////////////////////////
+
+app.use(express.static(path.join(__dirname, "static")));
+
+app.get("/", (req, res) => {
+  res.render("Pages/index");
+});
+
+app.get("/loadingpage", (req, res) => {
+  res.render("Pages/loadingpage");
+});
+
 
 async function startServer() {
   try {
@@ -35,7 +46,6 @@ async function startServer() {
     app.listen(port, () => {
       console.log(`Server running on http://localhost:${port}`);
     });
-
   } catch (error) {
     console.error("Failed to connect to MongoDB:", error);
   }
