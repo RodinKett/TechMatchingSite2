@@ -49,10 +49,12 @@
         <label for="reg-password">Wachtwoord</label>
         <input id="reg-password" type="password" name="password" required>
 
-        <button type="button" class="btn-primary" onclick="goTo(2)">Volgende</button>
-        <button type="button" class="link" onclick="goBackTo(0)">
-          Heb je al een account <u><strong>login</strong></u> hier.        
-        </button>
+        <div>
+          <button type="button" class="btn-primary" onclick="goTo(2)">Volgende</button>
+          <button type="button" class="link" onclick="goBackTo(0)">
+            Heb je al een account <u><strong>login</strong></u> hier.        
+          </button>
+        </div>
       </fieldset>
 
       <!-- Step 2 -->
@@ -69,12 +71,14 @@
         </select>
 
         <div>
-          <button type="button" class="btn-secondary" onclick="goTo(1)">Terug</button>
-          <button type="button" class="btn-primary" onclick="goTo(3)">Volgende</button>
+          <div class="buttons-row">
+            <button type="button" class="btn-secondary" onclick="goTo(1)">Terug</button>
+            <button type="button" class="btn-primary" onclick="goTo(3)">Volgende</button>
+          </div>
+          <button type="button" class="link" onclick="goBackTo(0)">
+            Heb je al een account <u><strong>login</strong></u> hier.        
+          </button>
         </div>
-        <button type="button" class="link" onclick="goBackTo(0)">
-          Heb je al een account <u><strong>login</strong></u> hier.        
-        </button>
       </fieldset>
 
       <!-- Step 3 -->
@@ -88,12 +92,14 @@
         <input id="reg-password-confirm" type="password" name="confirm_password" required>
 
         <div>
-          <button type="button" class="btn-secondary" onclick="goTo(2)">Terug</button>
-          <button type="submit" class="btn-primary">Registreren</button>
+          <div class="buttons-row">
+            <button type="button" class="btn-secondary" onclick="goTo(2)">Terug</button>
+            <button type="submit" class="btn-primary">Registreren</button>
+          </div>
+          <button type="button" class="link" onclick="goBackTo(0)">
+            Heb je al een account <u><strong>login</strong></u> hier.        
+          </button>
         </div>
-        <button type="button" class="link" onclick="goBackTo(0)">
-          Heb je al een account <u><strong>login</strong></u> hier.        
-        </button>
       </fieldset>
     </form>
     </section>
