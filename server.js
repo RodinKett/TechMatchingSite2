@@ -1,3 +1,7 @@
+////////////////////////////////////////////////////////////////////////////////////
+//////////                            Setup                               //////////
+////////////////////////////////////////////////////////////////////////////////////
+
 require("dotenv").config();
 
 const path = require("path");
@@ -30,9 +34,41 @@ app.use(
 
 
 
+////////////////////////////////////////////////////////////////////////////////////
+//////////                      miscellaneous js                          //////////
+////////////////////////////////////////////////////////////////////////////////////
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "static/uploads/");
+  },
+  filename: (req, file, cb) => {
+    const uniqueName =
+      Date.now() + "-" + Math.round(Math.random() * 1e9) + path.extname(file.originalname);
+    cb(null, uniqueName);
+  },
+});
+
+
+
+
+
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith("image/")) {
+      cb(null, true);
+    } else {
+      cb(new Error("Alleen afbeeldingen toegestaan"), false);
+    }
+  },
+});
+
+
+
 
 ////////////////////////////////////////////////////////////////////////////////////
-//////////                         main routing                           //////////
+//////////                            App.Get                             //////////
 ////////////////////////////////////////////////////////////////////////////////////
 
 app.get("/", (req, res) => {
@@ -51,35 +87,22 @@ app.get("/aanvullendeInformatie", (req, res) => {
   res.render("Pages/AanvullendeInformatie", { user: req.session.user });
 });
 
+app.get("/logout", (req, res) => {
+  req.session.destroy(err => {
+    if (err) return res.status(500).send("Kan niet uitloggen");
+    res.redirect("/login");
+  });
+});
+
+
+
 
 
 
 
 ////////////////////////////////////////////////////////////////////////////////////
-//////////                           Upload                               //////////
+//////////                         App.Post                               //////////
 ////////////////////////////////////////////////////////////////////////////////////
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "static/uploads/");
-  },
-  filename: (req, file, cb) => {
-    const uniqueName =
-      Date.now() + "-" + Math.round(Math.random() * 1e9) + path.extname(file.originalname);
-    cb(null, uniqueName);
-  },
-});
-
-const upload = multer({
-  storage: storage,
-  fileFilter: (req, file, cb) => {
-    if (file.mimetype.startsWith("image/")) {
-      cb(null, true);
-    } else {
-      cb(new Error("Alleen afbeeldingen toegestaan"), false);
-    }
-  },
-});
 
 app.post("/register", upload.single("profileFoto"), async (req, res) => {
   try {
@@ -171,8 +194,6 @@ app.post("/register", upload.single("profileFoto"), async (req, res) => {
     req.session.user = {
       id: result.insertedId,
       username,
-      email,
-      profilePhoto,
     };
 
     res.redirect("/aanvullendeInformatie");
@@ -182,6 +203,47 @@ app.post("/register", upload.single("profileFoto"), async (req, res) => {
     res.status(500).send("Fout bij registreren van gebruiker");
   }
 });
+
+
+
+
+
+app.post("/login", async (req, res) => {
+  try {
+    const db = client.db("StreetracerApp");
+    const users = db.collection("users");
+
+    const { username, password } = req.body;
+
+    // Find the user by username
+    const user = await users.findOne({ username });
+
+    if (!user) {
+      return res.status(400).send("Gebruiker niet gevonden");
+    }
+
+    // Compare hashed password
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      return res.status(400).send("Wachtwoord is onjuist");
+    }
+
+    // Start session
+    req.session.user = {
+      id: user._id,
+      username: user.username,
+    };
+
+    // Redirect to protected page
+    res.redirect("/aanvullendeInformatie");
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Fout bij inloggen");
+  }
+});
+
+
 
 
 
