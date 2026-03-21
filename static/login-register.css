@@ -140,6 +140,7 @@ input, select {
   padding: var(--wit-ruimte-s-m);
   margin-top: var(--lijn-hoogte-m);
   border: 3px solid #FFF;
+  color: var(--kleur-tekst);
   background-color: var(--kleur-invulveld);
   font-size: var(--font-size-form-lnput);
   box-sizing: border-box;

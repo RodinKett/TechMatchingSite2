@@ -20,10 +20,10 @@
         <h2 id="titel-inloggen">Inloggen</h2>
 
         <label for="inlog-gebruikersnaam">Gebruikersnaam</label>
-        <input id="inlog-gebruikersnaam" type="text" name="username" required>
+        <input id="inlog-gebruikersnaam" type="text" name="username" required pattern="^[a-zA-Z0-9_-]{3,30}$">
 
         <label for="inlog-wachtwoord">Wachtwoord</label>
-        <input id="inlog-wachtwoord" type="password" name="password" required>
+        <input id="inlog-wachtwoord" type="password" name="password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$">
 
         <button type="submit">Inloggen</button>
 
@@ -35,19 +35,19 @@
 
     <!-- Registratie Stap 1 -->
     <section class="sectie" aria-labelledby="titel-registratie-stap1">
-      <form class="formulier-box" id="formulier-registratie" enctype="multipart/form-data">
+      <form class="formulier-box" id="formulier-registratie" action="/register" method="POST" enctype="multipart/form-data">
 
       <fieldset class="stap" id="stap1" style="display:none;">
         <h2 id="titel-registratie-stap1">Registreren - Stap 1</h2>
 
         <label for="reg-gebruikersnaam">Gebruikersnaam</label>
-        <input id="reg-gebruikersnaam" type="text" name="username" required>
+        <input id="reg-gebruikersnaam" type="text" name="reg-gebruikersnaam" required pattern="^[a-zA-Z0-9_-]{3,30}$" >
 
         <label for="reg-email">Email</label>
-        <input id="reg-email" type="email" name="email" required>
+        <input id="reg-email" type="email" name="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
 
-        <label for="reg-wachtwoord">Wachtwoord</label>
-        <input id="reg-wachtwoord" type="password" name="password" required>
+        <label for="reg-telefoonnummer">Telefoonnummer</label>
+        <input id="reg-telefoonnummer" type="tel" name="reg-telefoonnummer" required pattern="^\+?[0-9]{7,15}$">
 
         <div>
           <button type="button" class="knop-primaire" onclick="gaNaar(2)">Volgende</button>
@@ -65,14 +65,14 @@
         <input id="reg-geboortedatum" type="date" name="dob" required>
 
         <label for="reg-geslacht">Geslacht</label>
-        <select id="reg-geslacht" name="gender">
-          <option value="man">Man</option>
+        <select id="reg-geslacht" name="reg-geslacht" >
+          <option value="man" >Man</option>
           <option value="vrouw">Vrouw</option>
         </select>
 
         <label for="reg-profiel">Upload profielfoto</label>
         <!-- File input -->
-        <input type="file" id="profileUpload" accept="image/*">
+        <input type="file" id="profileUpload"  name="profileFoto" accept="image/*">
 
         <!-- Label triggers the input -->
         <label for="profileUpload" class="upload-label">
@@ -95,11 +95,11 @@
       <fieldset class="stap" id="stap3" style="display:none;">
         <h2 id="titel-registratie-stap3">Registreren - Stap 3</h2>
 
-        <label for="reg-wachtwoord2">Wachtwoord</label>
-        <input id="reg-wachtwoord2" type="password" name="reg-password2" required>
+        <label for="reg-wachtwoord">Wachtwoord</label>
+        <input id="reg-wachtwoord" type="password" name="reg-password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$">
 
         <label for="reg-wachtwoord-bevestigen">Bevestig wachtwoord</label>
-        <input id="reg-wachtwoord-bevestigen" type="password" name="confirm_password" required>
+        <input id="reg-wachtwoord-bevestigen" type="password" name="reg-wachtwoord-bevestigen" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$">
 
         <div>
           <div class="knoppen-rij">
