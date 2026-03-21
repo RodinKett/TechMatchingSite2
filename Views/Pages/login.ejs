@@ -35,7 +35,7 @@
 
     <!-- Registratie Stap 1 -->
     <section class="sectie" aria-labelledby="titel-registratie-stap1">
-      <form class="formulier-box" id="formulier-registratie">
+      <form class="formulier-box" id="formulier-registratie" enctype="multipart/form-data">
 
       <fieldset class="stap" id="stap1" style="display:none;">
         <h2 id="titel-registratie-stap1">Registreren - Stap 1</h2>
@@ -69,6 +69,16 @@
           <option value="man">Man</option>
           <option value="vrouw">Vrouw</option>
         </select>
+
+        <label for="reg-profiel">Upload profielfoto</label>
+        <!-- File input -->
+        <input type="file" id="profileUpload" accept="image/*">
+
+        <!-- Label triggers the input -->
+        <label for="profileUpload" class="upload-label">
+          <img src="afbeeldingen/upload-photo.svg" alt="Upload Profile">
+          <span class="file-name">Upload profielfoto</span>
+        </label>
 
         <div>
           <div class="knoppen-rij">

@@ -52,3 +52,17 @@ function toonStap(stap) {
   const el = document.getElementById('stap' + stap);
   if (el) el.style.display = 'block';
 }
+
+// JavaScript om de geselecteerde bestandsnaam weer te geven
+const bestandInput = document.getElementById('profileUpload');
+const bestandNaamSpan = document.querySelector('.upload-label .file-name');
+
+bestandInput.addEventListener('change', () => {
+  if (bestandInput.files.length > 0) {
+    // Toon de naam van het geselecteerde bestand
+    bestandNaamSpan.textContent = bestandInput.files[0].name;
+  } else {
+    // Toon standaardtekst als er geen bestand is geselecteerd
+    bestandNaamSpan.textContent = 'Upload profielfoto';
+  }
+});
