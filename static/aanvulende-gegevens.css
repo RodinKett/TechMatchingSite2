@@ -1,0 +1,154 @@
+:root{
+    /* Kleur */
+    --kleur-tekst:hsl(0deg 0% 100%);
+    --kleur-border-zijkant:hsl(0deg 0% 100%);
+    --kleur-accent:hsl(356deg 69% 50%);
+    --kleur-achtergrond: hsl(202deg 26% 12%);
+    --kleur-invulveld:hsl(204deg 55% 18%);
+    --kleur-tekst-links-knop:hsl(204deg 55% 18%);
+    --kleur-achtergrond-linker-knop:hsl(0deg 0% 100%);
+    --kleur-achtergrond-blok-verzoek:hsl(204deg 55% 18%);
+    --kleur-tekst-inlog:hsl(0deg 0% 75%);
+    --kleur-leaderbord-1:hsl(41deg 93% 52%);
+    --kleur-leaderbord-2:hsl(206deg 4% 65%);
+    --kleur-leaderbord-3:hsl(30deg 70% 45%);
+    --kleur-rank:hsl(41deg 93% 52%);
+    --kleur-footer-achtergrond:hsl(205deg 58% 21%);
+    --kleur-footer-aangeklikt:hsl(41deg 93% 52%);
+    --kleur-chatbericht-ik:hsl(205deg 54% 63%);
+    --kleur-chatbericht-hun:hsl(0deg 0% 100%);
+    --kleur-corner-border:hsl(0deg 0% 100%);
+
+    /* Font */
+    --font-size-form-title: 3rem;
+    --font-size-form-label: 2.5rem;
+    --font-size-form-input: 2rem;
+    --font-size-normal: 2rem;
+    --font-family-kopjes: arial, sans-serif;    /* Racing Sans One */
+    --font-family-text: arial, sans-serif;      /*   Nunito Sans   */
+
+    /* Ruimte tussen de ruimtes */
+    --lijn-hoogte-s: 1rem;
+    --lijn-hoogte-m: 2.5rem;
+    --lijn-hoogte-m-l: 3rem;
+    --lijn-hoogte-l: 4rem;
+    --lijn-hoogte-xl: 8rem;
+
+    /* wit-ruimte één keuze */
+    --wit-ruimte-geen: 0;
+    --wit-ruimte-xs: 0.5em;
+    --wit-ruimte-s: 1em;
+    --wit-ruimte-m: 2em;
+    --wit-ruimte-l: 4em;
+    --wit-ruimte-xl: 8em;
+    --wit-ruimte-xxl: 12em;
+
+    /* wit-ruimte geen boven onder */
+    --wit-ruimte-geen-xs: 0 0.5em;
+    --wit-ruimte-geen-s: 0 1em;
+    --wit-ruimte-geen-m: 0 2em;
+    --wit-ruimte-geen-l: 0 4em;
+    --wit-ruimte-geen-xl: 0 8em;
+
+    /* wit-ruimte geen links rechts */
+    --wit-ruimte-xs-geen: 0.5em 0;
+    --wit-ruimte-s-geen: 1em 0;
+    --wit-ruimte-m-geen: 2em 0;
+    --wit-ruimte-l-geen: 4em 0;
+    --wit-ruimte-xl-geen: 8em 0em;
+
+    /* wit-ruimte klein */
+    --wit-ruimte-s-xs: 1em 0.5em;
+    --wit-ruimte-s-m: 1em 2em;
+    --wit-ruimte-s-l: 1em 4em;
+    --wit-ruimte-s-xl: 1em 8em;
+
+    /* wit-ruimte middel */
+    --wit-ruimte-m-xs: 2em 0.5em;
+    --wit-ruimte-m-s: 2em 1em;
+    --wit-ruimte-m-l: 2em 4em;
+    --wit-ruimte-m-xl: 2em 8em;
+
+    /* wit-ruimte groot */
+    --wit-ruimte-l-xs: 4em 0.5em;
+    --wit-ruimte-l-s: 4em 1em;
+    --wit-ruimte-l-m: 4em 2em;
+    --wit-ruimte-l-xl: 4em 8em;
+    --wit-ruimte-xl-xxl: 8em 12em;
+
+    /* wit-ruimte super groot */
+    --wit-ruimte-xl-xs: 8em 0.5em;
+    --wit-ruimte-xl-s: 8em 1em;
+    --wit-ruimte-xl-m: 8em 2em;
+    --wit-ruimte-xl-l: 8em 4em;
+}
+
+html, body {
+  min-height: 100%;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+  background-color: var(--kleur-achtergrond);
+  font-family: var(--font-family-text);
+  color: var(--kleur-tekst);
+}
+
+form{
+  padding: var(--wit-ruimte-geen-xl);
+}
+
+span{
+  display: block;
+  height: var(--lijn-hoogte-l);
+}
+
+label {
+  display: block;
+  font-size: var(--font-size-form-label);
+  margin-top: var(--lijn-hoogte-l);
+}
+
+input, select {
+  width: 100%;
+  padding: var(--wit-ruimte-s-m);
+  margin-top: var(--lijn-hoogte-m);
+  border: 3px solid #FFF;
+  color: var(--kleur-tekst);
+  background-color: var(--kleur-invulveld);
+  font-size: var(--font-size-form-input);
+  box-sizing: border-box;
+}
+
+input:focus {
+  color: var(--kleur-tekst); 
+}
+
+input::placeholder {
+  color: hsl(0deg 0% 75%);
+}
+
+button {
+  margin: var(--lijn-hoogte-xl) 0;
+  width: 100%;
+  background: white;
+  color: hsl(202deg 26% 12%);
+  padding: var(--wit-ruimte-s-m);
+  font-size: var(--font-size-normal);
+  cursor: pointer;
+  font-family: var(--font-family-kopjes);
+}
+
+form h2 {
+  font-size: var(--font-size-form-title);
+  margin-top: var(--lijn-hoogte-l);
+}
+
+select {
+    appearance: none;
+    padding-right: 2.5em; 
+    background-image: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 0.8em center;
+    background-size: 2em auto;
+    cursor: pointer;
+}

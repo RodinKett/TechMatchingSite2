@@ -1,11 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>EJS Is Fun</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/aanvulende-gegevens.css">
+  <link rel="stylesheet" href="/header.css">
 </head>
-<body>
-    <p>tesst</p>
+<body class="container">
+
+<header>
+    <%- include('../partials/headerbasis.ejs'); %>
+</header>
+
+<main>
+    <form id="formulier-aanvullende-gegevens" action="/aanvullende-gegevens" method="POST">
+        <h2 id="titel-aanvullende-gegevens-stap1">Aanvullende persoons gegevens</h2>
+
+        <label for="skillLevel">Skill level</label>    
+        <select id="skillLevel" name="skillLevel">
+          <option value="beginer" >Beginer</option>
+          <option value="bekend">Bekend</option>
+          <option value="expert">Expert</option>
+        </select>
+
+        <label for="jarenErvaring">Jaren ervaring</label>
+        <input id="jarenErvaring" type="number" name="jarenErvaring" required pattern="^[0-9]{1,2}$">
+
+        <label for="specialisatie">Specialisatie</label>
+        <input id="specialisatie" type="text" name="specialisatie" pattern="^[a-zA-Z\s-]{3,30}$">
+
+        <span></span>
+      <!--------------------------------------------------------------------------------------->
+        <h2 id="titel-aanvullende-gegevens-stap2">Voertuig</h2>
+
+        <label for="jaartalVoertuig">Jaartal voertuig</label>
+        <input id="jaartalVoertuig" type="number" name="jaartalVoertuig" required pattern="^\+?[0-9]{4,4}$">
+
+        <label for="merkVoertuig-api">Merk voertuig</label>
+        <select id="merkVoertuig-api" name="merkVoertuig-api">
+          <option value="beginer" >Beginer</option> <!-- api inladen -->
+        </select>
+
+        <label for="voertuig-api">Voertuig</label>
+        <select id="voertuig-api" name="voertuig-api">
+          <option value="beginer" >Beginer</option> <!-- api inladen -->
+        </select>
+
+        <label for="aanvullendeOpmerkingen">Aanvullende opmerkingen</label>
+        <input id="aanvullendeOpmerkingen" type="text" name="aanvullendeOpmerkingen" pattern="^[a-zA-Z0-9\s.,!?]{0,150}$">
+
+        
+        <button type="submit">Opslaan</button>
+    </form>
+</main>
+
+<footer>
+</footer>
+
 </body>
 </html>
