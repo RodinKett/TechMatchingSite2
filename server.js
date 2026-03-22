@@ -94,6 +94,9 @@ app.get("/logout", (req, res) => {
   });
 });
 
+app.get("/updateAccount", (req, res) => {
+  res.render("Pages/updateAccount");
+});
 
 
 
