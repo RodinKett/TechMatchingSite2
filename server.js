@@ -5,7 +5,7 @@
 require("dotenv").config();
 
 const path = require("path");
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 const validator = require("validator");
 const express = require("express");
 const session = require("express-session");
@@ -240,6 +240,55 @@ app.post("/login", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send("Fout bij inloggen");
+  }
+});
+
+
+
+
+app.post("/aanvullendeInformatie", async (req, res) => {
+  try {
+
+    if (!req.session.user) {
+      return res.redirect("/login");
+    }
+
+    const db = client.db("StreetracerApp");
+    const users = db.collection("users");
+
+    const userId = new ObjectId(req.session.user.id);
+
+    const skillLevel = req.body.skillLevel;
+    const jarenErvaring = req.body.jarenErvaring;
+    const specialisatie = req.body.specialisatie;
+
+    const jaartalVoertuig = req.body.jaartalVoertuig;
+    const merkVoertuig = req.body["merkVoertuig-api"];
+    const voertuigModel = req.body["voertuig-api"];
+    const opmerkingen = req.body.aanvullendeOpmerkingen;
+
+    await users.updateOne(
+      { _id: userId },
+      {
+        $set: {
+          skillLevel,
+          jarenErvaring,
+          specialisatie,
+          voertuig: {
+            jaartal: jaartalVoertuig,
+            merk: merkVoertuig,
+            model: voertuigModel,
+            opmerkingen
+          }
+        }
+      }
+    );
+
+    res.redirect("/");
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Fout bij opslaan aanvullende gegevens");
   }
 });
 
