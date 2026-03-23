@@ -1,0 +1,79 @@
+header {
+  width: 100%;
+  height: 60px;
+  background-color: #172127;
+}
+
+.header-nav {
+  height: 100%;
+}
+
+.header-lijst {
+  list-style: none;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-links,
+.header-rechts {
+  width: 70px;
+  margin: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.header-links span {
+  display:grid;
+  place-items: center;
+}
+
+.header-midden {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-midden img {
+  height: 30px;
+}
+
+.header-knop {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: white;
+
+  font-size: 1em;
+  text-decoration: none;
+}
+
+#header-racen {
+  gap: 0px;
+}
+
+.header-knop-achtergrond {
+  background-image: url("/afbeeldingen/notificatieKnop.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  width: 2em;
+  height: 2em;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1em;
+  color: white;
+}
+
+.header-icoon {
+  width: 50px;
+  height: 15px;
+  gap: 6px;
+}
