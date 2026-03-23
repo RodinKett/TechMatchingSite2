@@ -1,0 +1,88 @@
+<link rel="stylesheet" href="/matching.css" />
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+<title>EJS Is Fun</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- CSS (load bootstrap from a CDN) -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css"
+/>
+<link rel="stylesheet" href="/style.css" />
+<link rel="stylesheet" href="/footer.css" />
+
+
+  </head>
+  <body class="body-matching">
+    <header><%- include('../partials/header'); %></header>
+
+    <main id="main-matching">
+      <section id="alle-info">
+      <section id="foto-section">
+        <p>rank 95</p>
+        <img
+          src="/afbeeldingen/lightning-mcqueen.png"
+          alt="Lightning McQueen"
+        />
+        <h2 id="naam-gebruiker">lightning-mcqueen</h2>
+      </section>
+
+      <section id="info">
+        <dl>
+          <div class="info-blok">
+            <dt>Voertuig:</dt>
+            <dd>Gen 4 NASCAR</dd>
+          </div>
+
+          <div class="info-blok">
+            <dt>PK</dt>
+            <dd>260</dd>
+          </div>
+
+          <div class="info-blok">
+            <dt>Jaar:</dt>
+            <dd>2006</dd>
+          </div>
+
+          <div class="info-blok">
+            <dt>Specialisatie:</dt>
+            <dd>Bochten</dd>
+          </div>
+
+          <div class="info-blok">
+            <dt>Ervaring:</dt>
+            <dd>20 jaar</dd>
+          </div>
+
+          <div class="info-blok">
+            <dt>Win rate:</dt>
+            <dd>75%</dd>
+          </div>
+
+          <div class="info-blok">
+            <dt>Mods:</dt>
+            <dd>Stickers</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section>
+        <h2 id="tekst">Opmerkingen:</h2>
+        <p id="tekst">
+          Ik race alleen in de avond en met intermediate+. Dus geen beginners
+        </p>
+      </section>
+      </section>
+
+      <section id="button-matching">
+        <button type="button" id="button-volgende">Volgende</button>
+        <button type="button" id="button-challenge">Challenge</button>
+      </section>
+    </main>
+
+    <footer><%- include('../partials/footer'); %></footer>
+  </body>
+</html>

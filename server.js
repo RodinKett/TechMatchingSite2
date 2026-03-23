@@ -1,5 +1,8 @@
 require("dotenv").config();
 
+// zodat emilie bij de data base kan  (https://alexbevi.com/blog/2023/11/13/querysrv-errors-when-connecting-to-mongodb-atlas/)
+require("node:dns/promises").setServers(["1.1.1.1", "8.8.8.8"]);
+
 const express = require("express");
 const path = require("path");
 const { MongoClient } = require("mongodb");
@@ -26,6 +29,21 @@ app.use(
 );
 
 /////////////////////////////////////////////////////////////////////////
+
+app.use(express.static(path.join(__dirname, "static")));
+
+app.get("/", (req, res) => {
+  res.render("Pages/index");
+});
+
+app.get("/matching", (req, res) => {
+  res.render("Pages/matching");
+});
+
+app.get("/profiel", (req, res) => {
+  res.render("Pages/profiel");
+});
+
 
 async function startServer() {
   try {

@@ -1,0 +1,70 @@
+.body-matching {
+  padding: 0;
+  background-color: var(--kleur-achtergrond);
+}
+
+#main-matching {
+  margin: 0 2em;
+}
+
+#foto-section {
+  text-align: center;
+}
+
+#foto-section img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+dt,
+dd {
+  color: var(--kleur-tekst);
+  text-align: center;
+}
+
+#naam-gebruiker {
+  color: var(--kleur-tekst);
+  margin: 1em 0;
+}
+
+.info-blok {
+  background-color: var(--kleur-blok-matching);
+}
+
+#tekst {
+  color: var(--kleur-tekst);
+}
+
+#button-matching {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  position: sticky;
+  bottom: 2em;
+  padding-top: 2em;
+  padding-bottom: 4em;
+}
+
+#button-volgende {
+  background: var(--kleur-achtergrond-linker-knop);
+  border-radius: 0.5em;
+  width: 45%;
+  height: 3em;
+}
+
+#button-challenge {
+  background: var(--kleur-accent);
+  color: var(--kleur-tekst);
+  border-radius: 0.5em;
+  width: 45%;
+  height: 3em;
+}
