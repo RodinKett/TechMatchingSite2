@@ -3,6 +3,10 @@
   background-color: var(--kleur-achtergrond);
 }
 
+#alle-info{
+  position: relative;
+}
+
 #main-matching {
   margin: 0 2em;
 }
@@ -18,11 +22,22 @@
   margin: 1rem auto;
 }
 
+#border-links{
+  position: absolute;
+  top: 2em;
+}
+
+#border-rechts{
+  position: absolute;
+  right: 0;
+  bottom: 5%;
+}
+
 dl {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, auto);
   gap: 1rem;
-  margin: 2rem 0;
+
 }
 
 dt,
@@ -38,6 +53,7 @@ dd {
 
 .info-blok {
   background-color: var(--kleur-blok-matching);
+
 }
 
 #tekst {
