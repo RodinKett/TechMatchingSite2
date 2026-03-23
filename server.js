@@ -5,7 +5,7 @@
 require("dotenv").config();
 
 const path = require("path");
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 const validator = require("validator");
 const express = require("express");
 const session = require("express-session");
@@ -213,33 +213,129 @@ app.post("/login", async (req, res) => {
     const db = client.db("StreetracerApp");
     const users = db.collection("users");
 
-    const { username, password } = req.body;
+    let { username, password } = req.body;
+    const errors = [];
 
-    // Find the user by username
+    // Username validation
+    const usernamePattern = /^[a-zA-Z0-9_-]{3,30}$/;
+    if (!usernamePattern.test(username)) {
+      errors.push("Ongeldige gebruikersnaam.");
+    }
+
+    // Password validation
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$/;
+    if (!passwordPattern.test(password)) {
+      errors.push("Wachtwoord voldoet niet aan de eisen.");
+    }
+
+    if (errors.length > 0) {
+      return res.status(400).send(errors.join("\n"));
+    }
+
+    username = validator.escape(username);
+
     const user = await users.findOne({ username });
 
     if (!user) {
       return res.status(400).send("Gebruiker niet gevonden");
     }
 
-    // Compare hashed password
     const match = await bcrypt.compare(password, user.password);
+
     if (!match) {
       return res.status(400).send("Wachtwoord is onjuist");
     }
 
-    // Start session
     req.session.user = {
       id: user._id,
-      username: user.username,
+      username: user.username
     };
 
-    // Redirect to protected page
     res.redirect("/aanvullendeInformatie");
 
   } catch (error) {
     console.error(error);
     res.status(500).send("Fout bij inloggen");
+  }
+});
+
+
+
+
+app.post("/aanvullendeInformatie", async (req, res) => {
+  try {
+
+    if (!req.session.user) {
+      return res.redirect("/login");
+    }
+
+    const errors = [];
+
+    const skillLevel = req.body.skillLevel;
+    const jarenErvaring = req.body.jarenErvaring;
+    const specialisatie = req.body.specialisatie;
+
+    const jaartalVoertuig = req.body.jaartalVoertuig;
+    const merkVoertuig = req.body["merkVoertuig-api"];
+    const voertuigModel = req.body["voertuig-api"];
+    const opmerkingen = req.body.aanvullendeOpmerkingen;
+
+    // Skill level
+    if (!["beginer", "bekend", "expert"].includes(skillLevel)) {
+      errors.push("Ongeldig skill level.");
+    }
+
+    // Jaren ervaring
+    if (!/^[0-9]{1,2}$/.test(jarenErvaring)) {
+      errors.push("Jaren ervaring moet 0-99 zijn.");
+    }
+
+    // Specialisatie
+    if (specialisatie && !/^[a-zA-Z\s-]{3,30}$/.test(specialisatie)) {
+      errors.push("Specialisatie mag alleen letters bevatten.");
+    }
+
+    // Jaartal voertuig
+    if (!/^[0-9]{4}$/.test(jaartalVoertuig)) {
+      errors.push("Jaartal voertuig moet 4 cijfers zijn.");
+    }
+
+    // Opmerkingen
+    if (opmerkingen && !/^[a-zA-Z0-9\s.,!?]{0,150}$/.test(opmerkingen)) {
+      errors.push("Opmerkingen bevatten ongeldige tekens.");
+    }
+
+    if (errors.length > 0) {
+      return res.status(400).send(errors.join("\n"));
+    }
+
+    const db = client.db("StreetracerApp");
+    const users = db.collection("users");
+
+    const userId = new ObjectId(req.session.user.id);
+
+    await users.updateOne(
+      { _id: userId },
+      {
+        $set: {
+          skillLevel,
+          jarenErvaring,
+          specialisatie,
+          voertuig: {
+            jaartal: jaartalVoertuig,
+            merk: merkVoertuig,
+            model: voertuigModel,
+            opmerkingen
+          }
+        }
+      }
+    );
+
+    res.redirect("/");
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Fout bij opslaan aanvullende gegevens");
   }
 });
 
