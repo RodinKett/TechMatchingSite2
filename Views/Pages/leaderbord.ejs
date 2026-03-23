@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+  <title>Leaderbord</title>
+
+  <!-- CSS (load bootstrap from a CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/header.css">
+
+  <link rel="stylesheet" href="/leaderbord.css" />
+  </head>
+
+  <body class="container">
+    <header><%- include('../partials/headerbasis'); %></header>
+
+    <main>
+      <section class="leaderbord-header">
+        <h1>leaderbord</h1>
+        <img
+          src="/afbeeldingen/leaderbord-icoon.svg"
+          alt="Afbeelding van een trofee met vleugels als hendels"
+        />
+      </section>
+
+      <section class="kolom-stats-titel">
+        <p>Gewonnen</p>
+        <p>Verloren</p>
+      </section>
+
+      <!-- Leaderbord lijst -->
+      <section>
+        <ol class="leaderbord-spelers">
+          <% spelers.forEach((speler, index) => { %>
+            <li class="leaderbord-speler">
+              <span class="plaats"><%= index + 1%> </span>
+              <span class="naam"><%= speler.naam%></span>
+              <span class="gewonnen"><%= speler.gewonnen%></span>
+              <span class="verloren"><%= speler.verloren%></span>
+            </li>
+          <% }) %>
+        </ol>
+      </section>
+
+      <!-- Player info -->
+      <section class="leaderbord-jij">
+        <ul>
+          <li class="jij">
+            <span class="naam"><%= jij.naam%></span>
+            <span class="gewonnen"><%= jij.gewonnen%></span>
+            <span class="verloren"><%= jij.verloren%></span>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer><%- include('../partials/footer'); %></footer>
+  </body>
+</html>

@@ -33,6 +33,28 @@ app.get("/", (req, res) => {
   res.render("Pages/index");
 });
 
+// Aanpassing
+
+app.get("/leaderbord", (req, res) => {
+  const spelers = [
+    { naam: "Willem", gewonnen: 10, verloren: 2},
+    { naam: "Suzan", gewonnen: 8, verloren: 5},
+    { naam: "Mia", gewonnen: 6, verloren: 3},
+    { naam: "Phillip", gewonnen: 3, verloren: 1},
+    { naam: "Klaas", gewonnen: 3, verloren: 4},
+    { naam: "Jan", gewonnen: 3, verloren: 7},
+    { naam: "Lis", gewonnen: 3, verloren: 9}
+  ];
+
+  const jij = spelers[0];  
+  
+  res.render("Pages/leaderbord", {
+    spelers: spelers,
+    jij: jij
+  });
+});
+// Eind aanpassing
+
 async function startServer() {
   try {
     await client.connect();
