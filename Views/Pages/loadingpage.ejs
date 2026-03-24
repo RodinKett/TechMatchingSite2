@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%- include('../partials/head'); %>
+  <meta charset="UTF-8">
+  <title>Loading</title>
+  
+  <%- include('../partials/head'); %>
+
+  <link rel="stylesheet" href="/loadingpage.css" />
   </head>
   <body>
-    <header><%- include('../partials/header'); %></header>
+    <header><%- include('../partials/headerbasis'); %></header>
 
     <main class="laadpagina">
     
@@ -19,11 +24,11 @@
           <!--Stop hier een img in srcset Dit is voor wanneer je een bepaalde colorscheme gebruikt 
           en de gebruiker wisselt het om, dan blijf de animatie goed-->
           <source
-          srcset="../../Afbeeldingen/cars-drift-animatie.png"
+          srcset="../../Afbeeldingen/cars-drift-animatie-003.png"
           media="(prefers-color-scheme: dark)"
           />
           <img
-          src="../../Afbeeldingen/cars-drift-animatie.png"
+          src="../../Afbeeldingen/cars-drift-animatie-003.png"
           alt="laad animatie van een auto die rond draaid"
           />
         </picture>
