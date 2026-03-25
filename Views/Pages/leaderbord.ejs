@@ -24,6 +24,7 @@
         />
       </section>
 
+      <!-- BRONVERMELDING: voor aantal spelers -->
       <section class="kolom-stats-titel">
         <p>Aantal spelers: <%= spelers.length %></p>
         <p>Gewonnen</p>
@@ -31,6 +32,7 @@
       </section>
 
       <!-- Leaderbord lijst -->
+       <!-- BRONVERMELDING: hoe ik de top 3 in ranks moet stijlen -->
       <section>
         <ol class="leaderbord-spelers">
           <% spelers.forEach((speler) => { %>
@@ -51,6 +53,7 @@
       </section>
 
       <!-- Player info -->
+       <!-- BRONVERMELDING: Defensive coding, om fouten te voorkomen -->
       <section>
         <ul class="leaderbord-jij">
           <li class="jij">

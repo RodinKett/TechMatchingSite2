@@ -1,6 +1,7 @@
 :root {
   /* Kleur */
   --kleur-tekst: hsl(0deg 0% 100%);
+  --kleur-tekst-leaderbord-top: hsl(202deg 26% 12%);
   --kleur-border-zijkant: hsl(0deg 0% 100%);
   --kleur-accent: hsl(356deg 69% 50%);
   --kleur-achtergrond: hsl(202deg 26% 12%);
@@ -151,6 +152,12 @@ zodat het de volle ruimte inneemt
 }
 
 /* Rank design */
+.eerste span,
+.tweede span,
+.derde span {
+  color: var(--kleur-tekst-leaderbord-top);
+}
+
 .eerste {
   background-color: var(--kleur-leaderbord-1);
   border: var(--border-nmr-1);
@@ -169,7 +176,7 @@ zodat het de volle ruimte inneemt
   padding: var(--wit-ruimte-nmr-3);
 }
 
-
+/* BRONVERMELDING: A.I voor transform: translate en width */
 .leaderbord-jij {
   /* Maakt volle breedte */
   padding-left: var(--wit-ruimte-geen) ;

@@ -77,7 +77,9 @@ app.get("/", (req, res) => {
 
 
 // Aanpassing
-
+// Note to self: vergeet niet wat data aan te passen
+// BRONVERMELDING: Voor de missende data en hulp met fouten corrigeren: CHATGPT, GEMNINI
+// Dat includes de username, spelers sort a en b en de || 0, jij als speler de req.session
 app.get("/leaderbord", async (req, res) => {
   try {
     const db = client.db("tech");
@@ -107,12 +109,10 @@ app.get("/leaderbord", async (req, res) => {
     let jij = null;
 
     if (req.session.user) {
-      // jij = spelers[0];
-      // jij = spelers.find(s => s.id === req.session.user._id);
       jij = spelers.find(s => s.id === req.session.user._id.toString());
-      console.log("SESSION USER:", req.session.user);
-      console.log("SESSION ID:", req.session.user?._id);
-      console.log("EERSTE SPELER ID:", spelers[0].id);
+      // console.log("SESSION USER:", req.session.user);
+      // console.log("SESSION ID:", req.session.user?._id);
+      // console.log("EERSTE SPELER ID:", spelers[0].id);
     }
 
     res.render("Pages/leaderbord", {
