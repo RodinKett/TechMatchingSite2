@@ -78,24 +78,54 @@ app.get("/", (req, res) => {
 
 // Aanpassing
 
-app.get("/leaderbord", (req, res) => {
-  const spelers = [
-    { naam: "Willem", gewonnen: 10, verloren: 2},
-    { naam: "Suzan", gewonnen: 8, verloren: 5},
-    { naam: "Mia", gewonnen: 6, verloren: 3},
-    { naam: "Phillip", gewonnen: 3, verloren: 1},
-    { naam: "Klaas", gewonnen: 3, verloren: 4},
-    { naam: "Jan", gewonnen: 3, verloren: 7},
-    { naam: "Lis", gewonnen: 3, verloren: 9}
-  ];
+app.get("/leaderbord", async (req, res) => {
+  try {
+    const db = client.db("tech");
+    const gebruikers = db.collection("gebruikers");
 
-  const jij = spelers[0];  
-  
-  res.render("Pages/leaderbord", {
-    spelers: spelers,
-    jij: jij
-  });
+    const data = await gebruikers.find().toArray();
+    console.log(data);
+
+    const spelers = data.map(user => ({
+      id: user._id.toString(),
+      naam: user.username || user.Email?.split("@")[0] || "onbekend", //user.username voor wanneer we die hebben
+      gewonnen: user.Wins || 0,
+      verloren: user.Loss || 0
+    }));
+
+     spelers.sort((a, b) => {
+      if (b.gewonnen !== a.gewonnen) {
+        return b.gewonnen - a.gewonnen;
+      }
+      return a.verloren - b.verloren;
+    });
+
+    spelers.forEach((speler, index) => {
+      speler.rank = index + 1;
+    });
+
+    let jij = null;
+
+    if (req.session.user) {
+      // jij = spelers[0];
+      // jij = spelers.find(s => s.id === req.session.user._id);
+      jij = spelers.find(s => s.id === req.session.user._id.toString());
+      console.log("SESSION USER:", req.session.user);
+      console.log("SESSION ID:", req.session.user?._id);
+      console.log("EERSTE SPELER ID:", spelers[0].id);
+    }
+
+    res.render("Pages/leaderbord", {
+      spelers,
+      jij
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Er is iets fout gegaan bij het ophalen van het leaderbord");
+  }
 });
+
 // Eind aanpassing
 
 app.get("/login", (req, res) => {

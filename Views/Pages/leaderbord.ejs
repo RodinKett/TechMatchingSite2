@@ -25,6 +25,7 @@
       </section>
 
       <section class="kolom-stats-titel">
+        <p>Aantal spelers: <%= spelers.length %></p>
         <p>Gewonnen</p>
         <p>Verloren</p>
       </section>
@@ -32,24 +33,31 @@
       <!-- Leaderbord lijst -->
       <section>
         <ol class="leaderbord-spelers">
-          <% spelers.forEach((speler, index) => { %>
-            <li class="leaderbord-speler">
-              <span class="plaats"><%= index + 1%> </span>
+          <% spelers.forEach((speler) => { %>
+            <li class="leaderbord-speler
+            <%= speler.rank === 1 ? 'eerste' : '' %>
+            <%= speler.rank === 2 ? 'tweede' : '' %>
+            <%= speler.rank === 3 ? 'derde' : '' %>
+            <%= jij && speler.id === jij.id ? 'me' : '' %> ">
+
+              <span class="plaats"><%= speler.rank %></span>
               <span class="naam"><%= speler.naam%></span>
               <span class="gewonnen"><%= speler.gewonnen%></span>
               <span class="verloren"><%= speler.verloren%></span>
+
             </li>
           <% }) %>
         </ol>
       </section>
 
       <!-- Player info -->
-      <section class="leaderbord-jij">
-        <ul>
+      <section>
+        <ul class="leaderbord-jij">
           <li class="jij">
-            <span class="naam"><%= jij.naam%></span>
-            <span class="gewonnen"><%= jij.gewonnen%></span>
-            <span class="verloren"><%= jij.verloren%></span>
+            <span class="plaats"><%= jij ? jij.rank : "-" %></span>
+            <span class="naam"><%= jij ? jij.naam : "Onbekend" %></span>
+            <span class="gewonnen"><%= jij ? jij.gewonnen : "0" %></span>
+            <span class="verloren"><%= jij ? jij.verloren : "0" %></span>
           </li>
         </ul>
       </section>

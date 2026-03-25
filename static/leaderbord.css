@@ -81,12 +81,16 @@
   --wit-ruimte-xl-s: 8em 1em;
   --wit-ruimte-xl-m: 8em 2em;
   --wit-ruimte-xl-l: 8em 4em;
-}
 
-*,
-*::after,
-*::before {
-  box-sizing: border-box;
+  /* wit-ruimte leaderbord */
+  --wit-ruimte-nmr-1: 2.5em 0;
+  --wit-ruimte-nmr-2: 2em 0;
+  --wit-ruimte-nmr-3: 1em 0;
+
+  /* border leaderbord */
+  --border-nmr-1: solid hsl(41deg 93% 52%) 1em;
+  --border-nmr-2: solid hsl(206deg 4% 65%) 1em;
+  --border-nmr-3: solid hsl(30deg 70% 45%) 1em;
 }
 
 body {
@@ -97,6 +101,11 @@ h1,
 p,
 span {
   color: #fff;
+}
+
+p {
+  font-family: var(--font-family-kopjes);
+  font-size: 1.5em;
 }
 
 span {
@@ -112,61 +121,78 @@ span {
   justify-content: space-evenly;
   padding: var(--wit-ruimte-s);
 
-  /* styling outside */
+  /* styling */
   border: 0.2em solid #fff;
   background-color: hsl(204deg 55 18);
 }
 
+.kolom-stats-titel {
+  display: grid;
+  grid-template-columns: 27.5em 10em 2em;
+  padding-top: var(--wit-ruimte-l);
+}
+
+
+/* Haalt invisible space weg, 
+zodat het de volle ruimte inneemt 
+(dont touch) */
 .leaderbord-spelers {
-  /* background-color: red; */
-  place-content: center;
+  list-style: none;
+  padding-left: var(--wit-ruimte-geen) ;
+  margin-left: var(--wit-ruimte-geen);
 }
 
 .leaderbord-speler {
-  display: flex;
-  justify-content: space-between;
-  padding: var(--wit-ruimte-m);
+  display: grid;
+  grid-template-columns: 5em 1fr 10em 2em;
+  border: solid hsl(204deg 55 18) 1em;
   margin: var(--wit-ruimte-s-geen);
   background-color: hsl(204deg 55 18);
 }
 
-/* Ze moeten aflopen, anders overschrijft 3 ze allemaal */
-.leaderbord-spelers li:nth-child(-n+3) {
-  background-color: var(--kleur-leaderbord-3);
-}
-
-.leaderbord-spelers li:nth-child(-n+2) {
-  background-color: var(--kleur-leaderbord-2);
-}
-
-.leaderbord-spelers li:nth-child(-n+1) {
+/* Rank design */
+.eerste {
   background-color: var(--kleur-leaderbord-1);
+  border: var(--border-nmr-1);
+  padding: var(--wit-ruimte-nmr-1);
 }
 
-.speler:nth-child(1) {
-  background-color: var(--kleur-leaderbord-1);
-}
-
-.speler:nth-child(2) {
+.tweede {
   background-color: var(--kleur-leaderbord-2);
+  border: var(--border-nmr-2);
+  padding: var(--wit-ruimte-nmr-2);
 }
 
-.speler:nth-child(3) {
+.derde {
   background-color: var(--kleur-leaderbord-3);
+  border: var(--border-nmr-3);
+  padding: var(--wit-ruimte-nmr-3);
 }
+
 
 .leaderbord-jij {
+  /* Maakt volle breedte */
+  padding-left: var(--wit-ruimte-geen) ;
+  margin-left: var(--wit-ruimte-geen);
+  width: 85vw;
+  transform: translate(-7%);
+
+  /* Positionering */
   position: sticky;
   bottom: 0;
-
-  /* background-color: #fff; */
-  padding: var(--wit-ruimte-m-geen);
+  background-color: hsl(356deg 69 50);
 }
 
 .jij {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: var(--wit-ruimte-m);
-  background-color: hsl(356deg 69 50);
+  display: grid;
+  grid-template-columns: 5em 1fr 10em 2em;
+  border: solid hsl(356deg 69 50) 2em;
+  margin: var(--wit-ruimte-s-geen);
+} 
+
+/* Je ziet je zelf op de lijst in een andere kleur
+(hopelijk, want kan zelf nog niet zien) */
+.me {
+  color: var(--kleur-accent);
+  border: 2px solid #fff;
 }
