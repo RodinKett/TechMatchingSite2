@@ -358,6 +358,9 @@ app.get("/loadingpage", (req, res) => {
   res.render("Pages/loadingpage");
 });
 
+app.get("/startscherm", (req, res) => {
+  res.render("Pages/startscherm");
+});
 
 async function startServer() {
   try {
