@@ -1,0 +1,211 @@
+/* RESET */
+:root{
+    /* Kleur */
+    --kleur-tekst:hsl(0deg 0% 100%);
+    --kleur-border-zijkant:hsl(0deg 0% 100%);
+    --kleur-accent:hsl(356deg 69% 50%);
+    --kleur-achtergrond: hsl(202deg 26% 12%);
+    --kleur-invulveld:hsl(204deg 55% 18%);
+    --kleur-tekst-links-knop:hsl(204deg 55% 18%);
+    --kleur-achtergrond-linker-knop:hsl(0deg 0% 100%);
+    --kleur-achtergrond-blok-verzoek:hsl(204deg 55% 18%);
+    --kleur-tekst-inlog:hsl(0deg 0% 75%);
+    --kleur-leaderbord-1:hsl(41deg 93% 52%);
+    --kleur-leaderbord-2:hsl(206deg 4% 65%);
+    --kleur-leaderbord-3:hsl(30deg 70% 45%);
+    --kleur-rank:hsl(41deg 93% 52%);
+    --kleur-footer-achtergrond:hsl(205deg 58% 21%);
+    --kleur-footer-aangeklikt:hsl(41deg 93% 52%);
+    --kleur-chatbericht-ik:hsl(205deg 54% 63%);
+    --kleur-chatbericht-hun:hsl(0deg 0% 100%);
+    --kleur-corner-border:hsl(0deg 0% 100%);
+
+    /* Font */
+    --font-size-form-title: 3rem;
+    --font-size-form-label: 2.5rem;
+    --font-size-form-lnput: 2rem;
+    --font-size-normal: 2rem;
+    --font-family-kopjes: arial, sans-serif;    /* Racing Sans One */
+    --font-family-text: arial, sans-serif;      /*   Nunito Sans   */
+
+    /* Ruimte tussen de ruimtes */
+    --lijn-hoogte-s: 1rem;
+    --lijn-hoogte-m: 2.5rem;
+    --lijn-hoogte-m-l: 3rem;
+    --lijn-hoogte-l: 4rem;
+    --lijn-hoogte-xl: 8rem;
+
+    /* wit-ruimte één keuze */
+    --wit-ruimte-geen: 0;
+    --wit-ruimte-xs: 0.5em;
+    --wit-ruimte-s: 1em;
+    --wit-ruimte-m: 2em;
+    --wit-ruimte-l: 4em;
+    --wit-ruimte-xl: 8em;
+    --wit-ruimte-xxl: 12em;
+
+    /* wit-ruimte geen boven onder */
+    --wit-ruimte-geen-xs: 0 0.5em;
+    --wit-ruimte-geen-s: 0 1em;
+    --wit-ruimte-geen-m: 0 2em;
+    --wit-ruimte-geen-l: 0 4em;
+    --wit-ruimte-geen-xl: 0 8em;
+
+    /* wit-ruimte geen links rechts */
+    --wit-ruimte-xs-geen: 0.5em 0;
+    --wit-ruimte-s-geen: 1em 0;
+    --wit-ruimte-m-geen: 2em 0;
+    --wit-ruimte-l-geen: 4em 0;
+    --wit-ruimte-xl-geen: 8em 0em;
+
+    /* wit-ruimte klein */
+    --wit-ruimte-s-xs: 1em 0.5em;
+    --wit-ruimte-s-m: 1em 2em;
+    --wit-ruimte-s-l: 1em 4em;
+    --wit-ruimte-s-xl: 1em 8em;
+
+    /* wit-ruimte middel */
+    --wit-ruimte-m-xs: 2em 0.5em;
+    --wit-ruimte-m-s: 2em 1em;
+    --wit-ruimte-m-l: 2em 4em;
+    --wit-ruimte-m-xl: 2em 8em;
+
+    /* wit-ruimte groot */
+    --wit-ruimte-l-xs: 4em 0.5em;
+    --wit-ruimte-l-s: 4em 1em;
+    --wit-ruimte-l-m: 4em 2em;
+    --wit-ruimte-l-xl: 4em 8em;
+    --wit-ruimte-xl-xxl: 8em 12em;
+
+    /* wit-ruimte super groot */
+    --wit-ruimte-xl-xs: 8em 0.5em;
+    --wit-ruimte-xl-s: 8em 1em;
+    --wit-ruimte-xl-m: 8em 2em;
+    --wit-ruimte-xl-l: 8em 4em;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body.page {
+  min-height: 100vh;
+  background-color: var(--kleur-achtergrond);
+  color: var(--kleur-tekst);
+  font-family: var(--font-family-text);
+}
+
+.messages-page {
+  padding: 16px;
+}
+
+.messages-title {
+  font-size: 1.5rem;
+  margin-bottom: 18px;
+  color: var(--kleur-tekst);
+}
+
+/* CHAT PREVIEW */
+.chat-preview {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background-color: var(--kleur-invulveld);
+  border: 2px solid var(--kleur-corner-border);
+  padding: 14px;
+  margin-bottom: 18px;
+}
+
+/* FOTO */
+.chat-preview img {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* MIDDEN */
+.chat-preview-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.chat-preview-content h2 {
+  font-size: 1.2rem;
+  line-height: 1.2;
+  margin-bottom: 8px;
+  color: var(--kleur-tekst);
+}
+
+.chat-preview-content p {
+  font-size: 0.9rem;
+  line-height: 1.35;
+  color: var(--kleur-tekst);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.sender-label {
+  font-weight: bold;
+}
+
+/* RECHTS */
+.chat-preview-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.chat-time {
+  font-size: 0.8rem;
+  color: var(--kleur-tekst);
+  white-space: nowrap;
+}
+
+/* NOTIFICATIE-ICOON */
+.header-knop-achtergrond {
+  background-image: url("/afbeeldingen/notificatieKnop.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  width: 2em;
+  height: 2em;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1em;
+  color: white;
+}
+
+/* RESPONSIVE */
+@media (min-width: 600px) {
+  .messages-page {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .chat-preview {
+    padding: 16px;
+  }
+
+  .chat-preview img {
+    width: 104px;
+    height: 104px;
+  }
+
+  .chat-preview-content h2 {
+    font-size: 1.3rem;
+  }
+}

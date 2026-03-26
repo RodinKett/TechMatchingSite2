@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+  <link rel="stylesheet" href="/bericht.css">
+</head>
+
+<body class="page">
+
+<header class="header">
+  <%- include('../partials/headerbasis'); %>
+</header>
+
+<main class="chat-page">
+
+  <!-- USER INFO (zelfde als verzoek pagina) -->
+  <section class="chat-user">
+
+    <div class="request-card">
+
+      <div class="request-left">
+
+        <h2 class="name">Francesco Bernoulli</h2>
+
+        <div class="request-content">
+          <img src="/uploads/1774121279467-881089780.jpeg">
+
+          <div class="info">
+            <p>12 jaar ervaring</p>
+            <p>Driften</p>
+            <p>2009 Formula F1</p>
+            <p>Prototype Racer</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="request-right">
+
+        <div class="rank">
+          <span>Rang</span>
+          <strong>86</strong>
+        </div>
+
+        <div class="winrate">
+          <strong>70%</strong>
+          <span>Winrate</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CHAT -->
+  <section class="chat-messages">
+
+    <div class="message other">
+      <p>Vanavond racen?</p>
+      <span class="time">19:22</span>
+    </div>
+
+    <div class="message me">
+      <p>Ja man 🔥</p>
+      <span class="time">19:23</span>
+    </div>
+
+    <div class="message other">
+      <p>
+        Top! Ik dacht zelf rond 20:00 weer bij dezelfde plek.
+        Misschien kunnen we daarna nog een tweede race doen?
+      </p>
+      <span class="time">19:24</span>
+    </div>
+
+    <div class="message me">
+      <p>
+        Ja goed idee. Ik neem ook nog iemand mee,
+        wordt gezellig en competitief 😄
+      </p>
+      <span class="time">19:25</span>
+    </div>
+
+    <div class="message other">
+      <p>
+        Nice! Ik ga alvast wat voorbereiden.
+        Tot straks 💪
+      </p>
+      <span class="time">19:26</span>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- INPUT + FOOTER -->
+<section class="chat-bottom">
+
+  <div class="chat-input">
+    <input type="text" placeholder="Typ een bericht...">
+
+    <button>
+      <img src="/afbeeldingen/stuurChatIcoon.svg">
+    </button>
+  </div>
+
+  <footer>
+    <%- include('../partials/footer'); %>
+  </footer>
+
+</section>
+
+</body>
+</html>

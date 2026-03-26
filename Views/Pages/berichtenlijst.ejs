@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+  <link rel="stylesheet" href="/berichtenlijst.css">
+</head>
+<body class="page">
+
+<header>
+  <%- include('../partials/headerbasis'); %>
+</header>
+
+<main class="messages-page">
+  <h1 class="messages-title">Berichten</h1>
+
+  <!-- NIEUWSTE (3 uur geleden) -->
+  <section class="chat-preview">
+    <img src="/uploads/1774121279467-881089780.jpeg">
+
+    <div class="chat-preview-content">
+      <h2>Luigi Bianchi</h2>
+      <p><span class="sender-label">Tegenstander:</span> Ik heb die tuning van gisteren getest en hij rijdt nu echt veel strakker door de bochten.</p>
+    </div>
+
+    <div class="chat-preview-meta">
+      <span class="chat-time">3 uur geleden</span>
+      <span class="header-knop-achtergrond">4</span>
+    </div>
+  </section>
+
+  <!-- VANDAAG -->
+  <section class="chat-preview">
+    <img src="/uploads/1774121279467-881089780.jpeg">
+
+    <div class="chat-preview-content">
+      <h2>Francesco Bernoulli</h2>
+      <p><span class="sender-label">Tegenstander:</span> Goede race man. Volgende keer weer? Zelfde locatie?</p>
+    </div>
+
+    <div class="chat-preview-meta">
+      <span class="chat-time">19:24</span>
+      <span class="header-knop-achtergrond">2</span>
+    </div>
+  </section>
+
+  <!-- GISTEREN -->
+  <section class="chat-preview">
+    <img src="/uploads/1774121279467-881089780.jpeg">
+
+    <div class="chat-preview-content">
+      <h2>Lightning McQueen</h2>
+      <p><span class="sender-label">Jij:</span> Vanavond 20:00 bij Leidsevaart. Ben je erbij?</p>
+    </div>
+
+    <div class="chat-preview-meta">
+      <span class="chat-time">Gisteren</span>
+    </div>
+  </section>
+
+  <!-- OUDER -->
+  <section class="chat-preview">
+    <img src="/uploads/1774121279467-881089780.jpeg">
+
+    <div class="chat-preview-content">
+      <h2>Sally Carrera</h2>
+      <p><span class="sender-label">Jij:</span> Top gereden gisteren 🔥 Ik stuur je straks nog de locatie voor de volgende meetup.</p>
+    </div>
+
+    <div class="chat-preview-meta">
+      <span class="chat-time">Maandag</span>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

@@ -79,6 +79,18 @@ app.get("/login", (req, res) => {
   res.render("Pages/Login");
 });
 
+app.get("/berichtenlijst", (req, res) => {
+  res.render("Pages/berichtenlijst");
+});
+
+app.get("/bericht", (req, res) => {
+  res.render("Pages/bericht");
+});
+
+app.get("/verzoeken", (req, res) => {
+  res.render("Pages/verzoeken");
+});
+
 app.get("/aanvullendeInformatie", (req, res) => {
   if (!req.session.user) {
     return res.redirect("/login");
