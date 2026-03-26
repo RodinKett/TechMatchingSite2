@@ -27,7 +27,7 @@ header {
 }
 
 .header-links span {
-  display:grid;
+  display: grid;
   place-items: center;
 }
 
