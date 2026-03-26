@@ -106,12 +106,12 @@ span {
 
 p {
   font-family: var(--font-family-kopjes);
-  font-size: 1.5em;
+  font-size: var(--font-size-normal);
 }
 
 span {
   font-family: var(--font-size-form-title);
-  font-size: 2em;
+  font-size: var(--font-size-form-lnput);
 }
 
 .leaderbord-header {
@@ -123,16 +123,18 @@ span {
   padding: var(--wit-ruimte-s);
 
   /* styling */
-  border: 0.2em solid #fff;
+  border: 0.2rem solid #fff;
   background-color: hsl(204deg 55 18);
 }
 
+
+/* De 6fr zorgt dat rang links blijft */
 .kolom-stats-titel {
   display: grid;
-  grid-template-columns: 27.5em 10em 2em;
+  grid-template-columns: 6fr 1fr 1fr;
+  gap: 5rem;
   padding-top: var(--wit-ruimte-l);
 }
-
 
 /* Haalt invisible space weg, 
 zodat het de volle ruimte inneemt 
@@ -143,10 +145,11 @@ zodat het de volle ruimte inneemt
   margin-left: var(--wit-ruimte-geen);
 }
 
+/* Alle data (1, naam, wins, loss) netjes uitgelijnd */
 .leaderbord-speler {
   display: grid;
-  grid-template-columns: 5em 1fr 10em 2em;
-  border: solid hsl(204deg 55 18) 1em;
+  grid-template-columns: 5rem 1fr 10rem 2rem;
+  border: solid hsl(204deg 55 18) 1rem;
   margin: var(--wit-ruimte-s-geen);
   background-color: hsl(204deg 55 18);
 }
@@ -176,13 +179,11 @@ zodat het de volle ruimte inneemt
   padding: var(--wit-ruimte-nmr-3);
 }
 
-/* BRONVERMELDING: A.I voor transform: translate en width */
+/* Persoonlijke kaart */
 .leaderbord-jij {
   /* Maakt volle breedte */
   padding-left: var(--wit-ruimte-geen) ;
   margin-left: var(--wit-ruimte-geen);
-  width: 85vw;
-  transform: translate(-7%);
 
   /* Positionering */
   position: sticky;
@@ -192,14 +193,14 @@ zodat het de volle ruimte inneemt
 
 .jij {
   display: grid;
-  grid-template-columns: 5em 1fr 10em 2em;
+  grid-template-columns: 4rem 1fr 10rem 1rem;
   border: solid hsl(356deg 69 50) 2em;
   margin: var(--wit-ruimte-s-geen);
 } 
 
 /* Je ziet je zelf op de lijst in een andere kleur
 (hopelijk, want kan zelf nog niet zien) */
-.me {
+.mij {
   color: var(--kleur-accent);
-  border: 2px solid #fff;
+  border: 0.125rem solid #fff;
 }

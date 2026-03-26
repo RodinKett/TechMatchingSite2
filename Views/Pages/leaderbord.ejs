@@ -24,11 +24,11 @@
         />
       </section>
 
-      <!-- BRONVERMELDING: voor aantal spelers -->
+      <!-- BRONVERMELDING: voor huidige rang -->
       <section class="kolom-stats-titel">
-        <p>Aantal spelers: <%= spelers.length %></p>
-        <p>Gewonnen</p>
-        <p>Verloren</p>
+        <p>Rang: <%= jij ? jij.rank : "Onbekend" %></p>
+        <p>Wins</p>
+        <p>Loss</p>
       </section>
 
       <!-- Leaderbord lijst -->
@@ -40,7 +40,7 @@
             <%= speler.rank === 1 ? 'eerste' : '' %>
             <%= speler.rank === 2 ? 'tweede' : '' %>
             <%= speler.rank === 3 ? 'derde' : '' %>
-            <%= jij && speler.id === jij.id ? 'me' : '' %> ">
+            <%= jij && speler.id === jij.id ? 'mij' : '' %> ">
 
               <span class="plaats"><%= speler.rank %></span>
               <span class="naam"><%= speler.naam%></span>

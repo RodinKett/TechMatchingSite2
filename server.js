@@ -76,7 +76,7 @@ app.get("/", (req, res) => {
 });
 
 
-// Aanpassing
+// Aanpassing Start hier
 // Note to self: vergeet niet wat data aan te passen
 // BRONVERMELDING: Voor de missende data en hulp met fouten corrigeren: CHATGPT, GEMNINI
 // Dat includes de username, spelers sort a en b en de || 0, jij als speler de req.session
@@ -88,18 +88,50 @@ app.get("/leaderbord", async (req, res) => {
     const data = await gebruikers.find().toArray();
     console.log(data);
 
-    const spelers = data.map(user => ({
-      id: user._id.toString(),
-      naam: user.username || user.Email?.split("@")[0] || "onbekend", //user.username voor wanneer we die hebben
-      gewonnen: user.Wins || 0,
-      verloren: user.Loss || 0
-    }));
+    const bepaalRang = (score) => {
+      if (score >= 5000) return "Expert";
+      if (score >= 1000) return "Ervaren";
+      if (score >= 100) return "Bevorderd"
+      return "Beginner"
+    };
 
-     spelers.sort((a, b) => {
-      if (b.gewonnen !== a.gewonnen) {
-        return b.gewonnen - a.gewonnen;
-      }
-      return a.verloren - b.verloren;
+    const spelers = data.map(user => {
+      const wins = user.Wins || 0;
+      const loss = user.Loss || 0;
+      const ties = user.Tie || 0;
+
+      const totaalGames = wins + loss + ties;
+
+      // const winstpercentage = totaalGames > 0 ? (wins + 0.5 * ties) / totaalGames : 0;
+
+      const ruwePunten = wins * 3 + ties * 1;
+      const score = totaalGames > 0 ? ruwePunten / totaalGames : 0;
+
+      // const penalty = loss * 1;
+      // const score = ruwePunten / totaalGames;
+      // const score = (ruwePunten - penalty) * winstpercentage;
+
+      return{
+        id: user._id.toString(),
+
+        naam: user.username || user.Email?.split("@")[0] || "onbekend",
+        gewonnen: wins,
+        verloren: loss,
+        gelijk: ties,
+        score,
+        rang: bepaalRang(score)
+      };
+    });
+
+    // spelers.sort((spelerHoger, spelerLager) => 
+    //   spelerLager.score - spelerHoger.score);
+
+    spelers.sort((a, b) => {
+      // const aScore = a.gewonnen * 3 + a.gelijk;
+      // const bScore = b.gewonnen * 3 + b.gelijk;
+
+      if (b.Score !== a.Score) return b.Score - a.Score;
+      return a.loss - b.loss;
     });
 
     spelers.forEach((speler, index) => {
@@ -110,9 +142,6 @@ app.get("/leaderbord", async (req, res) => {
 
     if (req.session.user) {
       jij = spelers.find(s => s.id === req.session.user._id.toString());
-      // console.log("SESSION USER:", req.session.user);
-      // console.log("SESSION ID:", req.session.user?._id);
-      // console.log("EERSTE SPELER ID:", spelers[0].id);
     }
 
     res.render("Pages/leaderbord", {
