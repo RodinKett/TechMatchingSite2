@@ -40,17 +40,17 @@
 
           <label for="update-profiel">Upload profielfoto</label>
           <!-- File input -->
-          <input type="file" id="profileUpload"  name="profileFoto" accept="image/*">
+          <input type="file" id="upload-profiel"  name="profileFoto" accept="image/*">
 
           <!-- Label triggers the input -->
-          <label for="profileUpload" class="upload-label">
+          <label for="upload-profiel" class="upload-label">
             <img src="afbeeldingen/upload-photo.svg" alt="Upload Profile">
             <span class="file-name">Upload profielfoto</span>
           </label>
 
       
           <label for="update-wachtwoord">Wachtwoord</label>
-          <input id="update-wachtwoord" type="password" name="update-password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$">
+          <input id="update-wachtwoord" type="password" name="update-wachtwoord" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$">
 
           <label for="update-wachtwoord-bevestigen">Bevestig wachtwoord</label>
           <input id="update-wachtwoord-bevestigen" type="password" name="update-wachtwoord-bevestigen" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$">
@@ -64,7 +64,7 @@
         <div class="accordion-content">
           <label for="skillLevel">Skill level</label>    
           <select id="skillLevel" name="skillLevel">
-            <option value="beginer" >Beginer</option>
+            <option value="beginner" >Beginner</option>
             <option value="bekend">Bekend</option>
             <option value="expert">Expert</option>
           </select>
