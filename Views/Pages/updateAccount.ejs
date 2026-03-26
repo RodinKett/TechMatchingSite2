@@ -16,84 +16,98 @@
 <main>
   <h1>Update account</h1>
     <form id="formulier-aanvullende-gegevens" action="/updateAccount" method="POST">
-        <h2>Account gegevens</h2>
+      <div class="accordion open">
+        <h2 class="accordion-header">Account gegevens</h2>
+        <div class="accordion-content">
 
-        <label for="reg-gebruikersnaam">Gebruikersnaam</label>
-        <input id="reg-gebruikersnaam" type="text" name="reg-gebruikersnaam" required pattern="^[a-zA-Z0-9_-]{3,30}$" >
+          <label for="reg-gebruikersnaam">Gebruikersnaam</label>
+          <input id="reg-gebruikersnaam" type="text" name="reg-gebruikersnaam" required pattern="^[a-zA-Z0-9_-]{3,30}$" >
 
-        <label for="reg-email">Email</label>
-        <input id="reg-email" type="email" name="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+          <label for="reg-email">Email</label>
+          <input id="reg-email" type="email" name="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
 
-        <label for="reg-telefoonnummer">Telefoonnummer</label>
-        <input id="reg-telefoonnummer" type="tel" name="reg-telefoonnummer" required pattern="^\+?[0-9]{7,15}$">
+          <label for="reg-telefoonnummer">Telefoonnummer</label>
+          <input id="reg-telefoonnummer" type="tel" name="reg-telefoonnummer" required pattern="^\+?[0-9]{7,15}$">
 
-        <label for="reg-geboortedatum">Geboortedatum</label>
-        <input id="reg-geboortedatum" type="date" name="dob" required>
+          <label for="reg-geboortedatum">Geboortedatum</label>
+          <input id="reg-geboortedatum" type="date" name="dob" required>
 
-        <label for="reg-geslacht">Geslacht</label>
-        <select id="reg-geslacht" name="reg-geslacht" >
-          <option value="man" >Man</option>
-          <option value="vrouw">Vrouw</option>
-        </select>
+          <label for="reg-geslacht">Geslacht</label>
+          <select id="reg-geslacht" name="reg-geslacht" >
+            <option value="man" >Man</option>
+            <option value="vrouw">Vrouw</option>
+          </select>
 
-        <label for="reg-profiel">Upload profielfoto</label>
-        <!-- File input -->
-        <input type="file" id="profileUpload"  name="profileFoto" accept="image/*">
+          <label for="reg-profiel">Upload profielfoto</label>
+          <!-- File input -->
+          <input type="file" id="profileUpload"  name="profileFoto" accept="image/*">
 
-        <!-- Label triggers the input -->
-        <label for="profileUpload" class="upload-label">
-          <img src="afbeeldingen/upload-photo.svg" alt="Upload Profile">
-          <span class="file-name">Upload profielfoto</span>
-        </label>
+          <!-- Label triggers the input -->
+          <label for="profileUpload" class="upload-label">
+            <img src="afbeeldingen/upload-photo.svg" alt="Upload Profile">
+            <span class="file-name">Upload profielfoto</span>
+          </label>
 
-    
-        <label for="reg-wachtwoord">Wachtwoord</label>
-        <input id="reg-wachtwoord" type="password" name="reg-password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$">
-
-        <label for="reg-wachtwoord-bevestigen">Bevestig wachtwoord</label>
-        <input id="reg-wachtwoord-bevestigen" type="password" name="reg-wachtwoord-bevestigen" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$">
       
-        <span></span>
-<!--------------------------------------------------------------------------------------->
-        <h2>Aanvullende persoons gegevens</h2>
+          <label for="reg-wachtwoord">Wachtwoord</label>
+          <input id="reg-wachtwoord" type="password" name="reg-password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$">
 
-        <label for="skillLevel">Skill level</label>    
-        <select id="skillLevel" name="skillLevel">
-          <option value="beginer" >Beginer</option>
-          <option value="bekend">Bekend</option>
-          <option value="expert">Expert</option>
-        </select>
+          <label for="reg-wachtwoord-bevestigen">Bevestig wachtwoord</label>
+          <input id="reg-wachtwoord-bevestigen" type="password" name="reg-wachtwoord-bevestigen" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$">
+        </div>
+      </div>
 
-        <label for="jarenErvaring">Jaren ervaring</label>
-        <input id="jarenErvaring" type="number" name="jarenErvaring" required  min="0" max="99" >
+      <span></span>
 
-        <label for="specialisatie">Specialisatie</label>
-        <input id="specialisatie" type="text" name="specialisatie" pattern="^[a-zA-Z\s-]{3,30}$">
+      <div class="accordion">
+        <h2 class="accordion-header">Aanvullende persoons gegevens</h2>
+        <div class="accordion-content">
+          <label for="skillLevel">Skill level</label>    
+          <select id="skillLevel" name="skillLevel">
+            <option value="beginer" >Beginer</option>
+            <option value="bekend">Bekend</option>
+            <option value="expert">Expert</option>
+          </select>
 
-        <span></span>
-<!--------------------------------------------------------------------------------------->
-        <h2>Voertuig</h2>
+          <label for="jarenErvaring">Jaren ervaring</label>
+          <input id="jarenErvaring" type="number" name="jarenErvaring" required  min="0" max="99" >
 
-        <label for="jaartalVoertuig">Jaartal voertuig</label>
-        <input id="jaartalVoertuig" type="number" name="jaartalVoertuig" required pattern="^\+?[0-9]{4,4}$">
+          <label for="specialisatie">Specialisatie</label>
+          <input id="specialisatie" type="text" name="specialisatie" pattern="^[a-zA-Z\s-]{3,30}$">
 
-        <label for="merkVoertuig-api">Merk voertuig</label>
-        <select id="merkVoertuig-api" name="merkVoertuig-api">
-          <option value="beginer" >Beginer</option> <!-- api inladen -->
-        </select>
+        </div>
+      </div>
 
-        <label for="voertuig-api">Voertuig</label>
-        <select id="voertuig-api" name="voertuig-api">
-          <option value="beginer" >Beginer</option> <!-- api inladen -->
-        </select>
+      <span></span>
 
-        <label for="aanvullendeOpmerkingen">Aanvullende opmerkingen</label>
-        <input id="aanvullendeOpmerkingen" type="text" name="aanvullendeOpmerkingen" pattern="^[a-zA-Z0-9\s.,!?]{0,150}$">
+      <div class="accordion"> 
+        <h2 class="accordion-header">Voertuig</h2>
+        <div class="accordion-content">
 
+          <label for="jaartalVoertuig">Jaartal voertuig</label>
+          <input id="jaartalVoertuig" type="number" name="jaartalVoertuig" required pattern="^\+?[0-9]{4,4}$">
+
+          <label for="merkVoertuig-api">Merk voertuig</label>
+          <select id="merkVoertuig-api" name="merkVoertuig-api">
+            <option value="beginer" >Beginer</option> <!-- api inladen -->
+          </select>
+
+          <label for="voertuig-api">Voertuig</label>
+          <select id="voertuig-api" name="voertuig-api">
+            <option value="beginer" >Beginer</option> <!-- api inladen -->
+          </select>
+
+          <label for="aanvullendeOpmerkingen">Aanvullende opmerkingen</label>
+          <input id="aanvullendeOpmerkingen" type="text" name="aanvullendeOpmerkingen" pattern="^[a-zA-Z0-9\s.,!?]{0,150}$">
+          
+        </div>
+      </div>
         
-        <button type="submit">Opslaan</button>
+      <button type="submit">Opslaan</button>
     </form>
 </main>
+
+<script src="/js/update-account.js"></script>
 
 <footer>
 </footer>
