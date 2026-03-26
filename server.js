@@ -99,6 +99,13 @@ app.get("/filter", (req, res) => {
   res.render("Pages/filter");
 });
 
+app.get("/matching", (req, res) => {
+  res.render("Pages/matching");
+});
+
+app.get("/profiel", (req, res) => {
+  res.render("Pages/profiel");
+});
 
 
 
@@ -354,19 +361,6 @@ app.post("/aanvullendeInformatie", async (req, res) => {
 ////////////////////////////////////////////////////////////////////////////////////
 
 app.use(express.static(path.join(__dirname, "static")));
-
-app.get("/", (req, res) => {
-  res.render("Pages/index");
-});
-
-app.get("/matching", (req, res) => {
-  res.render("Pages/matching");
-});
-
-app.get("/profiel", (req, res) => {
-  res.render("Pages/profiel");
-});
-
 
 async function startServer() {
   try {
