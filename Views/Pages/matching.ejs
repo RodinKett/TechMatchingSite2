@@ -1,11 +1,10 @@
-<link rel="stylesheet" href="/matching.css" />
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>EJS Is Fun</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/matching.css" />
     <!-- CSS (load bootstrap from a CDN) -->
     <link
       rel="stylesheet"
@@ -20,7 +19,37 @@
     <main id="main-matching">
       <section id="alle-info">
         <section id="foto-section">
-          
+          <!-- filter knop -->
+          <button class="filter">
+            <svg
+              class="filter"
+              xmlns="http://www.w3.org/2000/svg"
+              width="71"
+              height="32"
+              fill="none"
+            >
+              <path
+                fill="#fff"
+                d="M39.485 13.015h4.631l-.176.836h-2.255l-.429 2.013h1.881l-.176.847H41.08L40.376 20H38zM45.473 20H43.24l1-4.73h2.256zm1.309-6.171a.85.85 0 0 1-.11.44.95.95 0 0 1-.275.319q-.166.132-.385.198a1.6 1.6 0 0 1-.451.066q-.441 0-.737-.209-.297-.21-.297-.66 0-.242.099-.429a.9.9 0 0 1 .264-.319q.175-.132.396-.198.23-.066.473-.066.429 0 .726.209.297.21.297.649M48.706 20h-2.244l1.562-7.392h2.255zm1.595-4.73a6 6 0 0 0 .715-.198q.308-.11.56-.275.265-.165.496-.407.242-.242.517-.594h1.133l-.32 1.474h.859l-.143.737h-.87l-.45 2.145a10 10 0 0 0-.088.451 2 2 0 0 0-.033.308q0 .22.154.275.165.055.605.055L53.27 20a1.3 1.3 0 0 1-.242.033q-.154.011-.352.022a3 3 0 0 1-.396.022q-.198.01-.352.011-.275 0-.54-.044a1.4 1.4 0 0 1-.472-.143.95.95 0 0 1-.341-.341q-.12-.22-.121-.594 0-.132.01-.33.023-.198.078-.44l.462-2.189h-.858zm6.103 2.519q-.045.242-.066.462a8 8 0 0 0-.011.396q0 .1.01.22.012.12.045.231.044.1.11.176a.3.3 0 0 0 .209.066q.1 0 .22-.066a1 1 0 0 0 .253-.187q.132-.12.242-.297.12-.176.187-.396h1.804l-.286 1.177a2.3 2.3 0 0 1-.506.242 5 5 0 0 1-.605.165 6 6 0 0 1-.65.077q-.33.033-.626.033-.55 0-1.023-.099a2.3 2.3 0 0 1-.825-.341 1.75 1.75 0 0 1-.561-.638q-.198-.407-.198-1.001 0-.54.165-1.056.176-.517.572-.913.406-.407 1.078-.649.683-.242 1.694-.242 1.1 0 1.65.341.56.34.56 1.067 0 .297-.087.649a1.7 1.7 0 0 1-.264.583zm1.463-1.309q0-.34-.11-.462a.35.35 0 0 0-.264-.121.52.52 0 0 0-.33.121 1.1 1.1 0 0 0-.264.308q-.12.187-.22.44a3.6 3.6 0 0 0-.165.517h1.254q.022-.132.044-.275.023-.12.033-.264.022-.142.022-.264m3.046-1.21h1.793l.164.825h.078q.253-.396.648-.671.397-.275 1.045-.275.045 0 .132.011.1 0 .21.033.12.022.242.077.132.044.253.132l-.484 2.266h-1.2q-.021-.682-.12-.946-.1-.275-.32-.275a.624.624 0 0 0-.495.264L62.156 20H59.91zm7.803 1.386.022-.11a.848.848 0 0 0-.066-.484q-.066-.176-.275-.176-.188 0-.374.165a.51.51 0 0 0-.187.418q0 .176.088.286.099.099.253.165.153.066.34.11l.386.088q.263.066.495.165.242.089.429.242.187.154.297.385.11.22.11.55 0 .462-.22.781-.21.308-.594.506-.374.188-.891.264-.505.077-1.09.077-.89 0-1.473-.132t-.814-.253l.23-1.1h1.486a.6.6 0 0 0-.011.11v.099q0 .253.11.407.12.143.407.143.32 0 .45-.176.144-.187.144-.341t-.121-.264a.8.8 0 0 0-.286-.198 2 2 0 0 0-.396-.143q-.21-.066-.407-.121a2 2 0 0 1-.33-.11 1.4 1.4 0 0 1-.341-.22 1.2 1.2 0 0 1-.275-.363 1.3 1.3 0 0 1-.11-.572q0-.484.23-.803a1.8 1.8 0 0 1 .617-.528q.384-.198.858-.286.484-.088.968-.088.604 0 1.144.11t.88.286l-.253 1.111z"
+              />
+              <g stroke-linecap="round" stroke-width="2" clip-path="url(#a)">
+                <path
+                  stroke="#0c0310"
+                  stroke-linejoin="round"
+                  d="M5.333 6.667h16M5.333 16h8M18.667 16h8M10.667 25.333h16M24 9.333A2.667 2.667 0 1 0 24 4a2.667 2.667 0 0 0 0 5.333M16 18.667a2.667 2.667 0 1 0 0-5.334 2.667 2.667 0 0 0 0 5.334M8 28a2.667 2.667 0 1 0 0-5.333A2.667 2.667 0 0 0 8 28"
+                />
+                <path
+                  stroke="#fff"
+                  d="M5.333 6.667h16M5.333 16h8M18.667 16h8M10.667 25.333h16M24 9.333A2.667 2.667 0 1 0 24 4a2.667 2.667 0 0 0 0 5.333ZM16 18.667a2.667 2.667 0 1 0 0-5.334 2.667 2.667 0 0 0 0 5.334ZM8 28a2.667 2.667 0 1 0 0-5.333A2.667 2.667 0 0 0 8 28Z"
+                />
+              </g>
+              <defs>
+                <clipPath id="a">
+                  <path fill="#fff" d="M0 0h32v32H0z" />
+                </clipPath>
+              </defs>
+            </svg>
+          </button>
           <p>rank 95</p>
           <img
             src="/afbeeldingen/lightning-mcqueen.png"
@@ -40,53 +69,58 @@
           <h2 id="naam-gebruiker">Lightning Mcqueen</h2>
         </section>
         <section>
-          <svg id="border-links" xmlns="http://www.w3.org/2000/svg" width="175" height="436" fill="none"><path fill="#fff" d="M169.383 4.778 0 4.776V0L174.93.002z"/><path fill="url(#a)" d="M.27 421.915V1.879h4.394v433.787z"/><defs><linearGradient id="a" x1="2.467" x2="2.471" y1="1.879" y2="435.666" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="#172127"/></linearGradient></defs></svg>
-        <svg id="border-rechts" xmlns="http://www.w3.org/2000/svg" width="175" height="428" fill="none"><path fill="#fff" d="m5.524 422.915 168.72.002v4.776L0 427.69z"/><path fill="url(#a)" d="M169.937 13.407v409.508h4V0z"/><defs><linearGradient id="a" x1="171.937" x2="171.921" y1="422.915" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="#172127"/></linearGradient></defs></svg>
+          <!-- links border -->
+         
+       
+          <!-- rechts border -->
+   
 
-        <section id="info">
-          <dl>
-            <div class="info-blok">
-              <dt>Voertuig:</dt>
-              <dd>Gen 4 NASCAR</dd>
-            </div>
+          <section id="info">
+            <dl>
+              <div class="info-blok">
+                <dt>Voertuig:</dt>
+                <dd>Gen 4 NASCAR</dd>
+              </div>
 
-            <div class="info-blok">
-              <dt>PK</dt>
-              <dd>260</dd>
-            </div>
+              <div class="info-blok">
+                <dt>PK</dt>
+                <dd>260</dd>
+              </div>
 
-            <div class="info-blok">
-              <dt>Jaar:</dt>
-              <dd>2006</dd>
-            </div>
+              <div class="info-blok">
+                <dt>Jaar:</dt>
+                <dd>2006</dd>
+              </div>
 
-            <div class="info-blok">
-              <dt>Specialisatie:</dt>
-              <dd>Bochten</dd>
-            </div>
+              <div class="info-blok">
+                <dt>Specialisatie:</dt>
+                <dd>Bochten</dd>
+              </div>
 
-            <div class="info-blok">
-              <dt>Ervaring:</dt>
-              <dd>20 jaar</dd>
-            </div>
+              <div class="info-blok">
+                <dt>Ervaring:</dt>
+                <dd>20 jaar</dd>
+              </div>
 
-            <div class="info-blok">
-              <dt>Win rate:</dt>
-              <dd>75%</dd>
-            </div>
+              <div class="info-blok">
+                <dt>Win rate:</dt>
+                <dd>75%</dd>
+              </div>
 
-            <div class="info-blok">
-              <dt>Mods:</dt>
-              <dd>Stickers</dd>
-            </div>
-          </dl>
-        </section>
+              <div class="info-blok">
+                <dt>Mods:</dt>
+                <dd>Stickers</dd>
+              </div>
+            </dl>
+          </section>
 
-        <section>
-          <h2 id="tekst">Opmerkingen:</h2>
-          <p id="tekst">
-            Ik race alleen in de avond en met intermediate+. Dus geen beginners
-          </p>
+          <section>
+            <h2 class="tekst">Opmerkingen:</h2>
+            <p class="tekst">
+              Ik race alleen in de avond en met intermediate+. Dus geen
+              beginners
+            </p>
+          </section>
         </section>
       </section>
 
