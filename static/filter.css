@@ -1,0 +1,70 @@
+#body-filter {
+  background-color: var(--kleur-blok-matching);
+ 
+}
+
+#parent-alles {
+  display: flex;
+  flex-direction: column;
+}
+
+#button-filter {
+  display: flex;
+  background: var(--kleur-filteren-knop);
+  color: var(--kleur-tekst);
+  border: none;
+  font-weight: bold;
+}
+
+.filter-opties {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  padding: 1em 0; /* ruimte boven en onder */
+  border-bottom: solid 0.05em var(--kleur-tekst);
+}
+
+/* Titel */
+.button {
+  background: none;
+  border: none;
+  color: var(--kleur-tekst);
+  text-align: left;
+  font-weight: bold;
+  margin-left: 2em;
+}
+
+/* Alles onder de titel */
+.filter-opties label,
+.filter-opties select,
+.filter-opties input {
+  margin-left: 1.3em;
+}
+
+.checkbox {
+  color: var(--kleur-tekst);
+}
+
+.input-veld {
+  width: 30%;
+}
+
+.van-tot {
+  display: flex;
+}
+
+#resultaten-weergeven {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2em 0;
+}
+
+#resultaten-weergeven button {
+  color: var(--kleur-tekst);
+  background-color: var(--kleur-accent);
+  font-weight: bold;
+  border: none;
+  width: 80%;
+  height: 3em;
+}

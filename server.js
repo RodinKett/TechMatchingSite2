@@ -95,6 +95,11 @@ app.get("/logout", (req, res) => {
 });
 
 
+app.get("/filter", (req, res) => {
+  res.render("Pages/filter");
+});
+
+
 
 
 
