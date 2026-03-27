@@ -127,12 +127,20 @@ app.get("/leaderbord", async (req, res) => {
     //   spelerLager.score - spelerHoger.score);
 
     spelers.sort((a, b) => {
-      // const aScore = a.gewonnen * 3 + a.gelijk;
-      // const bScore = b.gewonnen * 3 + b.gelijk;
+      const aScore = a.gewonnen * 3 + a.gelijk;
+      const bScore = b.gewonnen * 3 + b.gelijk;
 
-      if (b.Score !== a.Score) return b.Score - a.Score;
+        if (bScore !== aScore) return bScore - aScore;
       return a.loss - b.loss;
-    });
+    })
+
+    // spelers.sort((a, b) => {
+    //   // const aScore = a.gewonnen * 3 + a.gelijk;
+    //   // const bScore = b.gewonnen * 3 + b.gelijk;
+
+    //   if (b.Score !== a.Score) return b.Score - a.Score;
+    //   return a.loss - b.loss;
+    // });
 
     spelers.forEach((speler, index) => {
       speler.rank = index + 1;
