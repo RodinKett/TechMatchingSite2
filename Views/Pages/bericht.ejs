@@ -1,8 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%- include('../partials/head'); %>
+  <meta charset="UTF-8" />
+  <title>EJS Is Fun</title>
+
+  <!-- CSS (load bootstrap from a CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/header.css">
   <link rel="stylesheet" href="/bericht.css">
+
+  <style>
+    body {
+      padding-top: 50px;
+    }
+  </style>
 </head>
 
 <body class="page">
@@ -18,24 +30,25 @@
 
     <div class="request-card">
 
-      <div class="request-left">
+      <!-- FOTO -->
+      <div class="request-image">
+        <img src="/uploads/1774121279467-881089780.jpeg" alt="Foto van een gebruiker">
+      </div>
+
+      <!-- INFO -->
+      <div class="request-info">
 
         <h2 class="name">Francesco Bernoulli</h2>
 
-        <div class="request-content">
-          <img src="/uploads/1774121279467-881089780.jpeg">
-
-          <div class="info">
-            <p>12 jaar ervaring</p>
-            <p>Driften</p>
-            <p>2009 Formula F1</p>
-            <p>Prototype Racer</p>
-          </div>
-        </div>
+        <p>12 jaar ervaring</p>
+        <p>Driften</p>
+        <p>2009 Formula F1</p>
+        <p>Prototype Racer</p>
 
       </div>
 
-      <div class="request-right">
+      <!-- STATS -->
+      <div class="request-stats">
 
         <div class="rank">
           <span>Rang</span>
@@ -51,6 +64,8 @@
 
     </div>
 
+    </div>
+
   </section>
 
   <!-- CHAT -->
@@ -62,7 +77,7 @@
     </div>
 
     <div class="message me">
-      <p>Ja man 🔥</p>
+      <p>Ja man!!</p>
       <span class="time">19:23</span>
     </div>
 
@@ -77,7 +92,7 @@
     <div class="message me">
       <p>
         Ja goed idee. Ik neem ook nog iemand mee,
-        wordt gezellig en competitief 😄
+        wordt gezellig en competitief haha
       </p>
       <span class="time">19:25</span>
     </div>
@@ -85,7 +100,7 @@
     <div class="message other">
       <p>
         Nice! Ik ga alvast wat voorbereiden.
-        Tot straks 💪
+        Tot straks!
       </p>
       <span class="time">19:26</span>
     </div>
