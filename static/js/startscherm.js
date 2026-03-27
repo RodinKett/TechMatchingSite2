@@ -1,7 +1,13 @@
-const animatie = document.querySelector(".animatie")
 
-document.addEventListener("DOMContentLoaded", (e) => {
+document.addEventListener("DOMContentLoaded", () => {
+    const animatie = document.querySelector(".animatie");
+
     setTimeout(() => {
         animatie.classList.add("display-none");
-    }, 2000);
+
+        setTimeout(() => {
+            window.location.href = "/login";
+        }, 250);
+
+    }, 5000);
 })
