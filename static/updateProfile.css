@@ -199,6 +199,7 @@ input[type="file"] {
 }
 
 .accordion-header {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -209,8 +210,9 @@ input[type="file"] {
   content: "";
   width: 2em;
   height: 2em;
+  flex-shrink: 0; 
   background-image: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>');
-  background-size: contain;
+  background-size: 100% 100%;  /* fill the fixed size */
   background-repeat: no-repeat;
   transition: transform 0.3s ease;
 }
@@ -225,3 +227,12 @@ input[type="file"] {
   transition: max-height 0.4s ease;
 }
 
+.preview-image {
+  display: block;
+  max-width: 50%;
+  max-height: fit-content ;
+  margin-top: 1em;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #fff;
+}

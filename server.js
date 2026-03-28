@@ -11,6 +11,7 @@ const express = require("express");
 const session = require("express-session");
 const multer = require("multer");
 const bcrypt = require("bcrypt");
+const fs = require("fs");
 
 const app = express();
 const port = 3000;
@@ -71,6 +72,53 @@ const upload = multer({
 //////////                            App.Get                             //////////
 ////////////////////////////////////////////////////////////////////////////////////
 
+app.get("/api/car-brands", async (req, res) => {
+  try {
+    const response = await fetch("https://www.carqueryapi.com/api/0.3/?cmd=getMakes");
+    const text = await response.text();
+
+    const data = JSON.parse(text.replace("var data = ", "").replace(";", ""));
+
+    res.json(data.Makes);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to load brands" });
+  }
+});
+
+app.get("/api/car-models/:make/:year", async (req, res) => {
+  const { make, year } = req.params;
+
+  try {
+    const response = await fetch(
+      `https://www.carqueryapi.com/api/0.3/?cmd=getModels&make=${make}&year=${year}`
+    );
+
+    const text = await response.text();
+    const data = JSON.parse(text.replace("var data = ", "").replace(";", ""));
+
+    res.json(data.Models);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to load models" });
+  }
+});
+
+app.get("/api/car-specs/:make/:model/:year", async (req, res) => {
+  const { make, model, year } = req.params;
+
+  try {
+    const response = await fetch(
+      `https://www.carqueryapi.com/api/0.3/?cmd=getTrims&make=${make}&model=${model}&year=${year}`
+    );
+
+    const text = await response.text();
+    const data = JSON.parse(text.replace("var data = ", "").replace(";", ""));
+
+    res.json(data.Trims);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to load specs" });
+  }
+});
+
 app.get("/", (req, res) => {
   res.render("Pages/index");
 });
@@ -94,8 +142,21 @@ app.get("/logout", (req, res) => {
   });
 });
 
-app.get("/updateAccount", (req, res) => {
-  res.render("Pages/updateAccount");
+app.get("/updateAccount", async (req, res) => {
+
+  if (!req.session.user) {
+    return res.redirect("/login");
+  }
+
+  const db = client.db("StreetracerApp");
+  const users = db.collection("users");
+
+  const user = await users.findOne({
+    _id: new ObjectId(req.session.user.id)
+  });
+
+  res.render("Pages/updateAccount", { user });
+
 });
 
 
@@ -283,6 +344,10 @@ app.post("/aanvullendeInformatie", async (req, res) => {
     const voertuigModel = req.body["voertuig-api"];
     const opmerkingen = req.body.aanvullendeOpmerkingen;
 
+    const pk = req.body.pk;
+    const gewicht = req.body.gewicht;
+    const aandrijving = req.body.aandrijving;
+
     // Skill level
     if (!["beginer", "bekend", "expert"].includes(skillLevel)) {
       errors.push("Ongeldig skill level.");
@@ -328,6 +393,9 @@ app.post("/aanvullendeInformatie", async (req, res) => {
             jaartal: jaartalVoertuig,
             merk: merkVoertuig,
             model: voertuigModel,
+            pk: pk,
+            gewicht: gewicht,
+            aandrijving: aandrijving,
             opmerkingen
           }
         }
@@ -340,6 +408,100 @@ app.post("/aanvullendeInformatie", async (req, res) => {
     console.error(error);
     res.status(500).send("Fout bij opslaan aanvullende gegevens");
   }
+});
+
+
+
+
+
+app.post("/updateAccount", upload.single("profileFoto"), async (req, res) => {
+
+  if (!req.session.user) {
+    return res.redirect("/login");
+  }
+
+  const db = client.db("StreetracerApp");
+  const users = db.collection("users");
+
+  const userId = new ObjectId(req.session.user.id);
+
+  const user = await users.findOne({ _id: userId });
+
+  const username = req.body["update-gebruikersnaam"];
+  const email = req.body.email;
+  const phone = req.body["update-telefoonnummer"];
+  const dob = req.body.dob;
+  const gender = req.body["update-geslacht"];
+
+  const currentPassword = req.body["current-password"];
+  const newPassword = req.body["update-password"];
+  const confirmPassword = req.body["update-password-confirm"];
+
+  const existingUser = await users.findOne({ username, _id: { $ne: userId } });
+  if (existingUser) return res.status(400).send("Gebruikersnaam is al in gebruik");
+
+  const existingEmail = await users.findOne({ email, _id: { $ne: userId } });
+  if (existingEmail) return res.status(400).send("Email is al geregistreerd");
+
+  const updateData = {
+    username,
+    email,
+    phone,
+    dob,
+    gender
+  };
+
+
+  // wachtwoord update
+if (newPassword && newPassword.length > 0) {
+
+  const match = await bcrypt.compare(currentPassword, user.password);
+
+  if (!match) {
+    return res.status(400).send("Huidig wachtwoord is onjuist");
+  }
+
+  if (newPassword !== confirmPassword) {
+    return res.status(400).send("Wachtwoorden komen niet overeen");
+  }
+
+  const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$/;
+
+  if (!passwordPattern.test(newPassword)) {
+    return res.status(400).send("Wachtwoord voldoet niet aan eisen");
+  }
+
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+  updateData.password = hashedPassword;
+
+}
+
+  // profiel foto
+  if (req.file) {
+    // oude foto verwijderen
+    if (user.profilePhoto) {
+      const oldFile = path.basename(user.profilePhoto);
+      const oldPath = path.join(__dirname, "static/uploads", oldFile);
+
+      fs.unlink(oldPath, (err) => {
+        if (err) console.log("Oude foto niet verwijderd:", err);
+      });
+    }
+    updateData.profilePhoto = "/uploads/" + req.file.filename;
+  }
+
+  await users.updateOne(
+    { _id: userId },
+    { $set: updateData }
+  );
+
+  // Update session values
+  req.session.user.username = username;
+  if (updateData.profilePhoto) {
+    req.session.user.profilePhoto = updateData.profilePhoto;
+  }
+
+  res.redirect("/");
 });
 
 
