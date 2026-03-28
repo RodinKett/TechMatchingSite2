@@ -443,6 +443,18 @@ app.post("/updateAccount", upload.single("profileFoto"), async (req, res) => {
   const existingEmail = await users.findOne({ email, _id: { $ne: userId } });
   if (existingEmail) return res.status(400).send("Email is al geregistreerd");
 
+  if (!/^\+?[0-9]{7,15}$/.test(phone)) {
+    return res.status(400).send("Ongeldig telefoonnummer");
+  }
+
+  if (!validator.isDate(dob)) {
+    return res.status(400).send("Ongeldige geboortedatum");
+  }
+
+  if (!["man","vrouw"].includes(gender)) {
+    return res.status(400).send("Ongeldig geslacht");
+  }
+
   const updateData = {
     username,
     email,

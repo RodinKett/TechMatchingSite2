@@ -1,83 +1,125 @@
-const brandSelect = document.getElementById("merkVoertuig-api");
+const merkSelect = document.getElementById("merkVoertuig-api");
 const modelSelect = document.getElementById("voertuig-api");
-const yearInput = document.getElementById("jaartalVoertuig");
+const jaartalInput = document.getElementById("jaartalVoertuig");
 
 const pkInput = document.getElementById("pk");
-const weightInput = document.getElementById("gewicht");
-const driveInput = document.getElementById("aandrijving");
+const gewichtInput = document.getElementById("gewicht");
+const aandrijvingInput = document.getElementById("aandrijving");
 
-// load brands
-async function loadBrands() {
-  const res = await fetch("/api/car-brands");
-  const brands = await res.json();
+// Haal opgeslagen waarden van de gebruiker uit de HTML (data attributes of hidden inputs)
+const huidigMerk = merkSelect.dataset.huidigMerk || "";
+const huidigModel = modelSelect.dataset.huidigModel || "";
+const huidigJaartal = jaartalInput.value || "";
 
-  brands.forEach(make => {
-    const option = document.createElement("option");
-    option.value = make.make_id;
-    option.textContent = make.make_display;
-    brandSelect.appendChild(option);
+// Laad merken
+async function laadMerken() {
+  const response = await fetch("/api/car-brands");
+  const merken = await response.json();
+
+  merkSelect.innerHTML = `<option value="">Selecteer merk</option>`; // Default optie
+
+  merken.forEach(merk => {
+    const optie = document.createElement("option");
+    optie.value = merk.make_id;
+    optie.textContent = merk.make_display;
+
+    // Automatisch selecteren als het overeenkomt met opgeslagen merk
+    if (merk.make_display === huidigMerk || merk.make_id === huidigMerk) {
+      optie.selected = true;
+    }
+
+    merkSelect.appendChild(optie);
   });
+
+  // Als er een huidig merk is, laad meteen de modellen
+  if (merkSelect.value && huidigJaartal) {
+    await laadModellen(merkSelect.value, huidigJaartal);
+  }
 }
 
-// load models
-brandSelect.addEventListener("change", async () => {
-  const make = brandSelect.value;
-  const year = yearInput.value;
+// Laad modellen functie
+async function laadModellen(merk, jaartal) {
+  const response = await fetch(`/api/car-models/${merk}/${jaartal}`);
+  const modellen = await response.json();
 
-  if (!year) {
-    alert("Selecteer eerst een jaartal");
-    brandSelect.value = "";
+  modelSelect.innerHTML = `<option value="">Selecteer model</option>`; // Default optie
+
+  if (modellen.length === 0) {
+    modelSelect.innerHTML += `<option>Geen modellen gevonden voor dit jaar</option>`;
+    modelSelect.disabled = true;
     return;
   }
 
-  const res = await fetch(`/api/car-models/${make}/${year}`);
-  const models = await res.json();
+  modellen.forEach(model => {
+    const optie = document.createElement("option");
+    optie.value = model.model_name;
+    optie.textContent = model.model_name;
 
-  modelSelect.innerHTML = "";
+    // Automatisch selecteren als het overeenkomt met opgeslagen model
+    if (model.model_name === huidigModel) {
+      optie.selected = true;
+    }
 
-  if (models.length === 0) {
-    modelSelect.innerHTML = `<option>No models found for this year</option>`;
-    return;
-  }
-
-  modelSelect.innerHTML = `<option value="">Select model</option>`;
-
-  models.forEach(model => {
-    const option = document.createElement("option");
-    option.value = model.model_name;
-    option.textContent = model.model_name;
-    modelSelect.appendChild(option);
+    modelSelect.appendChild(optie);
   });
-});
 
-// reset model when year changes
-yearInput.addEventListener("change", () => {
-  modelSelect.innerHTML = `<option>Select model</option>`;
-});
-
-// disable dropdown
-modelSelect.disabled = true;
-
-brandSelect.addEventListener("change", async () => {
   modelSelect.disabled = false;
-});
 
-// load specs
-modelSelect.addEventListener("change", async () => {
-  const make = brandSelect.value;
-  const model = modelSelect.value;
-  const year = yearInput.value;
+  // Laad specs als er een model geselecteerd is
+  if (huidigModel) {
+    await laadSpecificaties(merk, huidigModel, jaartal);
+  }
+}
 
-  const res = await fetch(`/api/car-specs/${make}/${model}/${year}`);
-  const trims = await res.json();
+// Laad specificaties functie
+async function laadSpecificaties(merk, model, jaartal) {
+  const response = await fetch(`/api/car-specs/${merk}/${model}/${jaartal}`);
+  const trims = await response.json();
 
   if (trims.length > 0) {
-    const car = trims[0];
+    const auto = trims[0];
+    pkInput.value = auto.model_engine_power_ps;
+    gewichtInput.value = auto.model_weight_kg;
+    aandrijvingInput.value = auto.model_drive;
+  }
+}
 
-    pkInput.value = car.model_engine_power_ps;
-    weightInput.value = car.model_weight_kg;
-    driveInput.value = car.model_drive;
+// Event listeners
+merkSelect.addEventListener("change", async () => {
+  const merk = merkSelect.value;
+  const jaartal = jaartalInput.value;
+
+  if (!jaartal) {
+    alert("Selecteer eerst een jaartal");
+    merkSelect.value = "";
+    modelSelect.innerHTML = `<option value="">Selecteer model</option>`;
+    modelSelect.disabled = true;
+    return;
+  }
+
+  await laadModellen(merk, jaartal);
+});
+
+jaartalInput.addEventListener("change", () => {
+  modelSelect.innerHTML = `<option value="">Selecteer model</option>`;
+  modelSelect.disabled = true;
+});
+
+jaartalInput.addEventListener("change", async () => {
+  const merk = merkSelect.value;
+  const jaartal = jaartalInput.value;
+  if (merk && jaartal) {
+    await laadModellen(merk, jaartal);
   }
 });
 
-loadBrands();
+modelSelect.addEventListener("change", async () => {
+  const merk = merkSelect.value;
+  const model = modelSelect.value;
+  const jaartal = jaartalInput.value;
+
+  await laadSpecificaties(merk, model, jaartal);
+});
+
+// Start
+laadMerken();

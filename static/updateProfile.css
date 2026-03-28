@@ -146,12 +146,16 @@ form h2 {
 
 select {
     appearance: none;
-    padding-right: 2.5em; 
     background-image: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>');
     background-repeat: no-repeat;
     background-position: right 0.8em center;
     background-size: 2em auto;
     cursor: pointer;
+}
+
+select option {
+    font-size: 40%;      /* smaller text */
+    line-height: 1.2em;  /* shrink spacing */
 }
 
 input[type="date"], select {
@@ -231,7 +235,7 @@ input[type="file"] {
   display: block;
   max-width: 50%;
   max-height: fit-content ;
-  margin-top: 1em;
+  margin-top: var(--lijn-hoogte-l);
   object-fit: cover;
   border-radius: 8px;
   border: 2px solid #fff;

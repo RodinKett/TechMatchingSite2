@@ -67,7 +67,7 @@
             <img src="/afbeeldingen/upload-photo.svg" alt="Upload Profile">
             <span class="file-name">Upload profielfoto</span>
           </label>
-          <img class="preview-image" src="<%= user.profilePhoto %>">
+          <img id="previewImage" class="preview-image" src="<%= user.profilePhoto %>">
 
         </div>
       </div>
@@ -98,8 +98,7 @@
 
       <span></span>
 
-      <!-- CAR DATA -->
-
+      <!-- VOERTUIG DATA -->
       <div class="accordion">
         <h2 class="accordion-header">Voertuig</h2>
         <div class="accordion-content">
@@ -108,13 +107,13 @@
           <input id="jaartalVoertuig" type="number" name="jaartalVoertuig" value="<%= user.voertuig?.jaartal || '' %>" required min="1950" max="2025">
 
           <label for="merkVoertuig-api">Merk voertuig</label>
-          <select id="merkVoertuig-api" name="merkVoertuig-api">
-            <option value="<%= user.voertuig?.merk || '' %>"> <%= user.voertuig?.merk || "Select merk" %> </option>
+          <select id="merkVoertuig-api" name="merkVoertuig-api" data-huidig-merk="<%= user.voertuig?.merk || '' %>">
+            <option value="">Selecteer merk</option>
           </select>
 
-          <label for="voertuig-api">Voertuig</label>
-          <select id="voertuig-api" name="voertuig-api">
-            <option value="<%= user.voertuig?.model || '' %>"> <%= user.voertuig?.model || "Select model" %> </option>
+          <label for="voertuig-api">Model voertuig</label>
+          <select id="voertuig-api" name="voertuig-api" data-huidig-model="<%= user.voertuig?.model || '' %>" disabled>
+            <option value="">Selecteer model</option>
           </select>
 
           <input type="hidden" name="pk" id="pk" value="<%= user.voertuig?.pk || '' %>">
