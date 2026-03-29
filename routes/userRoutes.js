@@ -31,6 +31,8 @@ const { ObjectId } = require("mongodb"); // Voor MongoDB ObjectId
 const bcrypt = require("bcrypt"); // Voor wachtwoord hashing
 const validator = require("validator"); // Voor validatie en ontsmetten van input
 const { isLoggedIn } = require("../middleware/authMiddleware"); // Middleware voor authenticatie
+const upload = require("../middleware/upload");
+
 
 // ------------------- GET ROUTES -------------------
 
@@ -55,7 +57,7 @@ router.get("/updateAccount", isLoggedIn, async function(req, res) {
 // ------------------- POST ROUTES -------------------
 
 // Opslaan van aanvullende informatie van gebruiker
-router.post("/aanvullendeInformatie", isLoggedIn, async function(req, res) {
+router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profileFoto"), async function(req, res) {
   try {
     const errors = [];
 
@@ -124,80 +126,106 @@ router.post("/aanvullendeInformatie", isLoggedIn, async function(req, res) {
 });
 
 // Update van accountgegevens, inclusief optioneel wachtwoord
-router.post("/updateAccount", isLoggedIn, async function(req, res) {
-  const db = req.app.locals.db;
-  const users = db.collection("users");
-  const userId = new ObjectId(req.session.user.id);
+// Update van accountgegevens, inclusief optioneel wachtwoord
+router.post("/updateAccount", isLoggedIn, upload.single("profileFoto"), async function(req, res) {
+  try {
+    const db = req.app.locals.db;
+    const users = db.collection("users");
+    const userId = new ObjectId(req.session.user.id);
 
-  const user = await users.findOne({ _id: userId });
+    // Haal huidige gebruiker op
+    const user = await users.findOne({ _id: userId });
+    if (!user) return res.status(404).send("Gebruiker niet gevonden");
 
-  // Haal formuliervelden op
-  const username = req.body["update-gebruikersnaam"];
-  const email = req.body.email;
-  const phone = req.body["update-telefoonnummer"];
-  const dob = req.body.dob;
-  const gender = req.body["update-geslacht"];
+    // Formuliervelden ophalen
+    const username = req.body["update-gebruikersnaam"];
+    const email = req.body.email;
+    const phone = req.body["update-telefoonnummer"];
+    const dob = req.body.dob;
+    const gender = req.body["update-geslacht"];
 
-  const huidigWachtwoord = req.body["huidig-wachtwoord"];
-  const nieuwWachtwoord = req.body["nieuw-wachtwoord"];
-  const bevestigWachtwoord = req.body["bevestig-wachtwoord"];
+    const huidigWachtwoord = req.body["huidig-wachtwoord"];
+    const nieuwWachtwoord = req.body["nieuw-wachtwoord"];
+    const bevestigWachtwoord = req.body["bevestig-wachtwoord"];
 
-  // Controleer of gebruikersnaam of email al in gebruik is door anderen
-  const existingUser = await users.findOne({ username, _id: { $ne: userId } });
-  if (existingUser) return res.status(400).send("Gebruikersnaam is al in gebruik");
+    // Aanvullende velden
+    const skillLevel = req.body.skillLevel;
+    const jarenErvaring = req.body.jarenErvaring;
+    const specialisatie = req.body.specialisatie;
 
-  const existingEmail = await users.findOne({ email, _id: { $ne: userId } });
-  if (existingEmail) return res.status(400).send("Email is al geregistreerd");
+    const jaartalVoertuig = req.body.jaartalVoertuig;
+    const merkVoertuig = req.body["merkVoertuig-api"];
+    const voertuigModel = req.body["voertuig-api"];
+    const pk = req.body.pk;
+    const gewicht = req.body.gewicht;
+    const aandrijving = req.body.aandrijving;
+    const opmerkingen = req.body.aanvullendeOpmerkingen;
 
-  // Validatie telefoonnummer
-  if (!/^\+?[0-9]{7,15}$/.test(phone)) {
-    return res.status(400).send("Ongeldig telefoonnummer");
-  }
+    // Validatie van input
+    if (phone && !/^\+?[0-9]{7,15}$/.test(phone)) return res.status(400).send("Ongeldig telefoonnummer");
+    if (dob && !validator.isDate(dob)) return res.status(400).send("Ongeldige geboortedatum");
+    if (gender && !["man", "vrouw", "anders"].includes(gender)) return res.status(400).send("Ongeldig geslacht");
 
-  // Validatie geboortedatum
-  if (!validator.isDate(dob)) {
-    return res.status(400).send("Ongeldige geboortedatum");
-  }
-
-  // Validatie geslacht
-  if (!["man", "vrouw", "anders"].includes(gender)) {
-    return res.status(400).send("Ongeldig geslacht");
-  }
-
-  const updateData = {
-    username,
-    email,
-    phone,
-    dob,
-    gender
-  };
-
-  // Als wachtwoord wordt gewijzigd
-  if (nieuwWachtwoord) {
-    const match = await bcrypt.compare(huidigWachtwoord, user.password);
-
-    if (!match) {
-      return res.status(400).send("Huidig wachtwoord is onjuist");
+    // Controleer unieke username/email
+    if (username) {
+      const existingUser = await users.findOne({ username, _id: { $ne: userId } });
+      if (existingUser) return res.status(400).send("Gebruikersnaam is al in gebruik");
     }
 
-    if (nieuwWachtwoord !== bevestigWachtwoord) {
-      return res.status(400).send("Wachtwoorden komen niet overeen");
+    if (email) {
+      const existingEmail = await users.findOne({ email, _id: { $ne: userId } });
+      if (existingEmail) return res.status(400).send("Email is al geregistreerd");
     }
 
-    const hashedPassword = await bcrypt.hash(nieuwWachtwoord, 10);
-    updateData.password = hashedPassword;
+    // Bouw updateData dynamisch, merge met bestaande data
+    const updateData = {
+      username: username || user.username,
+      email: email || user.email,
+      phone: phone || user.phone,
+      dob: dob || user.dob,
+      gender: gender || user.gender,
+      skillLevel: skillLevel || user.skillLevel,
+      jarenErvaring: jarenErvaring || user.jarenErvaring,
+      specialisatie: specialisatie || user.specialisatie,
+      voertuig: {
+        ...user.voertuig,
+        jaartal: jaartalVoertuig ?? user.voertuig?.jaartal,
+        merk: merkVoertuig || user.voertuig?.merk,
+        model: voertuigModel || user.voertuig?.model,
+        pk: pk ?? user.voertuig?.pk,
+        gewicht: gewicht ?? user.voertuig?.gewicht,
+        aandrijving: aandrijving || user.voertuig?.aandrijving,
+        opmerkingen: opmerkingen || user.voertuig?.opmerkingen,
+      },
+    };
+
+    // Profielfoto verwerken als er een bestand is geüpload
+    if (req.file) {
+      updateData.profielFoto = req.file.filename;
+    }
+
+    // Wachtwoord wijzigen indien nodig
+    if (nieuwWachtwoord) {
+      if (!huidigWachtwoord) return res.status(400).send("Huidig wachtwoord is verplicht");
+      const match = await bcrypt.compare(huidigWachtwoord, user.password);
+      if (!match) return res.status(400).send("Huidig wachtwoord is onjuist");
+      if (nieuwWachtwoord !== bevestigWachtwoord) return res.status(400).send("Wachtwoorden komen niet overeen");
+
+      const hashedPassword = await bcrypt.hash(nieuwWachtwoord, 10);
+      updateData.password = hashedPassword;
+    }
+
+    // Update in database
+    await users.updateOne({ _id: userId }, { $set: updateData });
+
+    // Update sessie
+    req.session.user.username = updateData.username;
+
+    res.redirect("/");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Fout bij updaten accountgegevens");
   }
-
-  // Update gebruiker in de database
-  await users.updateOne(
-    { _id: userId },
-    { $set: updateData }
-  );
-
-  // Update sessie met nieuwe gebruikersnaam
-  req.session.user.username = username;
-
-  res.redirect("/");
 });
 
 // Exporteer router

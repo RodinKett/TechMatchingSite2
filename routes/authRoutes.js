@@ -56,31 +56,41 @@ router.post("/register", upload.single("profileFoto"), async function(req, res) 
     const db = req.app.locals.db;
     const users = db.collection("users");
 
-    // Haal formuliergegevens op
-    let username = req.body["reg-gebruikersnaam"];
-    let email = req.body.email;
-    let password = req.body["reg-password"];
+    // Formuliergegevens ophalen
+    const username = validator.escape(req.body["reg-gebruikersnaam"]);
+    const email = req.body.email;
+    const password = req.body["reg-password"];
+    const phone = req.body["reg-telefoonnummer"];
+    const dob = req.body["reg-geboortedatum"];
+    const gender = req.body["reg-geslacht"];
+    const profileFoto = req.file ? req.file.filename : null;
 
-    // Controleer of de gebruikersnaam al bestaat
+    // Check bestaande gebruiker
     const existingUser = await users.findOne({ username });
     if (existingUser) return res.status(400).send("Gebruikersnaam bestaat al");
 
-    // Hash het wachtwoord
+    // Wachtwoord hashen
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Sla de gebruiker op in de database
+    // Nieuwe gebruiker opslaan
     const result = await users.insertOne({
-      username: validator.escape(username), // ontsmet gebruikersnaam
+      username,
       email,
-      password: hashedPassword
+      password: hashedPassword,
+      phone,
+      dob,
+      gender,
+      profielFoto: profileFoto,
+      createdAt: new Date()
     });
 
-    // Sla de gebruiker op in de sessie
+    // Sessies
     req.session.user = {
       id: result.insertedId,
       username
     };
 
+    // Redirect naar aanvullende informatie (of homepagina)
     res.redirect("/aanvullendeInformatie");
 
   } catch (error) {

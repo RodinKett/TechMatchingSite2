@@ -1,10 +1,10 @@
 /**
  * Accordion & Profielfoto Preview Script
  * -----------------------
- * Dit script beheert:
- * 1. Het openen en sluiten van accordion-secties.
- * 2. Zodat slechts één accordion tegelijk open is.
- * 3. Preview van een geselecteerd profielbestand (image upload) voordat het wordt geüpload.
+ * 1. Openen en sluiten van accordion-secties
+ * 2. Slechts één accordion tegelijk open
+ * 3. Preview van geselecteerd profielbestand
+ * 4. Accordion hoogte automatisch aanpassen bij image load
  */
 
 // ------------------- Accordion Functionaliteit -------------------
@@ -12,8 +12,8 @@
 // Selecteer alle headers van accordions
 document.querySelectorAll(".accordion-header").forEach(header => {
   header.addEventListener("click", () => {
-    const accordion = header.parentElement; // Het accordion element zelf
-    const content = accordion.querySelector(".accordion-content"); // De content sectie
+    const accordion = header.parentElement; 
+    const content = accordion.querySelector(".accordion-content");
 
     // Sluit andere open accordions
     document.querySelectorAll(".accordion").forEach(other => {
@@ -27,10 +27,8 @@ document.querySelectorAll(".accordion-header").forEach(header => {
     accordion.classList.toggle("open");
 
     if (accordion.classList.contains("open")) {
-      // Openen: stel maxHeight in op scrollHeight voor animatie
       content.style.maxHeight = content.scrollHeight + "px";
     } else {
-      // Sluiten: reset maxHeight
       content.style.maxHeight = null;
     }
   });
@@ -43,7 +41,6 @@ document.querySelectorAll(".accordion.open .accordion-content").forEach(content 
 
 // ------------------- Profielfoto Preview -------------------
 
-// Selecteer file input en preview image element
 const fileInput = document.getElementById("upload-profiel");
 const preview = document.getElementById("previewImage");
 
@@ -53,11 +50,20 @@ fileInput.addEventListener("change", function () {
   if (file) {
     const reader = new FileReader();
 
-    // Zodra het bestand is ingelezen, stel het in als bron van de preview afbeelding
     reader.addEventListener("load", function () {
       preview.src = reader.result;
     });
 
-    reader.readAsDataURL(file); // Lees bestand als data URL
+    reader.readAsDataURL(file);
+  }
+});
+
+// ------------------- Update Accordion Height When Image Loads -------------------
+
+preview.addEventListener("load", () => {
+  const accordionContent = preview.closest(".accordion-content");
+  const accordion = preview.closest(".accordion");
+  if (accordion.classList.contains("open")) {
+    accordionContent.style.maxHeight = accordionContent.scrollHeight + "px";
   }
 });

@@ -19,14 +19,20 @@
     --kleur-chatbericht-hun:hsl(0deg 0% 100%);
     --kleur-corner-border:hsl(0deg 0% 100%);
     --kleur-blok-matching: hsl(204deg 55% 18%);
+    --kleur-placeholder-text: hsl(0deg 0% 75%);
 
     /* Font */
     --font-size-form-title: 3rem;
     --font-size-form-label: 2.5rem;
-    --font-size-form-lnput: 2rem;
+    --font-size-form-input: 2rem;
     --font-size-normal: 2rem;
     --font-family-kopjes: arial, sans-serif;    /* Racing Sans One */
     --font-family-text: arial, sans-serif;      /*   Nunito Sans   */
+
+    /* Border variable                          border: var(--border-width-input) var(--border-style-input) var(--border-color-input); */
+    --border-color-input: hsl(0deg 0% 100%);
+    --border-width-input: 3px;
+    --border-style-input: solid;
 
     /* Ruimte tussen de ruimtes */
     --lijn-hoogte-s: 1rem;
@@ -82,4 +88,41 @@
     --wit-ruimte-xl-s: 8em 1em;
     --wit-ruimte-xl-m: 8em 2em;
     --wit-ruimte-xl-l: 8em 4em;
+}
+
+/* ------------------- Buttons ------------------- */
+button {
+    width: 100%;
+    background: white;
+    color: hsl(202deg 26% 12%);
+    padding: var(--wit-ruimte-s-m);
+    font-size: var(--font-size-normal);
+    cursor: pointer;
+    font-family: var(--font-family-kopjes);
+}
+
+.knop-primaire {
+  background: var(--kleur-accent);
+  color: white;
+  width: 50%;
+  align-self: flex-end;
+  border-radius: 0.5em;
+}
+
+.knop-secundaire {
+  background: lightgray;
+  width: 50%;
+  align-self: flex-start;
+  border-radius: 0.5em;
+}
+
+.knoppen-rij {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--lijn-hoogte-xl);
+}
+
+.knoppen-rij button {
+  width: 48%;
+  margin: 0;
 }
