@@ -159,6 +159,11 @@ app.get("/updateAccount", async (req, res) => {
 
 });
 
+app.get("/filter", (req, res) => {
+  res.render("Pages/filter");
+});
+
+
 
 
 
@@ -529,6 +534,16 @@ app.use(express.static(path.join(__dirname, "static")));
 
 app.get("/", (req, res) => {
   res.render("Pages/index");
+});
+
+
+app.get("/matching", (req, res) => {
+  res.render("Pages/matching");
+});
+
+app.get("/profiel", (req, res) => {
+  res.render("Pages/profiel");
+
 });
 
 app.get("/loadingpage", (req, res) => {
