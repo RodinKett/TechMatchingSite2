@@ -81,7 +81,7 @@ app.get("/api/car-brands", async (req, res) => {
 
     res.json(data.Makes);
   } catch (err) {
-    res.status(500).json({ error: "Failed to load brands" });
+    res.status(500).json({ error: "Het laden van merken is mislukt." });
   }
 });
 
@@ -98,7 +98,7 @@ app.get("/api/car-models/:make/:year", async (req, res) => {
 
     res.json(data.Models);
   } catch (err) {
-    res.status(500).json({ error: "Failed to load models" });
+    res.status(500).json({ error: "Modellen laden mislukt." });
   }
 });
 
@@ -115,7 +115,7 @@ app.get("/api/car-specs/:make/:model/:year", async (req, res) => {
 
     res.json(data.Trims);
   } catch (err) {
-    res.status(500).json({ error: "Failed to load specs" });
+    res.status(500).json({ error: "Specificaties laden mislukt" });
   }
 });
 
@@ -240,7 +240,7 @@ app.post("/register", upload.single("profileFoto"), async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Profile photo
-    const profilePhoto = req.file ? "/uploads/" + req.file.filename : null;
+    const profileFoto = req.file ? "/uploads/" + req.file.filename : null;
 
     // Insert user
     const result = await users.insertOne({
@@ -250,7 +250,7 @@ app.post("/register", upload.single("profileFoto"), async (req, res) => {
       password: hashedPassword,
       dob,
       gender,
-      profilePhoto,
+      profileFoto,
       createdAt: new Date(),
     });
 
@@ -433,9 +433,9 @@ app.post("/updateAccount", upload.single("profileFoto"), async (req, res) => {
   const dob = req.body.dob;
   const gender = req.body["update-geslacht"];
 
-  const currentPassword = req.body["current-password"];
-  const newPassword = req.body["update-password"];
-  const confirmPassword = req.body["update-password-confirm"];
+  const huidigWachtwoord = req.body["huidig-wachtwoord"];
+  const nieuwWachtwoord = req.body["nieuw-wachtwoord"];
+  const bevestigWachtwoord = req.body["bevestig-wachtwoord"];
 
   const existingUser = await users.findOne({ username, _id: { $ne: userId } });
   if (existingUser) return res.status(400).send("Gebruikersnaam is al in gebruik");
@@ -465,25 +465,25 @@ app.post("/updateAccount", upload.single("profileFoto"), async (req, res) => {
 
 
   // wachtwoord update
-if (newPassword && newPassword.length > 0) {
+if (nieuwWachtwoord && nieuwWachtwoord.length > 0) {
 
-  const match = await bcrypt.compare(currentPassword, user.password);
+  const match = await bcrypt.compare(huidigWachtwoord, user.password);
 
   if (!match) {
     return res.status(400).send("Huidig wachtwoord is onjuist");
   }
 
-  if (newPassword !== confirmPassword) {
+  if (nieuwWachtwoord !== bevestigWachtwoord) {
     return res.status(400).send("Wachtwoorden komen niet overeen");
   }
 
   const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$/;
 
-  if (!passwordPattern.test(newPassword)) {
+  if (!passwordPattern.test(nieuwWachtwoord)) {
     return res.status(400).send("Wachtwoord voldoet niet aan eisen");
   }
 
-  const hashedPassword = await bcrypt.hash(newPassword, 10);
+  const hashedPassword = await bcrypt.hash(nieuwWachtwoord, 10);
   updateData.password = hashedPassword;
 
 }
@@ -491,15 +491,15 @@ if (newPassword && newPassword.length > 0) {
   // profiel foto
   if (req.file) {
     // oude foto verwijderen
-    if (user.profilePhoto) {
-      const oldFile = path.basename(user.profilePhoto);
+    if (user.profileFoto) {
+      const oldFile = path.basename(user.profileFoto);
       const oldPath = path.join(__dirname, "static/uploads", oldFile);
 
       fs.unlink(oldPath, (err) => {
         if (err) console.log("Oude foto niet verwijderd:", err);
       });
     }
-    updateData.profilePhoto = "/uploads/" + req.file.filename;
+    updateData.profileFoto = "/uploads/" + req.file.filename;
   }
 
   await users.updateOne(
@@ -509,8 +509,8 @@ if (newPassword && newPassword.length > 0) {
 
   // Update session values
   req.session.user.username = username;
-  if (updateData.profilePhoto) {
-    req.session.user.profilePhoto = updateData.profilePhoto;
+  if (updateData.profileFoto) {
+    req.session.user.profileFoto = updateData.profileFoto;
   }
 
   res.redirect("/");

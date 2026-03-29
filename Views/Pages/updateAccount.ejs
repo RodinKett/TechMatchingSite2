@@ -37,14 +37,14 @@
           <label for="update-email">Email</label>
           <input id="update-email" type="email" name="email" value="<%= user.email %>" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
 
-          <label for="current-password">Huidig wachtwoord</label>
-          <input type="password" id="current-password" name="current-password" placeholder="Verplicht als je wachtwoord wilt wijzigen">
+          <label for="huidig-wachtwoord">Huidig wachtwoord</label>
+          <input type="password" id="huidig-wachtwoord" name="huidig-wachtwoord" placeholder="Verplicht als je wachtwoord wilt wijzigen">
 
-          <label for="update-password">Nieuw wachtwoord</label>
-          <input id="update-password" type="password" name="update-password" placeholder="Laat leeg als je niet wil wijzigen" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$" >
+          <label for="nieuw-wachtwoord">Nieuw wachtwoord</label>
+          <input id="nieuw-wachtwoord" type="password" name="nieuw-wachtwoord" placeholder="Laat leeg als je niet wil wijzigen" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$" >
 
-          <label for="update-password-confirm">Bevestig wachtwoord</label>
-          <input id="update-password-confirm" type="password" name="update-password-confirm" placeholder="Bevestig nieuw wachtwoord">
+          <label for="bevestig-wachtwoord">Bevestig wachtwoord</label>
+          <input id="bevestig-wachtwoord" type="password" name="bevestig-wachtwoord" placeholder="Bevestig nieuw wachtwoord">
 
           <label for="update-telefoonnummer">Telefoonnummer</label>
           <input id="update-telefoonnummer" type="tel" name="update-telefoonnummer" value="<%= user.phone %>" required pattern="^\+?[0-9]{7,15}$">
@@ -65,10 +65,10 @@
           <input type="file" id="upload-profiel" name="profileFoto" accept="image/*">
 
           <label for="upload-profiel" class="upload-label">
-            <img src="/afbeeldingen/upload-photo.svg" alt="Upload Profile">
+            <img src="/afbeeldingen/upload-photo.svg" alt="Upload Profiel foto">
             <span class="file-name">Upload profielfoto</span>
           </label>
-          <img id="previewImage" class="preview-image" src="<%= user.profilePhoto %>">
+          <img id="previewImage" class="voorbeeld-afbeelding" src="<%= user.profielFoto %>">
 
         </div>
       </div>
