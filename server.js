@@ -550,6 +550,10 @@ app.get("/loadingpage", (req, res) => {
   res.render("Pages/loadingpage");
 });
 
+app.get("/profiel", (req, res) => {
+  res.render("Pages/profiel");
+});
+
 
 async function startServer() {
   try {

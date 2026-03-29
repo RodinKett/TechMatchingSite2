@@ -1,3 +1,61 @@
-main {
+.body-matching {
+  padding: 0;
   background-color: var(--kleur-achtergrond);
+}
+
+#alle-info{
+  position: relative;
+}
+
+#main-matching {
+  margin: 0 2em;
+}
+
+#foto-section {
+  text-align: center;
+}
+
+#foto-section img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+}
+
+#border-links{
+  position: absolute;
+  top: 2em;
+}
+
+#border-rechts{
+  position: absolute;
+  right: 0;
+  bottom: 5%;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 1rem;
+
+}
+
+dt,
+dd {
+  color: var(--kleur-tekst);
+  text-align: center;
+}
+
+#naam-gebruiker {
+  color: var(--kleur-tekst);
+  margin: 1em 0;
+}
+
+.info-blok {
+  background-color: var(--kleur-blok-matching);
+
+}
+
+#tekst {
+  color: var(--kleur-tekst);
 }
