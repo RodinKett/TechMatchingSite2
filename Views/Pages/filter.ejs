@@ -5,14 +5,8 @@
     <title>EJS Is Fun</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/filter.css" />
-    <!-- CSS (load bootstrap from a CDN) -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css"
-    />
 
     <link rel="stylesheet" href="/style.css" />
-    <link rel="stylesheet" href="/footer.css" />
   </head>
   <body>
     <header><%- include('../partials/headerbasis'); %></header>
@@ -20,21 +14,129 @@
       <button id="button-filter">
         <p>Reset filters</p>
         <!-- data ophalen van hoeveelheid filters -->
-        <p>(4)</p>
+        <p id="telling-filter"></p>
       </button>
       <section id="parent-alles">
+
+
+               <!-- jaartal -->
+        <section class="filter-opties">
+          <button class="button">
+            Jaartal
+            <svg
+              class="pijltje"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="#fff"
+                fill-rule="evenodd"
+                d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+          <input
+            class="input-veld"
+            type="number"
+            name="jaartal"
+            placeholder="Bijv 2023"
+          />
+        </section>
+
+              <!-- vaardigheid -->
+        <section class="filter-opties">
+          <button class="button">
+            Vaardigheid
+            <svg
+              class="pijltje"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="#fff"
+                fill-rule="evenodd"
+                d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+
+          <label class="checkbox"><input type="checkbox" /> Beginner</label>
+          <label class="checkbox"><input type="checkbox" /> Bevorderd</label>
+          <label class="checkbox"><input type="checkbox" /> Ervaren</label>
+          <label class="checkbox"><input type="checkbox" /> Expert</label>
+        </section>
+
         <!-- wielaandrijving -->
         <section class="filter-opties">
-          <button class="button">Wielaanrijving</button>
+          <button class="button">
+            Wielaanrijving
+            <svg
+              class="pijltje"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="#fff"
+                fill-rule="evenodd"
+                d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
 
           <label class="checkbox"><input type="checkbox" /> FWD</label>
           <label class="checkbox"><input type="checkbox" /> RWD</label>
           <label class="checkbox"><input type="checkbox" /> AWD</label>
         </section>
 
+            <!-- Specialisatie -->
+        <section class="filter-opties">
+          <button class="button">Specialisatie
+            <svg
+            class="pijltje"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="#fff"
+              fill-rule="evenodd"
+              d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          </button>
+          
+
+          <label class="checkbox"><input type="checkbox" /> Driften</label>
+          <label class="checkbox"><input type="checkbox" /> Snelheid</label>
+          <label class="checkbox"><input type="checkbox" /> Donker</label>
+          <label class="checkbox"><input type="checkbox" /> ....</label>
+        </section>
+
         <!-- Vermogen apk -->
         <section class="filter-opties">
-          <button class="button">Vermogen APK</button>
+          <button class="button">
+            Vermogen APK
+            <svg
+              class="pijltje"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="#fff"
+                fill-rule="evenodd"
+                d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
           <!-- van -->
           <section class="van-tot">
             <select class="input-veld">
@@ -56,29 +158,28 @@
           </section>
         </section>
 
-        <!-- jaartal -->
-        <section class="filter-opties">
-          <button class="button">Jaartal</button>
-          <input
-            class="input-veld"
-            type="number"
-            name="jaartal"
-            placeholder="Bijvoorbeeld 2023"
-          />
-        </section>
-        <!-- vaardigheid -->
-        <section class="filter-opties">
-          <button class="button">Vaardigheid</button>
-
-          <label class="checkbox"><input type="checkbox" /> Beginner</label>
-          <label class="checkbox"><input type="checkbox" /> Bevorderd</label>
-          <label class="checkbox"><input type="checkbox" /> Ervaren</label>
-          <label class="checkbox"><input type="checkbox" /> Expert</label>
-        </section>
+ 
+  
 
         <!-- Ervaring -->
         <section class="filter-opties">
-          <button class="button">Jaren ervaring</button>
+          <button class="button">
+            Jaren ervaring
+            <svg
+              class="pijltje"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="#fff"
+                fill-rule="evenodd"
+                d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+
           <input
             class="input-veld"
             type="number"
@@ -88,10 +189,26 @@
         </section>
 
         <!-- win rate -->
-        <section class="filter-opties">
-          <button class="button">Win rate</button>
+        <!-- <section class="filter-opties">
+          <button class="button">
+            Win rate
+            <svg
+              class="pijltje"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="#fff"
+                fill-rule="evenodd"
+                d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button> -->
+
           <!-- van -->
-          <section class="van-tot">
+          <!-- <section class="van-tot">
             <select class="input-veld">
               <option value="">van</option>
               <option value="0%">0%</option>
@@ -99,10 +216,10 @@
               <option value="40%">40%</option>
               <option value="60%">60%</option>
               <option value="80%">80%</option>
-            </select>
+            </select> -->
 
             <!-- tot -->
-            <select class="input-veld">
+            <!-- <select class="input-veld">
               <option value="">tot</option>
               <option value="20%">20%</option>
               <option value="40%">40%</option>
@@ -111,20 +228,28 @@
               <option value="100%">100%</option>
             </select>
           </section>
-        </section>
+        </section> -->
 
-        <!-- Specialisatie -->
-        <section class="filter-opties">
-          <button class="button">Specialisatie</button>
-          <label class="checkbox"><input type="checkbox" /> Driften</label>
-          <label class="checkbox"><input type="checkbox" /> Snelheid</label>
-          <label class="checkbox"><input type="checkbox" /> Donker</label>
-          <label class="checkbox"><input type="checkbox" /> ....</label>
-        </section>
+    
 
         <!-- Mods -->
         <section class="filter-opties">
-          <button class="button">Mods</button>
+          <button class="button">
+            Mods
+            <svg
+              class="pijltje"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="#fff"
+                fill-rule="evenodd"
+                d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
           <label class="checkbox"><input type="checkbox" /> mod 1</label>
           <label class="checkbox"><input type="checkbox" /> mod 2</label>
           <label class="checkbox"><input type="checkbox" /> mod 3</label>
@@ -136,5 +261,6 @@
         <button>Resultaten weergeven</button>
       </section>
     </main>
+    <script src="/js/filter.js"></script>
   </body>
 </html>
