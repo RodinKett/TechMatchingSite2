@@ -209,7 +209,7 @@ app.post("/register", upload.single("profileFoto"), async (req, res) => {
     }
 
     // === Gender validation ===
-    if (!["man", "vrouw"].includes(gender)) {
+    if (!["man", "vrouw", "anders"].includes(gender)) {
       errors.push("Ongeldig geslacht.");
     }
 
@@ -451,7 +451,7 @@ app.post("/updateAccount", upload.single("profileFoto"), async (req, res) => {
     return res.status(400).send("Ongeldige geboortedatum");
   }
 
-  if (!["man","vrouw"].includes(gender)) {
+  if (!["man", "vrouw", "anders"].includes(gender)) {
     return res.status(400).send("Ongeldig geslacht");
   }
 
