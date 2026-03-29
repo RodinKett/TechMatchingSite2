@@ -1,44 +1,81 @@
+/**
+ * Auth Router
+ * -----------------------
+ * Dit bestand definieert de routes voor gebruikersauthenticatie en registratie.
+ * Het biedt de volgende functionaliteit:
+ * 
+ * 1. GET /login
+ *    - Render de loginpagina.
+ * 
+ * 2. GET /logout
+ *    - Logt de gebruiker uit door de sessie te vernietigen en redirect naar /login.
+ * 
+ * 3. POST /register
+ *    - Registreert een nieuwe gebruiker.
+ *    - Valideert of de gebruikersnaam al bestaat.
+ *    - Hash het wachtwoord met bcrypt.
+ *    - Slaat de gebruiker op in de database (MongoDB).
+ *    - Slaat de sessie op voor de nieuwe gebruiker.
+ * 
+ * 4. POST /login
+ *    - Logt een bestaande gebruiker in.
+ *    - Controleert of de gebruiker bestaat.
+ *    - Vergelijkt het opgegeven wachtwoord met het gehashte wachtwoord.
+ *    - Slaat de sessie op bij succesvolle login.
+ * 
+ * Middleware:
+ * - upload.single("profileFoto"): gebruikt voor het uploaden van een profielfoto bij registratie.
+ */
+
+
+
+
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt");
-const validator = require("validator");
-const upload = require("../middleware/upload");
+const bcrypt = require("bcrypt"); // Voor het hashen en vergelijken van wachtwoorden
+const validator = require("validator"); // Voor het ontsmetten van invoer (zoals gebruikersnaam)
+const upload = require("../middleware/upload"); // Middleware voor bestand uploaden
 
-// GET routes
+// GET loginpagina
 router.get("/login", function(req, res) {
-  res.render("Pages/Login");
+  res.render("Pages/Login"); // Render de loginpagina
 });
 
+// GET logout
 router.get("/logout", function(req, res) {
+  // Vernietig de sessie en redirect naar login
   req.session.destroy(function(err) {
     if (err) return res.status(500).send("Kan niet uitloggen");
     res.redirect("/login");
   });
 });
 
-
-// REGISTER
+// POST registratie van een nieuwe gebruiker
 router.post("/register", upload.single("profileFoto"), async function(req, res) {
   try {
-
     const db = req.app.locals.db;
     const users = db.collection("users");
 
+    // Haal formuliergegevens op
     let username = req.body["reg-gebruikersnaam"];
     let email = req.body.email;
     let password = req.body["reg-password"];
 
+    // Controleer of de gebruikersnaam al bestaat
     const existingUser = await users.findOne({ username });
     if (existingUser) return res.status(400).send("Gebruikersnaam bestaat al");
 
+    // Hash het wachtwoord
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Sla de gebruiker op in de database
     const result = await users.insertOne({
-      username: validator.escape(username),
+      username: validator.escape(username), // ontsmet gebruikersnaam
       email,
       password: hashedPassword
     });
 
+    // Sla de gebruiker op in de sessie
     req.session.user = {
       id: result.insertedId,
       username
@@ -52,24 +89,23 @@ router.post("/register", upload.single("profileFoto"), async function(req, res) 
   }
 });
 
-
-// LOGIN
+// POST login van een bestaande gebruiker
 router.post("/login", async function(req, res) {
   try {
-
     const db = req.app.locals.db;
     const users = db.collection("users");
 
     let { username, password } = req.body;
 
+    // Zoek de gebruiker op
     const user = await users.findOne({ username });
-
     if (!user) return res.status(400).send("Gebruiker niet gevonden");
 
+    // Vergelijk het ingevoerde wachtwoord met het gehashte wachtwoord
     const match = await bcrypt.compare(password, user.password);
-
     if (!match) return res.status(400).send("Wachtwoord fout");
 
+    // Sla de gebruiker op in de sessie
     req.session.user = {
       id: user._id,
       username: user.username
@@ -83,4 +119,5 @@ router.post("/login", async function(req, res) {
   }
 });
 
+// Exporteer de router
 module.exports = router;

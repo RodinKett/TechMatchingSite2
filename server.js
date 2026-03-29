@@ -1,10 +1,37 @@
-require("dotenv").config();
+/**
+ * Hoofdserverbestand (app.js)
+ * -----------------------
+ * Dit bestand start de Express-server, configureert middleware, routes en 
+ * verbindt met de MongoDB-database.
+ * 
+ * Functionaliteit:
+ * 1. Laadt environment variables via dotenv.
+ * 2. Verbindt met MongoDB en maakt de database beschikbaar via app.locals.db.
+ * 3. Configureert Express:
+ *    - Statische bestanden in "static" map
+ *    - EJS als view engine
+ *    - JSON- en URL-encoded body parsing
+ *    - Sessiebeheer met express-session
+ * 4. Importeert en gebruikt routes:
+ *    - /api -> apiRoutes
+ *    - / -> authRoutes & userRoutes
+ * 5. Definieert basisroutes:
+ *    - / -> indexpagina
+ *    - /loadingpage -> loadingpagina
+ * 6. Start de server op poort 3000
+ */
+
+
+
+
+require("dotenv").config(); // Load environment variables
 
 const path = require("path");
-const { MongoClient} = require("mongodb");
+const { MongoClient } = require("mongodb");
 const express = require("express");
 const session = require("express-session");
 
+// Routes importeren
 const apiRoutes = require("./routes/apiRoutes");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
@@ -12,30 +39,41 @@ const userRoutes = require("./routes/userRoutes");
 const app = express();
 const port = 3000;
 
+// MongoDB connectie instellen
 const uri = process.env.URI;
 const client = new MongoClient(uri);
 
-
+// ------------------- Middleware -------------------
+// Statische bestanden serveren vanuit de "static" map
 app.use(express.static(path.join(__dirname, "static")));
+
+// EJS als view engine instellen
 app.set("view engine", "ejs");
 
+// Body parsing middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Sessies configureren
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
+    secret: process.env.SESSION_SECRET, // secret voor sessie
+    resave: false, // sessie niet opnieuw opslaan als deze niet veranderd is
+    saveUninitialized: false, // niet opslaan van lege sessies
   }),
 );
 
-
+// ------------------- Routes -------------------
+// API routes
 app.use("/api", apiRoutes);
+
+// Auth routes (login, register, logout)
 app.use("/", authRoutes);
+
+// User routes (aanvullende info, update account)
 app.use("/", userRoutes);
 
-
+// Basis routes
 app.get("/", (req, res) => {
   res.render("Pages/index");
 });
@@ -44,14 +82,16 @@ app.get("/loadingpage", (req, res) => {
   res.render("Pages/loadingpage");
 });
 
-
+// ------------------- Server starten -------------------
 async function startServer() {
   try {
+    // Verbinden met MongoDB
     await client.connect();
-    app.locals.db = client.db("StreetracerApp");
+    app.locals.db = client.db("StreetracerApp"); // database beschikbaar maken in routes
 
     console.log("Connected to MongoDB");
 
+    // Server starten
     app.listen(port, () => {
       console.log(`Server running on http://localhost:${port}`);
     });
@@ -60,4 +100,5 @@ async function startServer() {
   }
 }
 
+// Start de server
 startServer();
