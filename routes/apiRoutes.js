@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/car-brands", async (req, res) => {
+// GET car brands
+router.get("/car-brands", async function(req, res) {
   try {
     const response = await fetch("https://www.carqueryapi.com/api/0.3/?cmd=getMakes");
     const text = await response.text();
@@ -13,8 +14,10 @@ router.get("/car-brands", async (req, res) => {
   }
 });
 
-router.get("/car-models/:make/:year", async (req, res) => {
-  const { make, year } = req.params;
+// GET car models for a specific make and year
+router.get("/car-models/:make/:year", async function(req, res) {
+  const make = req.params.make;
+  const year = req.params.year;
 
   try {
     const response = await fetch(
@@ -30,8 +33,11 @@ router.get("/car-models/:make/:year", async (req, res) => {
   }
 });
 
-router.get("/car-specs/:make/:model/:year", async (req, res) => {
-  const { make, model, year } = req.params;
+// GET car specs for a specific make, model, and year
+router.get("/car-specs/:make/:model/:year", async function(req, res) {
+  const make = req.params.make;
+  const model = req.params.model;
+  const year = req.params.year;
 
   try {
     const response = await fetch(

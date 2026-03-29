@@ -5,15 +5,12 @@ const bcrypt = require("bcrypt");
 const validator = require("validator");
 const { isLoggedIn } = require("../middleware/authMiddleware");
 
-
-
-
-router.get("/aanvullendeInformatie", isLoggedIn, (req, res) => {
+// GET routes
+router.get("/aanvullendeInformatie", isLoggedIn, function(req, res) {
   res.render("Pages/AanvullendeInformatie", { user: req.session.user });
 });
 
-
-router.get("/updateAccount", isLoggedIn, async (req, res) => {
+router.get("/updateAccount", isLoggedIn, async function(req, res) {
   const db = req.app.locals.db;
   const users = db.collection("users");
 
@@ -24,8 +21,8 @@ router.get("/updateAccount", isLoggedIn, async (req, res) => {
   res.render("Pages/updateAccount", { user });
 });
 
-
-router.post("/aanvullendeInformatie", isLoggedIn, async (req, res) => {
+// POST routes
+router.post("/aanvullendeInformatie", isLoggedIn, async function(req, res) {
   try {
     const errors = [];
 
@@ -91,8 +88,7 @@ router.post("/aanvullendeInformatie", isLoggedIn, async (req, res) => {
   }
 });
 
-
-router.post("/updateAccount", isLoggedIn, async (req, res) => {
+router.post("/updateAccount", isLoggedIn, async function(req, res) {
   const db = req.app.locals.db;
   const users = db.collection("users");
 
@@ -138,7 +134,6 @@ router.post("/updateAccount", isLoggedIn, async (req, res) => {
 
   // password update
   if (nieuwWachtwoord) {
-
     const match = await bcrypt.compare(huidigWachtwoord, user.password);
 
     if (!match) {
@@ -151,7 +146,6 @@ router.post("/updateAccount", isLoggedIn, async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(nieuwWachtwoord, 10);
     updateData.password = hashedPassword;
-
   }
 
   await users.updateOne(
@@ -163,6 +157,5 @@ router.post("/updateAccount", isLoggedIn, async (req, res) => {
 
   res.redirect("/");
 });
-
 
 module.exports = router;

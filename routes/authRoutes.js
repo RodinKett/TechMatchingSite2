@@ -5,12 +5,12 @@ const validator = require("validator");
 const upload = require("../middleware/upload");
 
 // GET routes
-router.get("/login", (req, res) => {
+router.get("/login", function(req, res) {
   res.render("Pages/Login");
 });
 
-router.get("/logout", (req, res) => {
-  req.session.destroy(err => {
+router.get("/logout", function(req, res) {
+  req.session.destroy(function(err) {
     if (err) return res.status(500).send("Kan niet uitloggen");
     res.redirect("/login");
   });
@@ -18,7 +18,7 @@ router.get("/logout", (req, res) => {
 
 
 // REGISTER
-router.post("/register", upload.single("profileFoto"), async (req, res) => {
+router.post("/register", upload.single("profileFoto"), async function(req, res) {
   try {
 
     const db = req.app.locals.db;
@@ -54,7 +54,7 @@ router.post("/register", upload.single("profileFoto"), async (req, res) => {
 
 
 // LOGIN
-router.post("/login", async (req, res) => {
+router.post("/login", async function(req, res) {
   try {
 
     const db = req.app.locals.db;
