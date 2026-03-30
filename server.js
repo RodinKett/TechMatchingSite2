@@ -120,11 +120,11 @@ app.get("/api/car-specs/:make/:model/:year", async (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.render("Pages/index");
+  res.render("pages/index");
 });
 
 app.get("/login", (req, res) => {
-  res.render("Pages/Login");
+  res.render("pages/Login");
 });
 
 app.get("/aanvullendeInformatie", (req, res) => {
@@ -132,7 +132,7 @@ app.get("/aanvullendeInformatie", (req, res) => {
     return res.redirect("/login");
   }
 
-  res.render("Pages/AanvullendeInformatie", { user: req.session.user });
+  res.render("pages/AanvullendeInformatie", { user: req.session.user });
 });
 
 app.get("/logout", (req, res) => {
@@ -155,7 +155,7 @@ app.get("/updateAccount", async (req, res) => {
     _id: new ObjectId(req.session.user.id)
   });
 
-  res.render("Pages/updateAccount", { user });
+  res.render("pages/updateAccount", { user });
 
 });
 
@@ -528,11 +528,11 @@ if (nieuwWachtwoord && nieuwWachtwoord.length > 0) {
 app.use(express.static(path.join(__dirname, "static")));
 
 app.get("/", (req, res) => {
-  res.render("Pages/index");
+  res.render("pages/index");
 });
 
 app.get("/loadingpage", (req, res) => {
-  res.render("Pages/loadingpage");
+  res.render("pages/loadingpage");
 });
 
 
