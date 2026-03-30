@@ -1,0 +1,14 @@
+footer {
+  background-color: var(--kleur-footer-achtergrond);
+  position: sticky;
+  bottom: 0;
+  height: 4em;
+  
+}
+
+footer section {
+  display: flex;
+  justify-content: space-evenly; 
+  align-items: center; 
+  height: 100%;          
+}
