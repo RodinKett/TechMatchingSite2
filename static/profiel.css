@@ -22,16 +22,17 @@
   margin: 1rem auto;
 }
 
-#border-links{
-  position: absolute;
-  top: 2em;
+#naam-edit-profiel{
+  display: flex;
+  justify-content: space-between;
+
 }
 
-#border-rechts{
-  position: absolute;
-  right: 0;
-  bottom: 5%;
+#edit-profiel{
+  width: 2em;
+
 }
+
 
 dl {
   display: grid;
