@@ -50,7 +50,8 @@ app.use(express.static(path.join(__dirname, "static")));
 // EJS als view engine instellen
 app.set("view engine", "ejs");
 
-// Body parsing middleware
+// Body parsing middleware       
+// Body parsing middleware leest en converteert de request body (bijv. JSON of form-data) naar een bruikbaar object voor de server.
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -75,11 +76,11 @@ app.use("/", userRoutes);
 
 // Basis routes
 app.get("/", (req, res) => {
-  res.render("Pages/index");
+  res.render("pages/index");
 });
 
 app.get("/loadingpage", (req, res) => {
-  res.render("Pages/loadingpage");
+  res.render("pages/loadingpage");
 });
 
 // ------------------- Server starten -------------------

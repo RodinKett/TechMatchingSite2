@@ -38,7 +38,7 @@ const upload = require("../middleware/upload"); // Middleware voor bestand uploa
 
 // GET loginpagina
 router.get("/login", function(req, res) {
-  res.render("Pages/Login"); // Render de loginpagina
+  res.render("pages/login"); // Render de loginpagina
 });
 
 // GET logout

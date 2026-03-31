@@ -7,7 +7,7 @@
  * Functionaliteit:
  * 1. Opslaglocatie: "static/uploads/"
  * 2. Bestandsnaam: Unieke naam gebaseerd op timestamp + random nummer + originele extensie
- * 3. File filter: Alleen afbeeldingen worden toegestaan (mime type start met "image/")
+ * 3. File filter: Alleen afbeeldingen worden toegestaan (mime type start met "image/"),(Een MIME-type beschrijft het soort bestand dat wordt verstuurd of geüpload.)
  * 
  * Gebruik:
  * const upload = require("../middleware/upload");

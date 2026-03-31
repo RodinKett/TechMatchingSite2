@@ -38,7 +38,7 @@ const upload = require("../middleware/upload");
 
 // Render pagina voor aanvullende informatie
 router.get("/aanvullendeInformatie", isLoggedIn, function(req, res) {
-  res.render("Pages/AanvullendeInformatie", { user: req.session.user });
+  res.render("pages/aanvullendeInformatie", { user: req.session.user });
 });
 
 // Render pagina om accountgegevens te updaten
@@ -51,7 +51,7 @@ router.get("/updateAccount", isLoggedIn, async function(req, res) {
     _id: new ObjectId(req.session.user.id)
   });
 
-  res.render("Pages/updateAccount", { user });
+  res.render("pages/updateAccount", { user });
 });
 
 // ------------------- POST ROUTES -------------------
