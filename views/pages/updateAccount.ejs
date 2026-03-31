@@ -32,10 +32,10 @@
         <div class="accordion-content">
 
           <label for="update-gebruikersnaam">Gebruikersnaam</label>
-          <input id="update-gebruikersnaam" type="text" name="update-gebruikersnaam" value="<%= user.username %>" required pattern="^[a-zA-Z0-9_-]{3,30}$">
+          <input id="update-gebruikersnaam" type="text" name="update-gebruikersnaam" value="<%= user.username %>"  pattern="^[a-zA-Z0-9_-]{3,30}$">
 
           <label for="update-email">Email</label>
-          <input id="update-email" type="email" name="email" value="<%= user.email %>" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+          <input id="update-email" type="email" name="email" value="<%= user.email %>"  pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
 
           <label for="huidig-wachtwoord">Huidig wachtwoord</label>
           <input type="password" id="huidig-wachtwoord" name="huidig-wachtwoord" placeholder="Verplicht als je wachtwoord wilt wijzigen">
@@ -47,10 +47,10 @@
           <input id="bevestig-wachtwoord" type="password" name="bevestig-wachtwoord" placeholder="Bevestig nieuw wachtwoord">
 
           <label for="update-telefoonnummer">Telefoonnummer</label>
-          <input id="update-telefoonnummer" type="tel" name="update-telefoonnummer" value="<%= user.phone %>" required pattern="^\+?[0-9]{7,15}$">
+          <input id="update-telefoonnummer" type="tel" name="update-telefoonnummer" value="<%= user.phone %>" pattern="^\+?[0-9]{7,15}$">
 
           <label for="update-geboortedatum">Geboortedatum</label>
-          <input id="update-geboortedatum" type="date" name="dob" value="<%= user.dob %>" required>
+          <input id="update-geboortedatum" type="date" name="dob" value="<%= user.dob %>">
 
           <label for="update-geslacht">Geslacht</label>
           <select id="update-geslacht" name="update-geslacht">
@@ -65,10 +65,10 @@
           <input type="file" id="upload-profiel" name="profileFoto" accept="image/*">
 
           <label for="upload-profiel" class="upload-label">
-            <img src="/afbeeldingen/upload-photo.svg" alt="Upload Profiel foto">
+            <img src="afbeeldingen/upload-photo.svg" alt="Upload Profiel foto">
             <span class="file-name">Upload profielfoto</span>
           </label>
-          <img id="previewImage" class="voorbeeld-afbeelding" src="<%= user.profielFoto %>">
+          <img id="previewImage" class="voorbeeld-afbeelding" src="/uploads/<%= user.profielFoto %>">
 
         </div>
       </div>
@@ -81,7 +81,7 @@
         <h2 class="accordion-header">Aanvullende persoons gegevens</h2>
         <div class="accordion-content">
 
-          <label for="skillLevel">Skill level</label>
+          <label for="skillLevel">Vaardigheid</label>
           <select id="skillLevel" name="skillLevel">
             <option value="beginer" <%=user.skillLevel==="beginer" ? "selected" : "" %>> Beginner </option>
             <option value="bekend" <%=user.skillLevel==="bekend" ? "selected" : "" %>> Bekend </option>
@@ -105,7 +105,7 @@
         <div class="accordion-content">
 
           <label for="jaartalVoertuig">Jaartal voertuig</label>
-          <input id="jaartalVoertuig" type="number" name="jaartalVoertuig" value="<%= user.voertuig?.jaartal || '' %>" required min="1950" max="2025">
+          <input id="jaartalVoertuig" type="number" name="jaartalVoertuig" value="<%= user.voertuig?.jaartal || '' %>" min="1950" max="2025">
 
           <label for="merkVoertuig-api">Merk voertuig</label>
           <select id="merkVoertuig-api" name="merkVoertuig-api" data-huidig-merk="<%= user.voertuig?.merk || '' %>">

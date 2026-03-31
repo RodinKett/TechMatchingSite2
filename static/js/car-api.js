@@ -1,3 +1,16 @@
+/**
+ * Car Select Script
+ * -----------------------
+ * Dit script beheert de dynamische selectie van voertuigen in een formulier.
+ * Functionaliteit:
+ * 1. Laad merken vanuit de API (/api/car-brands)
+ * 2. Laad modellen afhankelijk van geselecteerd merk en jaartal (/api/car-models/:make/:year)
+ * 3. Laad voertuig-specificaties zoals pk, gewicht en aandrijving (/api/car-specs/:make/:model/:year)
+ * 4. Zorgt voor automatische selectie van reeds opgeslagen waarden van de gebruiker
+ * 5. Beheert event listeners voor selectie van merk, model en jaartal
+ */
+
+// HTML elementen ophalen
 const merkSelect = document.getElementById("merkVoertuig-api");
 const modelSelect = document.getElementById("voertuig-api");
 const jaartalInput = document.getElementById("jaartalVoertuig");
@@ -6,12 +19,14 @@ const pkInput = document.getElementById("pk");
 const gewichtInput = document.getElementById("gewicht");
 const aandrijvingInput = document.getElementById("aandrijving");
 
-// Haal opgeslagen waarden van de gebruiker uit de HTML (data attributes of hidden inputs)
+// Opgeslagen waarden van de gebruiker ophalen (via data attributes of hidden inputs)
 const huidigMerk = merkSelect.dataset.huidigMerk || "";
 const huidigModel = modelSelect.dataset.huidigModel || "";
 const huidigJaartal = jaartalInput.value || "";
 
-// Laad merken
+// ------------------- Functies -------------------
+
+// Laad alle automerken van de API
 async function laadMerken() {
   const response = await fetch("/api/car-brands");
   const merken = await response.json();
@@ -31,13 +46,13 @@ async function laadMerken() {
     merkSelect.appendChild(optie);
   });
 
-  // Als er een huidig merk is, laad meteen de modellen
+  // Als er een huidig merk is en jaartal, laad meteen de modellen
   if (merkSelect.value && huidigJaartal) {
     await laadModellen(merkSelect.value, huidigJaartal);
   }
 }
 
-// Laad modellen functie
+// Laad modellen voor een bepaald merk en jaar
 async function laadModellen(merk, jaartal) {
   const response = await fetch(`/api/car-models/${merk}/${jaartal}`);
   const modellen = await response.json();
@@ -71,20 +86,22 @@ async function laadModellen(merk, jaartal) {
   }
 }
 
-// Laad specificaties functie
+// Laad specificaties van een voertuig (trim)
 async function laadSpecificaties(merk, model, jaartal) {
   const response = await fetch(`/api/car-specs/${merk}/${model}/${jaartal}`);
   const trims = await response.json();
 
   if (trims.length > 0) {
-    const auto = trims[0];
+    const auto = trims[0]; // Pak de eerste trim
     pkInput.value = auto.model_engine_power_ps;
     gewichtInput.value = auto.model_weight_kg;
     aandrijvingInput.value = auto.model_drive;
   }
 }
 
-// Event listeners
+// ------------------- Event Listeners -------------------
+
+// Wanneer merk verandert
 merkSelect.addEventListener("change", async () => {
   const merk = merkSelect.value;
   const jaartal = jaartalInput.value;
@@ -100,11 +117,13 @@ merkSelect.addEventListener("change", async () => {
   await laadModellen(merk, jaartal);
 });
 
+// Wanneer jaartal verandert, reset modellen
 jaartalInput.addEventListener("change", () => {
   modelSelect.innerHTML = `<option value="">Selecteer model</option>`;
   modelSelect.disabled = true;
 });
 
+// Wanneer jaartal verandert, laad modellen als merk geselecteerd is
 jaartalInput.addEventListener("change", async () => {
   const merk = merkSelect.value;
   const jaartal = jaartalInput.value;
@@ -113,6 +132,7 @@ jaartalInput.addEventListener("change", async () => {
   }
 });
 
+// Wanneer model verandert, laad specificaties
 modelSelect.addEventListener("change", async () => {
   const merk = merkSelect.value;
   const model = modelSelect.value;
@@ -121,5 +141,5 @@ modelSelect.addEventListener("change", async () => {
   await laadSpecificaties(merk, model, jaartal);
 });
 
-// Start
-laadMerken();
+// ------------------- Start -------------------
+laadMerken(); // Start met merken laden
