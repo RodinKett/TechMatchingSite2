@@ -73,14 +73,14 @@ input:focus {
 }
 
 input::placeholder {
-  color: hsl(0deg 0% 75%);
+  color: var(--kleur-placeholder-text);
 }
 
 button {
     margin-top: var(--lijn-hoogte-xl);
     width: 100%;
-    background: hsl(0deg 0% 100%);
-    color: hsl(202deg 26% 12%);
+    background: var(--kleur-secundair-button-bg);
+    color: var(--kleur-secundair-button-text);
     padding: var(--wit-ruimte-s-m);
     font-size: var(--font-size-normal);
     cursor: pointer;
@@ -88,8 +88,8 @@ button {
 }
 
 .knop-primaire {
-  background: var(--kleur-accent);
-  color: hsl(0deg 0% 100%);
+  background: var(--kleur-primair-button-bg);
+  color: var(--kleur-primair-button-text);
   width: 50%;
   align-self: flex-end;
   border-radius: 0.5em;
