@@ -368,6 +368,21 @@ app.get("/profiel", (req, res) => {
 });
 
 
+
+// matching profiel ophalen
+// Route die 1 profiel terugstuurt
+app.get("/api/profiel", async (req, res) => {
+
+  // Gebruik MongoDB aggregate om een RANDOM document te pakken
+  const profiel = await User.aggregate([
+    { $sample: { size: 1 } } // pak 1 willekeurig profiel
+  ]);
+
+  // Stuur het eerste (en enige) profiel terug als JSON
+  res.json(profiel[0]);
+});
+
+
 async function startServer() {
   try {
     await client.connect();

@@ -1,18 +1,5 @@
 
 
-// Route die 1 profiel terugstuurt
-app.get("/api/profiel", async (req, res) => {
-
-  // Gebruik MongoDB aggregate om een RANDOM document te pakken
-  const profiel = await User.aggregate([
-    { $sample: { size: 1 } } // pak 1 willekeurig profiel
-  ]);
-
-  // Stuur het eerste (en enige) profiel terug als JSON
-  res.json(profiel[0]);
-});
-
-
 
 // Deze functie haalt een profiel op van de server
 async function laadProfiel() {
@@ -54,47 +41,7 @@ async function laadProfiel() {
 laadProfiel();
 }
 
-
-
-// Deze functie haalt een profiel op van de server
-async function laadProfiel() {
-
-  // Vraag data op van je API
-  const res = await fetch("/api/profiel");
-
-  // Zet response om naar JSON
-  const p = await res.json();
-
-  // Zet username in de HTML
-  document.getElementById("naam-gebruiker").textContent = p.username;
-
-  // Zet profielfoto
-  document.querySelector("#foto-section img").src = p.profilePhoto;
-
-  // Zet voertuig naam (als die bestaat)
-  document.querySelectorAll("dd")[0].textContent =
-    p.voertuig?.naam || "-";
-
-  // Zet pk
-  document.querySelectorAll("dd")[1].textContent =
-    p.voertuig?.pk || "-";
-
-  // Zet jaar (optioneel)
-  document.querySelectorAll("dd")[2].textContent =
-    p.voertuig?.jaar || "-";
-
-  // Zet specialisatie
-  document.querySelectorAll("dd")[3].textContent =
-    p.specialisatie || "-";
-
-  // Zet ervaring
-  document.querySelectorAll("dd")[4].textContent =
-    p.jarenErvaring + " jaar" || "-";
-}
-
-// Laad meteen een profiel als pagina opent
-laadProfiel();
-
+const card = document.getElementById("card");
 
 // nieuw profiel laden
 function resetCard() {
