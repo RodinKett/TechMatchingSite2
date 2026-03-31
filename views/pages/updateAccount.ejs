@@ -46,20 +46,8 @@
           <label for="bevestig-wachtwoord">Bevestig wachtwoord</label>
           <input id="bevestig-wachtwoord" type="password" name="bevestig-wachtwoord" placeholder="Bevestig nieuw wachtwoord">
 
-          <label for="update-telefoonnummer">Telefoonnummer</label>
-          <input id="update-telefoonnummer" type="tel" name="update-telefoonnummer" value="<%= user.phone %>" pattern="^\+?[0-9]{7,15}$">
-
           <label for="update-geboortedatum">Geboortedatum</label>
           <input id="update-geboortedatum" type="date" name="dob" value="<%= user.dob %>">
-
-          <label for="update-geslacht">Geslacht</label>
-          <select id="update-geslacht" name="update-geslacht">
-            <option value="man" <%=user.gender==="man" ? "selected" : "" %>> Man </option>
-            <option value="vrouw" <%=user.gender==="vrouw" ? "selected" : "" %>> Vrouw </option>
-            <option value="anders" <%=user.gender==="anders" ? "selected" : "" %>> Anders </option>
-          </select>
-
-
 
           <label for="upload-profiel">Upload profielfoto</label>
           <input type="file" id="upload-profiel" name="profileFoto" accept="image/*">
@@ -80,13 +68,6 @@
       <div class="accordion">
         <h2 class="accordion-header">Aanvullende persoons gegevens</h2>
         <div class="accordion-content">
-
-          <label for="skillLevel">Vaardigheid</label>
-          <select id="skillLevel" name="skillLevel">
-            <option value="beginer" <%=user.skillLevel==="beginer" ? "selected" : "" %>> Beginner </option>
-            <option value="bekend" <%=user.skillLevel==="bekend" ? "selected" : "" %>> Bekend </option>
-            <option value="expert" <%=user.skillLevel==="expert" ? "selected" : "" %>> Expert </option>
-          </select>
 
           <label for="jarenErvaring">Jaren ervaring</label>
           <input id="jarenErvaring" type="number" name="jarenErvaring" value="<%= user.jarenErvaring %>" requiredmin="0" max="99">
@@ -121,7 +102,7 @@
           <input type="hidden" name="gewicht" id="gewicht" value="<%= user.voertuig?.gewicht || '' %>">
           <input type="hidden" name="aandrijving" id="aandrijving" value="<%= user.voertuig?.aandrijving || '' %>">
 
-          <label for="aanvullendeOpmerkingen">Aanvullende opmerkingen</label>
+          <label for="aanvullendeOpmerkingen">Over mij</label>
           <input id="aanvullendeOpmerkingen" type="text" name="aanvullendeOpmerkingen" value="<%= user.voertuig?.opmerkingen || '' %>" pattern="^[a-zA-Z0-9\s.,!?]{0,150}$">
 
         </div>

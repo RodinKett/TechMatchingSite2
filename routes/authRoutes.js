@@ -60,9 +60,7 @@ router.post("/register", upload.single("profileFoto"), async function(req, res) 
     const username = validator.escape(req.body["reg-gebruikersnaam"]);
     const email = req.body.email;
     const password = req.body["reg-password"];
-    const phone = req.body["reg-telefoonnummer"];
     const dob = req.body["reg-geboortedatum"];
-    const gender = req.body["reg-geslacht"];
     const profileFoto = req.file ? req.file.filename : null;
 
     // Check bestaande gebruiker
@@ -77,9 +75,7 @@ router.post("/register", upload.single("profileFoto"), async function(req, res) 
       username,
       email,
       password: hashedPassword,
-      phone,
       dob,
-      gender,
       profielFoto: profileFoto,
       createdAt: new Date()
     });

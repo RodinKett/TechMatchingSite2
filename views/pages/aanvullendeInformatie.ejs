@@ -17,13 +17,6 @@
     <form id="formulier-aanvullende-gegevens" action="/aanvullendeInformatie" method="POST">
         <h2 id="titel-aanvullende-gegevens-stap1">Aanvullende persoons gegevens</h2>
 
-        <label for="skillLevel">Vaardigheid</label>    
-        <select id="skillLevel" name="skillLevel">
-          <option value="beginner" >Beginner</option>
-          <option value="bekend">Bekend</option>
-          <option value="expert">Expert</option>
-        </select>
-
         <label for="jarenErvaring">Jaren ervaring</label>
         <input id="jarenErvaring" type="number" name="jarenErvaring" required  min="0" max="99" >
 
@@ -51,7 +44,7 @@
         <input type="hidden" name="gewicht" id="gewicht">
         <input type="hidden" name="aandrijving" id="aandrijving">
 
-        <label for="aanvullendeOpmerkingen">Aanvullende opmerkingen</label>
+        <label for="aanvullendeOpmerkingen">Over mij</label>
         <input id="aanvullendeOpmerkingen" type="text" name="aanvullendeOpmerkingen" pattern="^[a-zA-Z0-9\s.,!?]{0,150}$">
 
         

@@ -62,7 +62,6 @@ router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profileFoto"), 
     const errors = [];
 
     // Haal formuliergegevens op
-    const skillLevel = req.body.skillLevel;
     const jarenErvaring = req.body.jarenErvaring;
     const specialisatie = req.body.specialisatie;
 
@@ -76,10 +75,6 @@ router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profileFoto"), 
     const aandrijving = req.body.aandrijving;
 
     // Validatie van input
-    if (!["beginer", "bekend", "expert"].includes(skillLevel)) {
-      errors.push("Ongeldig skill level.");
-    }
-
     if (!/^[0-9]{1,2}$/.test(jarenErvaring)) {
       errors.push("Jaren ervaring moet 0-99 zijn.");
     }
@@ -101,7 +96,6 @@ router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profileFoto"), 
       { _id: userId },
       {
         $set: {
-          skillLevel,
           jarenErvaring,
           specialisatie,
           voertuig: {
@@ -140,19 +134,14 @@ router.post("/updateAccount", isLoggedIn, upload.single("profileFoto"), async fu
     // Formuliervelden ophalen
     const username = req.body["update-gebruikersnaam"];
     const email = req.body.email;
-    const phone = req.body["update-telefoonnummer"];
     const dob = req.body.dob;
-    const gender = req.body["update-geslacht"];
-
     const huidigWachtwoord = req.body["huidig-wachtwoord"];
     const nieuwWachtwoord = req.body["nieuw-wachtwoord"];
     const bevestigWachtwoord = req.body["bevestig-wachtwoord"];
 
     // Aanvullende velden
-    const skillLevel = req.body.skillLevel;
     const jarenErvaring = req.body.jarenErvaring;
     const specialisatie = req.body.specialisatie;
-
     const jaartalVoertuig = req.body.jaartalVoertuig;
     const merkVoertuig = req.body["merkVoertuig-api"];
     const voertuigModel = req.body["voertuig-api"];
@@ -162,9 +151,7 @@ router.post("/updateAccount", isLoggedIn, upload.single("profileFoto"), async fu
     const opmerkingen = req.body.aanvullendeOpmerkingen;
 
     // Validatie van input
-    if (phone && !/^\+?[0-9]{7,15}$/.test(phone)) return res.status(400).send("Ongeldig telefoonnummer");
     if (dob && !validator.isDate(dob)) return res.status(400).send("Ongeldige geboortedatum");
-    if (gender && !["man", "vrouw", "anders"].includes(gender)) return res.status(400).send("Ongeldig geslacht");
 
     // Controleer unieke username/email
     if (username) {
@@ -181,10 +168,7 @@ router.post("/updateAccount", isLoggedIn, upload.single("profileFoto"), async fu
     const updateData = {
       username: username || user.username,
       email: email || user.email,
-      phone: phone || user.phone,
       dob: dob || user.dob,
-      gender: gender || user.gender,
-      skillLevel: skillLevel || user.skillLevel,
       jarenErvaring: jarenErvaring || user.jarenErvaring,
       specialisatie: specialisatie || user.specialisatie,
       voertuig: {
