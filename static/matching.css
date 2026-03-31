@@ -3,8 +3,10 @@
   background-color: var(--kleur-achtergrond);
 }
 
-#alle-info{
+#card{
   position: relative;
+    transition: transform 0.3s ease; /* animatie */
+  touch-action: none; /* voorkomt scroll conflict */
 }
 
 #main-matching {
