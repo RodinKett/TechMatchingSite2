@@ -67,6 +67,10 @@ router.post("/register", upload.single("profileFoto"), async function(req, res) 
     const existingUser = await users.findOne({ username });
     if (existingUser) return res.status(400).send("Gebruikersnaam bestaat al");
 
+    if (email && !validator.isEmail(email)) {
+      return res.status(400).send("Ongeldig email adres");
+    }
+
     // Wachtwoord hashen
     const hashedPassword = await bcrypt.hash(password, 10);
 

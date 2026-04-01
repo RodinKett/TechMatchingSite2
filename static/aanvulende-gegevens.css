@@ -86,3 +86,7 @@ select option {
   font-size: 40%;      
   line-height: 1.2em;  
 }
+
+div label{
+  font-size: var(--font-size-normal);
+}
