@@ -3,10 +3,11 @@
   background-color: var(--kleur-achtergrond);
 }
 
-#card{
-  position: relative;
-    transition: transform 0.3s ease; /* animatie */
-  touch-action: none; /* voorkomt scroll conflict */
+#kaart {
+  width: 100%;
+  position: relative;       /* borders positioneren zich hierbinnen */
+  overflow: hidden;  
+  transition: transform 0.35s ease, opacity 0.35s ease;
 }
 
 #main-matching {
@@ -26,13 +27,14 @@
 
 #border-links{
   position: absolute;
-  top: 2em;
+  left: 0;
+  top: 0;
 }
 
 #border-rechts{
   position: absolute;
   right: 0;
-  bottom: 5%;
+  bottom: 0;
 }
 
 dl {
@@ -58,7 +60,7 @@ dd {
 
 }
 
-#tekst {
+.tekst {
   color: var(--kleur-tekst);
 }
 
@@ -85,4 +87,15 @@ dd {
   border-radius: 0.5em;
   width: 45%;
   height: 3em;
+}
+
+
+.kaart-swipe-left {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.kaart-swipe-right {
+  transform: translateX(100%);
+  opacity: 0;
 }

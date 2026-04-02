@@ -18,6 +18,10 @@ const port = 3000;
 const uri = process.env.URI;
 const client = new MongoClient(uri);
 
+
+// nodig om met hotspot te kunnen werken///////
+require("node:dns/promises").setServers(["1.1.1.1","8.8.8.8"]);
+//////////////////////////////////////////////////////
 app.use(express.static(path.join(__dirname, "static")));
 app.set("view engine", "ejs");
 app.use(express.json());
@@ -359,41 +363,54 @@ app.get("/", (req, res) => {
   res.render("Pages/index");
 });
 
-app.get("/matching", (req, res) => {
-  res.render("Pages/matching");
-});
-
 app.get("/profiel", (req, res) => {
   res.render("Pages/profiel");
 });
 
 
 
-// matching profiel ophalen
-// Route die 1 profiel terugstuurt
-app.get("/api/profiel", async (req, res) => {
 
-  // Gebruik MongoDB aggregate om een RANDOM document te pakken
-  const profiel = await User.aggregate([
-    { $sample: { size: 1 } } // pak 1 willekeurig profiel
-  ]);
 
-  // Stuur het eerste (en enige) profiel terug als JSON
-  res.json(profiel[0]);
+
+/////////matching profiel/////////
+
+app.get("/matching", (req, res) => {
+  res.render("Pages/matching");
 });
+
+
+
+
+
+
+app.get("/api/profiel", async (req, res) => {
+  try {
+    const db = client.db("StreetracerApp");
+    const gebruikers = db.collection("users");
+
+    const profiel = await gebruikers.aggregate([{ $sample: { size: 6 } }]).toArray();
+  console.log(profiel)  
+
+    res.json(profiel); // stuur JSON terug
+  } catch (err) {
+    console.error("Fout bij ophalen profiel:", err);
+    res.status(500).json({ error: "Kon profiel niet ophalen" });
+  }
+});
+
 
 
 async function startServer() {
   try {
     await client.connect();
-    console.log("Connected to MongoDB");
+    console.log("✅ MongoDB verbonden");
 
     app.listen(port, () => {
-      console.log(`Server running on http://localhost:${port}`);
+      console.log(`Server draait op http://localhost:${port}`);
     });
 
-  } catch (error) {
-    console.error("Failed to connect to MongoDB:", error);
+  } catch (err) {
+    console.error("❌ Fout bij verbinden met MongoDB:", err);
   }
 }
 

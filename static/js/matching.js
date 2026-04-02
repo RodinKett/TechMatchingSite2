@@ -1,62 +1,48 @@
-
-
-
-// Deze functie haalt een profiel op van de server
 async function laadProfiel() {
-
-  // Vraag data op van je API
   const res = await fetch("/api/profiel");
-
-  // Zet response om naar JSON
   const p = await res.json();
 
-  // Zet username in de HTML
-  document.getElementById("naam-gebruiker").textContent = p.username;
+  
 
-  // Zet profielfoto
-  document.querySelector("#foto-section img").src = p.profilePhoto;
+  document.getElementById("naam-gebruiker").textContent = p.username || "-";
 
-  // Zet voertuig naam (als die bestaat)
-  document.querySelectorAll("dd")[0].textContent =
-    p.voertuig?.naam || "-";
+  document.getElementById("profiel-foto").src =
+    p.profielFoto ? `/uploads/${p.profielFoto}` : "/img/default.png";
 
-  // Zet pk
-  document.querySelectorAll("dd")[1].textContent =
-    p.voertuig?.pk || "-";
+  document.getElementById("voertuig").textContent =
+    p.voertuig ? `${p.voertuig.merk} ${p.voertuig.model}` : "-";
 
-  // Zet jaar (optioneel)
-  document.querySelectorAll("dd")[2].textContent =
-    p.voertuig?.jaar || "-";
+  document.getElementById("pk").textContent = p.voertuig?.pk || "-";
+  document.getElementById("jaar").textContent = p.voertuig?.jaartal || "-";
 
-  // Zet specialisatie
-  document.querySelectorAll("dd")[3].textContent =
-    p.specialisatie || "-";
+  document.getElementById("specialisatie").textContent = p.specialisatie || "-";
+  document.getElementById("ervaring").textContent =
+    p.jarenErvaring ? `${p.jarenErvaring} jaar` : "-";
 
-  // Zet ervaring
-  document.querySelectorAll("dd")[4].textContent =
-    p.jarenErvaring + " jaar" || "-";
+  document.getElementById("win").textContent = p.win || "-";
+  document.getElementById("mods").textContent = p.mods || "-";
+
+  document.getElementById("opmerkingen").textContent =
+    p.opmerkingen || "-";
+}
 
 
-// Laad meteen een profiel als pagina opent
+
+
+///////code zodat de buttons de kaart naar links of naar rechts kunnen laten gaan////
+document.getElementById("button-volgende").addEventListener("click", laadProfiel);
+document.getElementById("button-challenge").addEventListener("click", laadProfiel);
 laadProfiel();
-}
 
-const card = document.getElementById("card");
+document.getElementById("button-volgende").addEventListener("click", async () => {
+  const card = document.getElementById("kaart");
+  card.classList.add("kaart-swipe-left");
+});
 
-// nieuw profiel laden
-function resetCard() {
 
-  // Zet animatie tijdelijk uit (anders glitch)
-  card.style.transition = "none";
-
-  // Zet kaart terug naar midden
-  card.style.transform = "translateX(0)";
-
-  // Haal nieuw profiel op
-  laadProfiel();
-
-  // Zet animatie weer aan
-  setTimeout(() => {
-    card.style.transition = "0.3s";
-  }, 50);
-}
+document.getElementById("button-challenge").addEventListener("click", async () => {
+  const card = document.getElementById("kaart");
+  card.classList.add("kaart-swipe-right");
+});
+// laad eerste profiel
+laadProfiel();

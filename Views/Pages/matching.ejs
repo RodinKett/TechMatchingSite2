@@ -18,14 +18,11 @@
     <header><%- include('../partials/headerbasis'); %></header>
 
     <main id="main-matching">
-      <section id="card">
+    
+      <div id="kaart">
         <section id="foto-section">
           
-          <p>rank 95</p>
-          <img
-            src="/afbeeldingen/lightning-mcqueen.png"
-            alt="Lightning McQueen"
-          />
+  <img id="profiel-foto" alt="Profielfoto">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="327"
@@ -37,7 +34,7 @@
               d="m173.913.003 152.173.002v4.961l-157.155-.002zM167.335 5.956l158.751.003v4.961l-163.948-.002zM152.174 10.917 0 10.915V5.954l157.155.002zM158.751 4.964 0 4.962V0l163.948.002z"
             />
           </svg>
-          <h2 id="naam-gebruiker">Lightning Mcqueen</h2>
+        <h2 id="naam-gebruiker">-</h2>
         </section>
         <section>
           <svg id="border-links" xmlns="http://www.w3.org/2000/svg" width="175" height="436" fill="none"><path fill="#fff" d="M169.383 4.778 0 4.776V0L174.93.002z"/><path fill="url(#a)" d="M.27 421.915V1.879h4.394v433.787z"/><defs><linearGradient id="a" x1="2.467" x2="2.471" y1="1.879" y2="435.666" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="#172127"/></linearGradient></defs></svg>
@@ -47,48 +44,50 @@
           <dl>
             <div class="info-blok">
               <dt>Voertuig:</dt>
-              <dd>Gen 4 NASCAR</dd>
+             <dd id="voertuig">-</dd>
             </div>
 
             <div class="info-blok">
               <dt>PK</dt>
-              <dd>260</dd>
+             <dd id="pk">-</dd>
             </div>
 
             <div class="info-blok">
               <dt>Jaar:</dt>
-              <dd>2006</dd>
+              <dd id="jaar">-</dd>
             </div>
 
             <div class="info-blok">
               <dt>Specialisatie:</dt>
-              <dd>Bochten</dd>
+             <dd id="specialisatie">-</dd>
+
             </div>
 
             <div class="info-blok">
               <dt>Ervaring:</dt>
-              <dd>20 jaar</dd>
+              <dd id="ervaring">-</dd>
+
             </div>
 
             <div class="info-blok">
               <dt>Win rate:</dt>
-              <dd>75%</dd>
+              <dd id="win">-</dd>
             </div>
 
             <div class="info-blok">
               <dt>Mods:</dt>
-              <dd>Stickers</dd>
+          <dd id="mods">-</dd>
+
             </div>
           </dl>
         </section>
 
         <section>
-          <h2 id="tekst">Opmerkingen:</h2>
-          <p id="tekst">
-            Ik race alleen in de avond en met intermediate+. Dus geen beginners
+          <h2 class="tekst">Opmerkingen:</h2>
+          <p class="tekst">-
           </p>
         </section>
-      </section>
+      </div>
 
       <!-- buttons voor matching -->
 
