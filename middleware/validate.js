@@ -8,10 +8,10 @@ function validate(req, res, next) {
 
   if (!errors.isEmpty()) {
     return res.status(400).render("pages/login", {
-      validationErrors: errors.mapped(),  // Andere naam gebruiken
+      errors: errors.mapped(),  // Dit is altijd een object
       old: req.body,
-      activeStep: 1,
-      submitted: true
+      submitted: true,
+      activeStep: 1
     });
   }
   next();
