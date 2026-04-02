@@ -77,75 +77,60 @@ app.get("/", (req, res) => {
 
 
 // Aanpassing Start hier
-// Note to self: vergeet niet wat data aan te passen
-// BRONVERMELDING: Voor de missende data en hulp met fouten corrigeren: CHATGPT, GEMNINI
-// Dat includes de username, spelers sort a en b en de || 0, jij als speler de req.session
+// BRONVERMELDING: Voor de missende data en hulp met fouten corrigeren: CHATGPT, co-pilot
+// Dat includes de username, spelers sort a en b en de math.floor, jij als speler de req.session
 app.get("/leaderbord", async (req, res) => {
   try {
-    const db = client.db("tech");
-    const gebruikers = db.collection("gebruikers");
+    const db = client.db("StreetracerApp");
+    const gebruikers = db.collection("users");
 
     const data = await gebruikers.find().toArray();
-    console.log(data);
 
-    const bepaalRang = (score) => {
-      if (score >= 5000) return "Expert";
-      if (score >= 1000) return "Ervaren";
-      if (score >= 100) return "Bevorderd"
+    const bepaalRang = (punten) => {
+      if (punten >= 5000) return "Expert";
+      if (punten >= 1000) return "Ervaren";
+      if (punten >= 100) return "Bevorderd"
       return "Beginner"
     };
 
+    // Maak een nieuw array 'spelers' met alle benodigde info
+    // Random wins, losses en ties genereren
     const spelers = data.map(user => {
-      const wins = user.Wins || 0;
-      const loss = user.Loss || 0;
-      const ties = user.Tie || 0;
+      const wins = Math.floor(Math.random() *90);
+      const loss = Math.floor(Math.random() *30);
+      const ties = Math.floor(Math.random() *50);
 
+      // Bereken totaal aantal games en punten
       const totaalGames = wins + loss + ties;
+      const punten = wins * 3 + ties * 1 - loss * 2;
+      const winstpercentage = totaalGames > 0 ? wins / totaalGames : 0;
 
-      // const winstpercentage = totaalGames > 0 ? (wins + 0.5 * ties) / totaalGames : 0;
-
-      const ruwePunten = wins * 3 + ties * 1;
-      const score = totaalGames > 0 ? ruwePunten / totaalGames : 0;
-
-      // const penalty = loss * 1;
-      // const score = ruwePunten / totaalGames;
-      // const score = (ruwePunten - penalty) * winstpercentage;
-
+      // Return een object met alle info die je in de EJS template nodig hebt
       return{
         id: user._id.toString(),
-
-        naam: user.username || user.Email?.split("@")[0] || "onbekend",
+        naam: user.username || "onbekend",
         gewonnen: wins,
         verloren: loss,
         gelijk: ties,
-        score,
-        rang: bepaalRang(score)
+        punten,
+        winstpercentage,
+        rang: bepaalRang(punten)
       };
     });
 
-    // spelers.sort((spelerHoger, spelerLager) => 
-    //   spelerLager.score - spelerHoger.score);
-
+    // Sorteer de spelers op punten, verlies en winstpercentage, dan naam
     spelers.sort((a, b) => {
-      const aScore = a.gewonnen * 3 + a.gelijk;
-      const bScore = b.gewonnen * 3 + b.gelijk;
-
-        if (bScore !== aScore) return bScore - aScore;
-      return a.loss - b.loss;
-    })
-
-    // spelers.sort((a, b) => {
-    //   // const aScore = a.gewonnen * 3 + a.gelijk;
-    //   // const bScore = b.gewonnen * 3 + b.gelijk;
-
-    //   if (b.Score !== a.Score) return b.Score - a.Score;
-    //   return a.loss - b.loss;
-    // });
+      if (b.punten !== a.punten) return b.punten - a.punten; // Hoogste punten eers
+      if (a.verloren !== b.verloren) return a.verloren - b.verloren; // Bij gelijk punten minst verloren eerst
+      if (b.winstpercentage !== a.winstpercentage) return b.winstpercentage - a.winstpercentage; // Bij gelijk punten & verlies: hoogste winrate eerst
+      return a.naam.localeCompare(b.naam); //Bij alles gelijk: alfabetisch
+    });
 
     spelers.forEach((speler, index) => {
       speler.rank = index + 1;
     });
 
+    // Vind de huidige ingelogde gebruiker (indien ingelogd)
     let jij = null;
 
     if (req.session.user) {

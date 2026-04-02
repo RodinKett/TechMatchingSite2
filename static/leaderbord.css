@@ -9,6 +9,7 @@
   --kleur-tekst-links-knop: hsl(204deg 55% 18%);
   --kleur-achtergrond-linker-knop: hsl(0deg 0% 100%);
   --kleur-achtergrond-blok-verzoek: hsl(204deg 55% 18%);
+  --kleur-achtergrond-blok: hsl(204deg 55% 18%);
   --kleur-tekst-inlog: hsl(0deg 0% 75%);
   --kleur-leaderbord-1: hsl(41deg 93% 52%);
   --kleur-leaderbord-2: hsl(206deg 4% 65%);
@@ -102,105 +103,190 @@ h1,
 p,
 span {
   color: #fff;
+  font-size: var(--font-size-normal)
 }
 
 p {
   font-family: var(--font-family-kopjes);
-  font-size: var(--font-size-normal);
 }
 
-span {
-  font-family: var(--font-size-form-title);
-  font-size: var(--font-size-form-lnput);
-}
 
 .leaderbord-header {
-  display: flex;
-  flex-flow: row wrap;
-
-  /* centreren */
-  justify-content: space-evenly;
-  padding: var(--wit-ruimte-s);
-
-  /* styling */
-  border: 0.2rem solid #fff;
-  background-color: hsl(204deg 55 18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--wit-ruimte-s);
+    border: 0.2rem solid var(--kleur-corner-border);
+    background-color: var(--kleur-achtergrond-blok);
 }
 
-
-/* De 6fr zorgt dat rang links blijft */
-.kolom-stats-titel {
-  display: grid;
-  grid-template-columns: 6fr 1fr 1fr;
-  gap: 5rem;
-  padding-top: var(--wit-ruimte-l);
+.leaderbord-header img {
+    max-width: 5em;
 }
 
-/* Haalt invisible space weg, 
-zodat het de volle ruimte inneemt 
-(dont touch) */
+/* Volle breedte voor spelers kaartje */
 .leaderbord-spelers {
   list-style: none;
   padding-left: var(--wit-ruimte-geen) ;
-  margin-left: var(--wit-ruimte-geen);
+  margin: var(--wit-ruimte-m-geen);
 }
 
-/* Alle data (1, naam, wins, loss) netjes uitgelijnd */
-.leaderbord-speler {
+.kolom-stats-titel {
+  position: relative;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: center;
+  gap: 1em;
+  padding: var(--wit-ruimte-m-geen);
+}
+
+.kolom-stats-titel #filter-rank {
+  position: absolute;
+  right: 0;
+  font-size: var(--font-size-normal);
+  background-color: var(--kleur-achtergrond-blok);
+  color: var(--kleur-tekst);
+  border: .2em solid #fff;
+}
+
+.info-rank-knop {
+  background: none;
+  border: none;
+}
+
+/* Wanneer je rank i open klikt */
+.info-rank-dropdown {
   display: grid;
-  grid-template-columns: 5rem 1fr 10rem 2rem;
-  border: solid hsl(204deg 55 18) 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, auto);
+  background-color: var(--kleur-achtergrond-blok);
+  padding: var(--wit-ruimte-m);
   margin: var(--wit-ruimte-s-geen);
-  background-color: hsl(204deg 55 18);
 }
 
-/* Rank design */
+/* Moet er onder, zodat het automatisch dicht staat */
+.info-rank-dropdown.hidden {
+  display: none;
+}
+
+/* Titels nemen volle breedte in */
+.info-rank-dropdown p:nth-of-type(1),
+.info-rank-dropdown p:nth-of-type(5) {
+  grid-column: 1 / -1;
+  padding-top: var(--wit-ruimte-s);
+  color: hsl(41deg 93% 52%);
+}
+
+/* Punten naast elkaar plaatsen */
+.info-rank-dropdown p:nth-child(6),
+.info-rank-dropdown p:nth-child(8) {
+  grid-column: 1 / span 2;
+}
+
+.info-rank-dropdown p:nth-child(7),
+.info-rank-dropdown p:nth-child(9) {
+  grid-column: 3 / span 2;
+}
+
+/* Container van elke speler */
+.leaderbord-speler {
+  display: flex;
+  flex-direction: column;
+  padding: var(--wit-ruimte-s-m);
+  margin-bottom: var(--wit-ruimte-s);
+  background: var(--kleur-achtergrond-blok);
+}
+
+/* BOVENSTE RIJ */
+.leaderbord-stats {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Rank */
+.plaats {
+  font-size: var(--font-size-form-title);
+  font-weight: 700;
+}
+
+/* Naam groeit mee */
+.naam {
+  flex-grow: 1;
+  font-weight: 500;
+}
+
+/* Info knop */
+.leaderbord-stats 
+.info-speler-knop {
+  background: none;
+  border: none;
+}
+
+/* Leaderbord info speler opengeklapt (wins, losses, etc) */
+.extra-info {
+  display: none;
+  margin-top: var(--wit-ruimte-s);
+  padding-top: var(--wit-ruimte-s);
+  border-top: .1em solid #fff;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.leaderbord-speler.zichtbaar .extra-info {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+/* Top 3 styling */
+.eerste {
+  background-color: var(--kleur-leaderbord-1);
+}
+
+.tweede {
+  background-color: var(--kleur-leaderbord-2);
+}
+
+.derde {
+  background-color: var(--kleur-leaderbord-3);
+}
+
 .eerste span,
 .tweede span,
 .derde span {
   color: var(--kleur-tekst-leaderbord-top);
 }
 
-.eerste {
-  background-color: var(--kleur-leaderbord-1);
-  border: var(--border-nmr-1);
-  padding: var(--wit-ruimte-nmr-1);
+/* ====== Jij highlight ====== */
+.mij {
+  outline: 2px solid var(--kleur-accent);
+  background: #f0f7ff;
 }
 
-.tweede {
-  background-color: var(--kleur-leaderbord-2);
-  border: var(--border-nmr-2);
-  padding: var(--wit-ruimte-nmr-2);
-}
-
-.derde {
-  background-color: var(--kleur-leaderbord-3);
-  border: var(--border-nmr-3);
-  padding: var(--wit-ruimte-nmr-3);
-}
-
-/* Persoonlijke kaart */
 .leaderbord-jij {
   /* Maakt volle breedte */
-  padding-left: var(--wit-ruimte-geen) ;
+  padding-left: var(--wit-ruimte-geen);
   margin-left: var(--wit-ruimte-geen);
-
-  /* Positionering */
   position: sticky;
   bottom: 0;
+  z-index: 1;
+
+  /* Positionering */
+
+  /* position: fixed;
+  bottom: 10em;
+  left: 0;
+  width: 100%; */
+
   background-color: hsl(356deg 69 50);
 }
 
 .jij {
-  display: grid;
-  grid-template-columns: 4rem 1fr 10rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  padding: var(--wit-ruimte-s-m);
   border: solid hsl(356deg 69 50) 2em;
   margin: var(--wit-ruimte-s-geen);
 } 
 
-/* Je ziet je zelf op de lijst in een andere kleur
-(hopelijk, want kan zelf nog niet zien) */
-.mij {
-  color: var(--kleur-accent);
-  border: 0.125rem solid #fff;
-}
