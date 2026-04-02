@@ -65,19 +65,31 @@ function toonStap(stap) {
   if (el) el.style.display = 'block';
 }
 
+
+document.addEventListener("DOMContentLoaded", () => {
+  const popup = document.getElementById('error-popup');
+  const closeBtn = document.getElementById('close-popup');
+
+  // Only add listener if the element exists
+  if (popup && closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      popup.style.display = 'none';
+    });
+  }
+});
+
+
+
 // ------------------- Bestandsupload -------------------
 
 // Elementen voor bestand-upload ophalen
-const bestandInput = document.getElementById('profileUpload');
+const bestandInput = document.getElementById('upload-profiel');
 const bestandNaamSpan = document.querySelector('.upload-label .file-name');
 
-// Event listener om bestandsnaam weer te geven
 bestandInput.addEventListener('change', () => {
   if (bestandInput.files.length > 0) {
-    // Toon de naam van het geselecteerde bestand
     bestandNaamSpan.textContent = bestandInput.files[0].name;
   } else {
-    // Toon standaardtekst als er geen bestand is geselecteerd
     bestandNaamSpan.textContent = 'Upload profielfoto';
   }
 });

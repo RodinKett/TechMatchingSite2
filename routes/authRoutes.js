@@ -2,79 +2,124 @@
  * Auth Router
  * -----------------------
  * Dit bestand definieert de routes voor gebruikersauthenticatie en registratie.
- * Het biedt de volgende functionaliteit:
+ * 
+ * Functionaliteit:
  * 
  * 1. GET /login
  *    - Render de loginpagina.
  * 
  * 2. GET /logout
- *    - Logt de gebruiker uit door de sessie te vernietigen en redirect naar /login.
+ *    - Vernietigt de sessie en logt de gebruiker uit.
  * 
  * 3. POST /register
- *    - Registreert een nieuwe gebruiker.
- *    - Valideert of de gebruikersnaam al bestaat.
- *    - Hash het wachtwoord met bcrypt.
- *    - Slaat de gebruiker op in de database (MongoDB).
- *    - Slaat de sessie op voor de nieuwe gebruiker.
+ *    - Valideert invoer
+ *    - Controleert bestaande gebruikers
+ *    - Hash wachtwoord
+ *    - Slaat gebruiker op in MongoDB
+ *    - Start een sessie
  * 
  * 4. POST /login
- *    - Logt een bestaande gebruiker in.
- *    - Controleert of de gebruiker bestaat.
- *    - Vergelijkt het opgegeven wachtwoord met het gehashte wachtwoord.
- *    - Slaat de sessie op bij succesvolle login.
- * 
- * Middleware:
- * - upload.single("profileFoto"): gebruikt voor het uploaden van een profielfoto bij registratie.
+ *    - Valideert logingegevens
+ *    - Controleert wachtwoord
+ *    - Start een sessie
  */
-
-
-
 
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt"); // Voor het hashen en vergelijken van wachtwoorden
-const validator = require("validator"); // Voor het ontsmetten van invoer (zoals gebruikersnaam)
-const upload = require("../middleware/upload"); // Middleware voor bestand uploaden
 
-// GET loginpagina
+const bcrypt = require("bcrypt");
+const { ObjectId } = require("mongodb");
+
+const upload = require("../middleware/upload");
+const validate = require("../middleware/validate");
+const { validationResult } = require("express-validator");
+
+const { registerValidation, loginValidation } = require("../validators/authValidator");
+
+
+// ------------------- GET LOGIN -------------------
+
 router.get("/login", function(req, res) {
-  res.render("pages/login"); // Render de loginpagina
-});
-
-// GET logout
-router.get("/logout", function(req, res) {
-  // Vernietig de sessie en redirect naar login
-  req.session.destroy(function(err) {
-    if (err) return res.status(500).send("Kan niet uitloggen");
-    res.redirect("/login");
+  res.render("pages/login", { 
+    submitted: false  // Dit is de initiële pagina, geen submit geweest
   });
 });
 
-// POST registratie van een nieuwe gebruiker
-router.post("/register", upload.single("profileFoto"), async function(req, res) {
+
+
+// ------------------- GET LOGOUT -------------------
+router.get("/logout", function(req, res) {
+
+  req.session.destroy(function(err) {
+
+    if (err) {
+      return res.status(500).send("Kan niet uitloggen");
+    }
+
+    res.redirect("/login");
+
+  });
+
+});
+
+
+// ------------------- POST REGISTER -------------------
+router.post( "/register", upload.single("profileFoto"), registerValidation, validate, async function(req, res) {
   try {
     const db = req.app.locals.db;
     const users = db.collection("users");
 
-    // Formuliergegevens ophalen
-    const username = validator.escape(req.body["reg-gebruikersnaam"]);
+    const username = req.body["reg-gebruikersnaam"];
     const email = req.body.email;
     const password = req.body["reg-password"];
     const dob = req.body["reg-geboortedatum"];
     const profileFoto = req.file ? req.file.filename : null;
 
-    // Check bestaande gebruiker
+    // Controleer bestaande username
     const existingUser = await users.findOne({ username });
-    if (existingUser) return res.status(400).send("Gebruikersnaam bestaat al");
 
-    if (email && !validator.isEmail(email)) {
-      return res.status(400).send("Ongeldig email adres");
+    if (existingUser) {
+      return res.status(400).render("pages/login", {
+        errors: { general: { msg: "Gebruikersnaam bestaat al" } },
+        old: req.body,
+    submitted: true
+      });
     }
 
-    // Wachtwoord hashen
+    // Controleer bestaande email
+    const existingEmail = await users.findOne({ email });
+
+    if (existingEmail) {
+      return res.status(400).render("pages/login", {
+        errors: { general: { msg: "Email is al geregistreerd" } },
+        old: req.body,
+    submitted: true
+      });
+    }
+
+    if (!req.file) {
+      return res.status(400).render("pages/login", {
+        errors: { profileFoto: { msg: "Profielfoto is verplicht" } },
+        old: req.body,
+    submitted: true
+      });
+    }
+
+    const errors = validationResult(req);
+    // Error authValidator
+    if (!errors.isEmpty()) {
+      return res.status(400).render("pages/login", {
+        errors: errors.mapped(),
+        old: req.body,
+  
+      });
+    }
+
+
+    // Hash wachtwoord
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Nieuwe gebruiker opslaan
+    // Nieuwe gebruiker
     const result = await users.insertOne({
       username,
       email,
@@ -84,7 +129,7 @@ router.post("/register", upload.single("profileFoto"), async function(req, res) 
       createdAt: new Date()
     });
 
-    // Sessies
+    // Start sessie
     req.session.user = {
       id: result.insertedId,
       username
@@ -94,28 +139,57 @@ router.post("/register", upload.single("profileFoto"), async function(req, res) 
     res.redirect("/aanvullendeInformatie");
 
   } catch (error) {
+
     console.error(error);
     res.status(500).send("Fout bij registreren");
+
   }
+
 });
 
-// POST login van een bestaande gebruiker
-router.post("/login", async function(req, res) {
+
+// ------------------- POST LOGIN -------------------
+router.post( "/login", loginValidation, validate, async function(req, res) {
   try {
     const db = req.app.locals.db;
     const users = db.collection("users");
 
-    let { username, password } = req.body;
+    const username = req.body.username;
+    const password = req.body.password;
 
-    // Zoek de gebruiker op
+    // Zoek gebruiker
     const user = await users.findOne({ username });
-    if (!user) return res.status(400).send("Gebruiker niet gevonden");
 
-    // Vergelijk het ingevoerde wachtwoord met het gehashte wachtwoord
+    if (!user) {
+      return res.status(400).render("pages/login", {
+        errors: { general: { msg: "Gebruiker niet gevonden" } },
+        old: req.body,
+    submitted: true
+      });
+    }
+
+    // Vergelijk wachtwoord
     const match = await bcrypt.compare(password, user.password);
-    if (!match) return res.status(400).send("Wachtwoord fout");
 
-    // Sla de gebruiker op in de sessie
+    if (!match) {
+      return res.status(400).render("pages/login", {
+        errors: { general: { msg: "Wachtwoord fout" } },
+        old: req.body,
+    submitted: true
+      });
+    }
+
+    const errors = validationResult(req);
+    // Error authValidator
+    if (!errors.isEmpty()) {
+      return res.status(400).render("pages/login", {
+        errors: errors.mapped(),
+        old: req.body,
+    submitted: true
+      });
+    }
+
+    // Sessiestart
     req.session.user = {
       id: user._id,
       username: user.username
@@ -129,5 +203,6 @@ router.post("/login", async function(req, res) {
   }
 });
 
-// Exporteer de router
+
+// ------------------- EXPORT -------------------
 module.exports = router;

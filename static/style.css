@@ -24,6 +24,8 @@
     --kleur-primair-button-text: hsl(0deg 0% 100%);
     --kleur-secundair-button-bg: hsl(0deg 0% 100%);
     --kleur-secundair-button-text: hsl(202deg 26% 12%);
+    --kleur-error-dropdown-bg: hsl(356deg 69% 50%);
+    --kleur-error-dropdown-text: hsl(0deg 0% 100%);
 
     /* Font */
     --font-size-form-title: 3rem;
