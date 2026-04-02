@@ -53,7 +53,7 @@ input:focus {
 /* Placeholder styling */
 input::placeholder {
   color: var(--kleur-placeholder-text);
-}
+} 
 
 /* ------------------- Knoppen ------------------- */
 button {
@@ -87,6 +87,25 @@ select option {
   line-height: 1.2em;  
 }
 
+/* checkbox */
 div label{
   font-size: var(--font-size-normal);
+  margin-top: var(--lijn-hoogte-s);
+  color: var(--kleur-tekst)
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+  margin-top: var(--lijn-hoogte-m);
+  padding-left: 1rem;
+}
+
+.checkbox input[type="checkbox"] {
+  width: auto;          /* prevents 100% width */
+  transform: scale(3); /* makes checkbox bigger */
+  padding: 0;
+  padding-left: 1rem;
+  margin-top:0;
 }

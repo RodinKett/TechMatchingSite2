@@ -56,7 +56,7 @@ fileInput.addEventListener("change", function () {
 
     reader.readAsDataURL(file);
   }
-});
+}); 
 
 // ------------------- Update Accordion Height When Image Loads -------------------
 
