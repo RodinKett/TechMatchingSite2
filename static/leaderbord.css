@@ -95,8 +95,11 @@
   --border-nmr-3: solid hsl(30deg 70% 45%) 1em;
 }
 
+
 body {
+  overflow-y: auto;
   background-color: hsl(202deg 26 12);
+  padding-bottom: var(--wit-ruimte-l);
 }
 
 h1,
@@ -127,8 +130,10 @@ p {
 /* Volle breedte voor spelers kaartje */
 .leaderbord-spelers {
   list-style: none;
-  padding-left: var(--wit-ruimte-geen) ;
+  padding-left: var(--wit-ruimte-geen);
+  padding-bottom: var(--wit-ruimte-xl);
   margin: var(--wit-ruimte-m-geen);
+  flex: 1;
 }
 
 .kolom-stats-titel {
@@ -233,7 +238,8 @@ p {
   gap: 0.5rem;
 }
 
-.leaderbord-speler.zichtbaar .extra-info {
+.leaderbord-speler.zichtbaar .extra-info,
+.jij.zichtbaar .extra-info {
   display: flex;
   flex-flow: row wrap;
 }
@@ -257,36 +263,28 @@ p {
   color: var(--kleur-tekst-leaderbord-top);
 }
 
-/* ====== Jij highlight ====== */
+/* Jij highlight */
 .mij {
   outline: 2px solid var(--kleur-accent);
   background: #f0f7ff;
 }
 
 .leaderbord-jij {
-  /* Maakt volle breedte */
-  padding-left: var(--wit-ruimte-geen);
-  margin-left: var(--wit-ruimte-geen);
-  position: sticky;
-  bottom: 0;
-  z-index: 1;
-
-  /* Positionering */
-
-  /* position: fixed;
-  bottom: 10em;
+  padding: var(--wit-ruimte-s);
+  position: fixed;
+  bottom: 15em;
   left: 0;
-  width: 100%; */
-
+  z-index: 100;
+  width: 100%;
   background-color: hsl(356deg 69 50);
 }
 
 .jij {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
   gap: 1em;
   padding: var(--wit-ruimte-s-m);
   border: solid hsl(356deg 69 50) 2em;
   margin: var(--wit-ruimte-s-geen);
 } 
-

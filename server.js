@@ -72,7 +72,7 @@ const upload = multer({
 ////////////////////////////////////////////////////////////////////////////////////
 
 app.get("/", (req, res) => {
-  res.render("Pages/index");
+  res.render("pages/index");
 });
 
 
@@ -137,7 +137,7 @@ app.get("/leaderbord", async (req, res) => {
       jij = spelers.find(s => s.id === req.session.user._id.toString());
     }
 
-    res.render("Pages/leaderbord", {
+    res.render("pages/leaderbord", {
       spelers,
       jij
     });
@@ -151,7 +151,7 @@ app.get("/leaderbord", async (req, res) => {
 // Eind aanpassing
 
 app.get("/login", (req, res) => {
-  res.render("Pages/Login");
+  res.render("pages/Login");
 });
 
 app.get("/aanvullendeInformatie", (req, res) => {
@@ -159,7 +159,7 @@ app.get("/aanvullendeInformatie", (req, res) => {
     return res.redirect("/login");
   }
 
-  res.render("Pages/AanvullendeInformatie", { user: req.session.user });
+  res.render("pages/AanvullendeInformatie", { user: req.session.user });
 });
 
 app.get("/logout", (req, res) => {
@@ -426,11 +426,11 @@ app.post("/aanvullendeInformatie", async (req, res) => {
 app.use(express.static(path.join(__dirname, "static")));
 
 app.get("/", (req, res) => {
-  res.render("Pages/index");
+  res.render("pages/index");
 });
 
 app.get("/loadingpage", (req, res) => {
-  res.render("Pages/loadingpage");
+  res.render("pages/loadingpage");
 });
 
 

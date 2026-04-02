@@ -98,10 +98,25 @@
       <section>
         <ul class="leaderbord-jij">
           <li class="jij">
-            <span class="plaats"><%= jij ? jij.rank : "-" %></span>
-            <span class="naam"><%= jij ? jij.naam : "Onbekend" %></span>
-            <span class="gewonnen"><%= jij ? jij.gewonnen : "0" %></span>
-            <span class="verloren"><%= jij ? jij.verloren : "0" %></span>
+
+            <div class="leaderbord-stats">
+              <span class="plaats"><%= jij ? jij.rank : "-" %></span>
+              <span class="naam"><%= jij ? jij.naam : "Onbekend" %></span>
+              <span class="gewonnen">Punten: <%= jij ? jij.punten : "0" %></span>
+
+              <button class="info-speler-knop" data-id="<%= jij ? jij.id : "" %>">
+                  <img src="/afbeeldingen/informatie-icoon.svg" 
+                  alt="Informatie icoon, klik hier op om meer informatie over de speler te vinden">
+              </button>
+            </div>
+
+            <div class="extra-info">
+                <span>Wins: <%= jij ? jij.gewonnen : "0" %></span>
+                <span>Losses: <%= jij ? jij.verloren : "0" %></span>
+                <span>Ties: <%= jij ? jij.gelijk : "0" %></span>
+                <span>Winrate: <%= jij ? (jij.winstpercentage * 100).toFixed(1) : "0" %>%</span>
+            </div>   
+
           </li>
         </ul>
       </section>

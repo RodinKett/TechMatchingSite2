@@ -15,7 +15,7 @@ infoRankKnop.addEventListener("click", () => {
 // Filteren simpel
 document.querySelectorAll(".info-speler-knop").forEach(button => {
   button.addEventListener("click", () => {
-    const speler = button.closest(".leaderbord-speler");
+    const speler = button.closest(".leaderbord-speler, .jij");
 
     speler.classList.toggle("zichtbaar");
   });
