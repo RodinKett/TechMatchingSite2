@@ -18,10 +18,12 @@
     <header><%- include('../partials/headerbasis'); %></header>
 
     <main id="main-matching">
-       <button id="knop-filter">
+       <button  id="filter-overlay" class="verborgen"> 
         <p>Reset filters</p>
         <!-- data ophalen van hoeveelheid filters -->
         <p id="telling-filter"></p>
+       
+  <%- include('../pages/filter'); %>
       </button>
 
 

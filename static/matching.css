@@ -11,7 +11,7 @@
   margin: 0 auto;
 }
 
-#knop-filter {
+#filter-overlay {
   display: flex;
   background-color: var(--kleur-filtreren-knop);
   color: var(--kleur-tekst);
