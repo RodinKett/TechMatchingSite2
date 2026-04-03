@@ -368,49 +368,51 @@ app.get("/profiel", (req, res) => {
 });
 
 
-
-
-
-
-/////////matching profiel/////////
-
-app.get("/matching", (req, res) => {
-  res.render("Pages/matching");
-});
-
-
-
-
-
-
-app.get("/api/profiel", async (req, res) => {
+// ---------------------
+// MATCHING ROUTE
+// ---------------------
+app.get("/matching", async (req, res) => {
   try {
     const db = client.db("StreetracerApp");
     const gebruikers = db.collection("users");
 
-    const profiel = await gebruikers.aggregate([{ $sample: { size: 6 } }]).toArray();
-  console.log(profiel)  
+    // Haal alle gebruikers op
+    const data = await gebruikers.find().toArray();
 
-    res.json(profiel); // stuur JSON terug
+    // Zet elk profiel netjes om naar wat de EJS verwacht
+    const users = data.map(user => ({
+      id: user._id.toString(),
+      profielFoto: user.profielFoto || "/img/default.png",
+      username: user.username || "Onbekend",
+      voertuig: user.voertuig || "-",
+      pk: user.pk || "-",
+      jaartal: user.jaartal || "-",
+      specialisatie: user.specialisatie || "-",
+      jarenErvaring: user.jarenErvaring || "-",
+      skillLevel: user.skillLevel || "-",
+      opmerkingen: user.opmerkingen || "Geen opmerkingen",
+    }));
+
+    res.render("Pages/matching", { users });
+
   } catch (err) {
-    console.error("Fout bij ophalen profiel:", err);
-    res.status(500).json({ error: "Kon profiel niet ophalen" });
+    console.error("Fout bij ophalen matching-profielen:", err);
+    res.status(500).send("Er ging iets mis bij het ophalen van de profielen.");
   }
 });
 
 
-
+// ---------------------
+// SERVER STARTEN + MONGO CONNECTIE
+// ---------------------
 async function startServer() {
   try {
     await client.connect();
-    console.log("✅ MongoDB verbonden");
+    console.log("MongoDB verbonden!");
 
-    app.listen(port, () => {
-      console.log(`Server draait op http://localhost:${port}`);
-    });
-
+    app.listen(3000, () => console.log("Server draait op 3000"));
   } catch (err) {
-    console.error("❌ Fout bij verbinden met MongoDB:", err);
+    console.error("Kon niet verbinden met MongoDB:", err);
   }
 }
 

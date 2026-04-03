@@ -18,84 +18,70 @@
     <header><%- include('../partials/headerbasis'); %></header>
 
     <main id="main-matching">
-    
-      <div id="kaart">
-        <section id="foto-section">
-          
-  <img id="profiel-foto" alt="Profielfoto">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="327"
-            height="11"
-            fill="none"
-          >
-            <path
-              fill="#fff"
-              d="m173.913.003 152.173.002v4.961l-157.155-.002zM167.335 5.956l158.751.003v4.961l-163.948-.002zM152.174 10.917 0 10.915V5.954l157.155.002zM158.751 4.964 0 4.962V0l163.948.002z"
-            />
-          </svg>
-        <h2 id="naam-gebruiker">-</h2>
-        </section>
-        <section>
-          <svg id="border-links" xmlns="http://www.w3.org/2000/svg" width="175" height="436" fill="none"><path fill="#fff" d="M169.383 4.778 0 4.776V0L174.93.002z"/><path fill="url(#a)" d="M.27 421.915V1.879h4.394v433.787z"/><defs><linearGradient id="a" x1="2.467" x2="2.471" y1="1.879" y2="435.666" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="#172127"/></linearGradient></defs></svg>
+
+  <% users.forEach(user => { %>
+
+  <div id="kaart">
+    <section id="foto-section">
+      <img id="profiel-foto" src="/uploads/<%= user.profielFoto %>" alt="Profielfoto">
+
+      <svg xmlns="http://www.w3.org/2000/svg" width="327" height="11" fill="none">
+        <path fill="#fff" d="m173.913.003 152.173.002v4.961l-157.155-.002zM167.335 5.956l158.751.003v4.961l-163.948-.002zM152.174 10.917 0 10.915V5.954l157.155.002zM158.751 4.964 0 4.962V0l163.948.002z"/>
+      </svg>
+
+      <h2 id="naam-gebruiker"><%= user.username %></h2>
+    </section>
+ <svg id="border-links" xmlns="http://www.w3.org/2000/svg" width="175" height="436" fill="none"><path fill="#fff" d="M169.383 4.778 0 4.776V0L174.93.002z"/><path fill="url(#a)" d="M.27 421.915V1.879h4.394v433.787z"/><defs><linearGradient id="a" x1="2.467" x2="2.471" y1="1.879" y2="435.666" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="#172127"/></linearGradient></defs></svg>
         <svg id="border-rechts" xmlns="http://www.w3.org/2000/svg" width="175" height="428" fill="none"><path fill="#fff" d="m5.524 422.915 168.72.002v4.776L0 427.69z"/><path fill="url(#a)" d="M169.937 13.407v409.508h4V0z"/><defs><linearGradient id="a" x1="171.937" x2="171.921" y1="422.915" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="#172127"/></linearGradient></defs></svg>
+    <section id="info">
+      <dl>
+        <div class="info-blok">
+          <dt>Voertuig:</dt>
+          <dd><%= user.voertuig %></dd>
+        </div>
 
-        <section id="info">
-          <dl>
-            <div class="info-blok">
-              <dt>Voertuig:</dt>
-             <dd id="voertuig">-</dd>
-            </div>
+        <div class="info-blok">
+          <dt>PK:</dt>
+          <dd><%= user.pk %></dd>
+        </div>
 
-            <div class="info-blok">
-              <dt>PK</dt>
-             <dd id="pk">-</dd>
-            </div>
+        <div class="info-blok">
+          <dt>Jaar:</dt>
+          <dd><%= user.jaartal %></dd>
+        </div>
 
-            <div class="info-blok">
-              <dt>Jaar:</dt>
-              <dd id="jaar">-</dd>
-            </div>
+        <div class="info-blok">
+          <dt>Specialisatie:</dt>
+          <dd><%= user.specialisatie %></dd>
+        </div>
 
-            <div class="info-blok">
-              <dt>Specialisatie:</dt>
-             <dd id="specialisatie">-</dd>
+        <div class="info-blok">
+          <dt>Ervaring:</dt>
+          <dd><%= user.jarenErvaring %></dd>
+        </div>
 
-            </div>
+        <div class="info-blok">
+          <dt>Skill Level:</dt>
+          <dd><%= user.skillLevel %></dd>
+        </div>
 
-            <div class="info-blok">
-              <dt>Ervaring:</dt>
-              <dd id="ervaring">-</dd>
+        <div class="info-blok">
+          <dt>Opmerkingen:</dt>
+          <dd><%= user.opmerkingen %></dd>
+        </div>
+      </dl>
+    </section>
+  </div>
 
-            </div>
+  <% }) %>
 
-            <div class="info-blok">
-              <dt>Win rate:</dt>
-              <dd id="win">-</dd>
-            </div>
+  <section id="button-matching">
+    <button type="button" id="button-volgende">Volgende</button>
+    <button type="button" id="button-challenge">Challenge</button>
+  </section>
 
-            <div class="info-blok">
-              <dt>Mods:</dt>
-          <dd id="mods">-</dd>
+</main>
 
-            </div>
-          </dl>
-        </section>
-
-        <section>
-          <h2 class="tekst">Opmerkingen:</h2>
-          <p class="tekst">-
-          </p>
-        </section>
-      </div>
-
-      <!-- buttons voor matching -->
-
-      <section id="button-matching">
-        <button type="button" id="button-volgende">Volgende</button>
-        <button type="button" id="button-challenge">Challenge</button>
-      </section>
-    </main>
 
 <script src="/js/matching.js"></script>
 
