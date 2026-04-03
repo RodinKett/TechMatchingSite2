@@ -353,6 +353,10 @@ app.post("/aanvullendeInformatie", async (req, res) => {
 
 
 
+
+
+
+
 ////////////////////////////////////////////////////////////////////////////////////
 //////////                         Start server                           //////////
 ////////////////////////////////////////////////////////////////////////////////////
@@ -366,6 +370,9 @@ app.get("/", (req, res) => {
 app.get("/profiel", (req, res) => {
   res.render("Pages/profiel");
 });
+
+
+
 
 
 // ---------------------
@@ -382,7 +389,7 @@ app.get("/matching", async (req, res) => {
     // Zet elk profiel netjes om naar wat de EJS verwacht
     const users = data.map(user => ({
       id: user._id.toString(),
-      profielFoto: user.profielFoto || "/img/default.png",
+      profielFoto: user.profielFoto || "-",
       username: user.username || "Onbekend",
       voertuig: user.voertuig || "-",
       pk: user.pk || "-",
@@ -400,6 +407,7 @@ app.get("/matching", async (req, res) => {
     res.status(500).send("Er ging iets mis bij het ophalen van de profielen.");
   }
 });
+
 
 
 // ---------------------

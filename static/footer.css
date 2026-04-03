@@ -3,6 +3,7 @@ footer {
   position: sticky;
   bottom: 0;
   height: 4em;
+  z-index: 4;
   
 }
 

@@ -3,12 +3,41 @@
   background-color: var(--kleur-achtergrond);
 }
 
-#kaart {
+.alle-kaarten {
+  position: relative;
   width: 100%;
-  position: relative;       /* borders positioneren zich hierbinnen */
-  overflow: hidden;  
-  transition: transform 0.35s ease, opacity 0.35s ease;
+  max-width: 100%;      /* responsief */
+  height: 80vh;        /* geen px, maar % van schermhoogte */
+  margin: 0 auto;
 }
+
+.swipe-card {
+  position: absolute;
+  height: 100%;
+  background: var(--kleur-achtergrond);
+    width: 100%;
+  overflow: hidden;  
+  transition: transform 0.35s ease, opacity 0.35s ease; 
+  z-index: 1;
+}
+
+
+.swipe-card:nth-child(1) {
+  z-index: 3;
+
+}
+
+.swipe-card:nth-child(2) {
+  z-index: 2;
+
+}
+
+.swipe-card:nth-child(3) {
+  z-index: 1;
+
+}
+
+
 
 #main-matching {
   margin: 0 2em;
@@ -29,12 +58,15 @@
   position: absolute;
   left: 0;
   top: 0;
+  z-index: 0;
 }
 
 #border-rechts{
   position: absolute;
   right: 0;
   bottom: 0;
+  z-index: 0;
+
 }
 
 dl {
@@ -72,6 +104,7 @@ dd {
   bottom: 2em;
   padding-top: 2em;
   padding-bottom: 4em;
+  z-index: 4;
 }
 
 #button-volgende {
@@ -79,6 +112,7 @@ dd {
   border-radius: 0.5em;
   width: 45%;
   height: 3em;
+
 }
 
 #button-challenge {
@@ -87,15 +121,6 @@ dd {
   border-radius: 0.5em;
   width: 45%;
   height: 3em;
+
 }
 
-
-.kaart-swipe-left {
-  transform: translateX(-100%);
-  opacity: 0;
-}
-
-.kaart-swipe-right {
-  transform: translateX(100%);
-  opacity: 0;
-}
