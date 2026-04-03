@@ -1,29 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%- include('../partials/head'); %>
+  <meta charset="UTF-8">
+  <title>500 error</title>
+
+  <!-- CSS (load bootstrap from a CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/header.css">
+
+  <link rel="stylesheet" href="/500.css" />
 </head>
 <body class="container">
 
 <header>
-  <%- include('../partials/header'); %>
+  <%- include('../partials/headerbasis'); %>
 </header>
 
 <main>
-<div class="row">
-  <div class="col-sm-8">
-    <div class="jumbotron">
-      <h1>This is great</h1>
-      <p>Welcome to templating using EJS</p>
-    </div>
-  </div>
-
-  <div class="col-sm-4">
-    <div class="well">
-      <h3>500</h3>
-    </div>
-  </div>
-</div>
+  <h1>
+    Sorry, er is iets mis gegaan aan onze kant, probeer het later opniew
+  </h1>
+  <picture>
+          <source
+          srcset="/afbeeldingen/500.svg"
+          media="(prefers-color-scheme: dark)"
+          />
+          <img
+          src="/afbeeldingen/500licht.svg"
+          alt="Afbeelding van een motor"
+          />
+        </picture>
+  <p>
+    Deze pagina bestaat niet meer of is verplaatst
+  </p>
+  <a href="/">klik hier om terug te gaan naar de startpagina</a>
 </main>
 
 <footer>
