@@ -7,8 +7,8 @@ document.getElementById("button-challenge")
   .addEventListener("click", () => swipe("right"));
 
   ////pakt de bovenste kaart
-  function getTopCard() {
-  const cards = [...document.querySelectorAll(".swipe-card")];
+  function haalBovensteKaart() {
+  const cards = [...document.querySelectorAll(".veeg-kaart")];
   return cards.reduce((top, card) => {
     const z = parseInt(getComputedStyle(card).zIndex) || 0;
     const topZ = parseInt(getComputedStyle(top).zIndex) || 0;
@@ -17,7 +17,7 @@ document.getElementById("button-challenge")
 }
 
 function swipe(direction) {
-  const card = getTopCard(); 
+  const card = haalBovensteKaart(); 
   if (!card) return;
 
 
