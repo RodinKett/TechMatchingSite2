@@ -15,6 +15,9 @@ const bcrypt = require("bcrypt");
 const app = express();
 const port = 3000;
 
+app.use('/uploads', express.static('static/uploads'));
+
+
 const uri = process.env.URI;
 const client = new MongoClient(uri);
 
@@ -185,7 +188,7 @@ app.post("/register", upload.single("profileFoto"), async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Profile photo
-    const profilePhoto = req.file ? "/uploads/" + req.file.filename : null;
+    const profielFoto = req.file ? "/uploads/" + req.file.filename : null;
 
     // Insert user
     const result = await users.insertOne({
@@ -195,7 +198,7 @@ app.post("/register", upload.single("profileFoto"), async (req, res) => {
       password: hashedPassword,
       dob,
       gender,
-      profilePhoto,
+      profielFoto,
       createdAt: new Date(),
     });
 
@@ -378,18 +381,23 @@ app.get("/profiel", (req, res) => {
 // ---------------------
 // MATCHING ROUTE
 // ---------------------
-app.get("/matching", async (req, res) => {
+app.get("/matching", upload.single("profileFoto"), async (req, res) => {
   try {
     const db = client.db("StreetracerApp");
     const gebruikers = db.collection("users");
 
+   
     // Haal alle gebruikers op
     const data = await gebruikers.find().toArray();
 
     // Zet elk profiel netjes om naar wat de EJS verwacht
     const users = data.map(user => ({
       id: user._id.toString(),
-      profielFoto: user.profielFoto || "-",
+profielFoto: user.profielFoto
+  ? (user.profielFoto.startsWith("/uploads/")
+      ? user.profielFoto
+      : "/uploads/" + user.profielFoto)
+  : "/uploads/default.png",
       username: user.username || "Onbekend",
       voertuig: user.voertuig || "-",
       pk: user.pk || "-",
@@ -401,7 +409,7 @@ app.get("/matching", async (req, res) => {
     }));
 
     res.render("Pages/matching", { users });
-
+ console.log(users)
   } catch (err) {
     console.error("Fout bij ophalen matching-profielen:", err);
     res.status(500).send("Er ging iets mis bij het ophalen van de profielen.");
@@ -424,4 +432,6 @@ async function startServer() {
   }
 }
 
+
 startServer();
+
