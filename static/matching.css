@@ -6,11 +6,10 @@
 .alle-kaarten {
   position: relative;
   width: 100%;
-  max-width: 100%;      /* responsief */
-  height: 80vh;        /* geen px, maar % van schermhoogte */
+  max-width: 100%; /* responsief */
+  height: 80vh; /* geen px, maar % van schermhoogte */
   margin: 0 auto;
 }
-
 
 #knop-filter {
   display: flex;
@@ -22,34 +21,29 @@
   margin-bottom: 2em;
 }
 
-
 .veeg-kaart {
   position: absolute;
   height: 100%;
   background: var(--kleur-achtergrond);
-    width: 100%;
-  overflow: hidden;  
-  transition: transform 0.35s ease, opacity 0.35s ease; 
+  width: 100%;
+  overflow: hidden;
+  transition:
+    transform 0.35s ease,
+    opacity 0.35s ease;
   z-index: 1;
 }
 
-
 .veeg-kaart:nth-child(1) {
   z-index: 3;
-
 }
 
 .veeg-kaart:nth-child(2) {
   z-index: 2;
-
 }
 
 .veeg-kaart:nth-child(3) {
   z-index: 1;
-
 }
-
-
 
 #main-matching {
   margin: 0 2em;
@@ -66,24 +60,22 @@
   margin: 1rem auto;
 }
 
-.styling-links{
+.styling-links {
   position: absolute;
   left: 0;
   top: 0;
 }
 
-.styling-rechts{
+.styling-rechts {
   position: absolute;
   right: 0;
   bottom: 0;
-
 }
 
 dl {
   display: grid;
   grid-template-columns: repeat(3, auto);
   gap: 1rem;
-
 }
 
 dt,
@@ -99,7 +91,6 @@ dd {
 
 .info-blok {
   background-color: var(--kleur-blok-matching);
-
 }
 
 .tekst {
@@ -122,7 +113,6 @@ dd {
   border-radius: 0.5em;
   width: 45%;
   height: 3em;
-
 }
 
 #button-challenge {
@@ -131,6 +121,4 @@ dd {
   border-radius: 0.5em;
   width: 45%;
   height: 3em;
-
 }
-
