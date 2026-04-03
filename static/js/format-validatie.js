@@ -33,6 +33,7 @@ function formatValidatie(event) {
     regUsername: document.querySelector(".error-reg-gebruikersnaam"),
     regEmail: document.querySelector(".error-reg-email"),
     regDob: document.querySelector(".error-reg-dob"),
+    regDob: document.querySelector(".error-upload-foto"),
     regPassword: document.querySelector(".error-reg-password"),
     regPasswordConfirm: document.querySelector(".error-reg-password-bevestigen"),
     specialisaties: document.querySelector(".error-reg-specialisatie"),
