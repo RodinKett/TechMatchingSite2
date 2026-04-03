@@ -19,18 +19,21 @@
 
         <label for="jarenErvaring">Jaren ervaring</label>
         <input id="jarenErvaring" type="number" name="jarenErvaring" required  min="0" max="99" >
+        <p class="error-jarenErvaring" style="display:none;"></p>
 
         <label for="specialisatie">Specialisatie</label>
         <div>
-          <label><input type="checkbox" name="specialisatie" value="Circuit racing"> Circuit racing</label>
-          <label><input type="checkbox" name="specialisatie" value="Drag racing"> Drag racing</label>
-          <label><input type="checkbox" name="specialisatie" value="Drift racing"> Drift racing</label>
-          <label><input type="checkbox" name="specialisatie" value="Rally"> Rally</label>
-          <label><input type="checkbox" name="specialisatie" value="Endurance racing"> Endurance racing</label>
+          <label class="checkbox"><input type="checkbox" name="specialisatie" value="Circuit racing" required> Circuit racing</label>
+          <label class="checkbox"><input type="checkbox" name="specialisatie" value="Drag racing"> Drag racing</label>
+          <label class="checkbox"><input type="checkbox" name="specialisatie" value="Drift racing"> Drift racing</label>
+          <label class="checkbox"><input type="checkbox" name="specialisatie" value="Rally"> Rally</label>
+          <label class="checkbox"><input type="checkbox" name="specialisatie" value="Endurance racing"> Endurance racing</label>
         </div>
+        <p class="error-specialisatie" style="display:none;"></p>
 
         <label for="aanvullendeOpmerkingen">Over mij</label>
-        <input id="aanvullendeOpmerkingen" type="text" name="aanvullendeOpmerkingen" pattern="^[\p{L}0-9\s.,!?]{0,150}$">
+        <input id="aanvullendeOpmerkingen" type="text" name="aanvullendeOpmerkingen">
+        <p class="error-aanvullendeOpmerkingen" style="display:none;"></p>
 
         <span></span>
       <!--------------------------------------------------------------------------------------->
@@ -38,16 +41,19 @@
 
         <label for="jaartalVoertuig">Jaartal voertuig</label>
         <input id="jaartalVoertuig"type="number" name="jaartalVoertuig" required min="1950" max="2025" step="1">
+        <p class="error-jaartalVoertuig" style="display:none;"></p>
 
         <label for="merkVoertuig-api">Merk voertuig</label>
-        <select id="merkVoertuig-api" name="merkVoertuig-api">
-          <option value="beginer" >Select merk</option>
+        <select id="merkVoertuig-api" name="merkVoertuig-api" required>
+          <option value="beginer">Select merk</option>
         </select>
+        <p class="error-merkVoertuig-api" style="display:none;"></p>
 
         <label for="voertuig-api">Voertuig</label>
-        <select id="voertuig-api" name="voertuig-api">
-          <option value="beginer" >select model</option>
+        <select id="voertuig-api" name="voertuig-api" required>
+          <option value="beginer">Select model</option>
         </select>
+        <p class="error-voertuig-api" style="display:none;"></p>
 
         <input type="hidden" name="pk" id="pk">
         <input type="hidden" name="gewicht" id="gewicht">
@@ -55,20 +61,20 @@
 
         <label for="mods">Mods</label>
         <div>
-          <label><input type="checkbox" name="mods" value="Tires"> Tires</label>
-          <label><input type="checkbox" name="mods" value="Suspension"> Suspension</label>
-          <label><input type="checkbox" name="mods" value="Brakes"> Brakes</label>
-          <label><input type="checkbox" name="mods" value="Power"> Power</label>
-          <label><input type="checkbox" name="mods" value="Aero"> Aero</label>
+          <label class="checkbox"><input type="checkbox" name="mods" value="Tires"> Tires</label>
+          <label class="checkbox"><input type="checkbox" name="mods" value="Suspension"> Suspension</label>
+          <label class="checkbox"><input type="checkbox" name="mods" value="Brakes"> Brakes</label>
+          <label class="checkbox"><input type="checkbox" name="mods" value="Power"> Power</label>
+          <label class="checkbox"><input type="checkbox" name="mods" value="Aero"> Aero</label>
         </div>
+        <p class="error-mods" style="display:none;"></p>
 
-        
-        <button type="submit">Opslaan</button>
+        <button type="submit" onclick="formatValidatie(event)">Opslaan</button>
     </form>
 </main>
 
-<footer>
-</footer>
+<footer></footer>
 <script src="/js/car-api.js"></script>
+<script src="/js/formatValidatie.js"></script>
 </body>
 </html>

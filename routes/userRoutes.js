@@ -32,6 +32,15 @@ const validator = require("validator");
 const { isLoggedIn } = require("../middleware/authMiddleware");
 const upload = require("../middleware/upload");
 
+router.get("/aanvullendeInformatie", isLoggedIn, function(req, res) {
+  res.render("pages/aanvullendeInformatie"); // Render de loginpagina
+});
+
+router.get("/updateAccount", isLoggedIn, function(req, res) {
+  res.render("pages/updateAccount"); // Render de loginpagina
+});
+
+
 // ------------------- POST /aanvullendeInformatie -------------------
 router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profileFoto"), async function(req, res) {
   try {

@@ -30,19 +30,19 @@ const router = express.Router();
 // Endpoint om een lijst van automerken op te halen
 router.get("/car-brands", async function(req, res) {
   try {
-    // Haal de gegevens op van de CarQuery API voor automerken
-    const response = await fetch("https://www.carqueryapi.com/api/0.3/?cmd=getMakes");
-    
-    // Converteer de response naar tekst
+
+    const response = await fetch("http://www.carqueryapi.com/api/0.3/?cmd=getMakes");
+
     const text = await response.text();
-    
-    // Verwijder de JS-variabele uit de tekst en parse naar JSON
-    const data = JSON.parse(text.replace("var data = ", "").replace(";", ""));
-    
-    // Stuur de lijst van merken terug als JSON
+    console.log(text.slice(0,200));
+
+    const json = text.replace(/^var data = /, "").replace(/;$/, "");
+    const data = JSON.parse(json);
+
     res.json(data.Makes);
+
   } catch (err) {
-    // Foutafhandeling: stuur status 500 en foutmelding
+    console.error(err);
     res.status(500).json({ error: "Het laden van merken is mislukt." });
   }
 });
