@@ -11,6 +11,17 @@
   margin: 0 auto;
 }
 
+
+#button-filter {
+  display: flex;
+  background-color: var(--kleur-filtreren-knop);
+  color: var(--kleur-tekst);
+  border: none;
+  font-weight: bold;
+  width: 10em;
+}
+
+
 .swipe-card {
   position: absolute;
   height: 100%;

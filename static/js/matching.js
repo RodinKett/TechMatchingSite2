@@ -39,3 +39,6 @@ function swipe(direction) {
     card.style.transition = "transform 0.35s ease, opacity 0.35s ease";
   }, 350);
 }
+
+
+
