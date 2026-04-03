@@ -98,7 +98,7 @@
 
 body {
   overflow-y: auto;
-  background-color: hsl(202deg 26 12);
+  background-color: hsl(202deg 26% 12%);
   padding-bottom: var(--wit-ruimte-l);
 }
 
@@ -276,7 +276,7 @@ p {
   left: 0;
   z-index: 100;
   width: 100%;
-  background-color: hsl(356deg 69 50);
+  background-color: hsl(356deg 69% 50%);
 }
 
 .jij {
