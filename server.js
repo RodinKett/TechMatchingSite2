@@ -24,6 +24,7 @@ const client = new MongoClient(uri);
 
 // nodig om met hotspot te kunnen werken///////
 require("node:dns/promises").setServers(["1.1.1.1","8.8.8.8"]);
+
 //////////////////////////////////////////////////////
 app.use(express.static(path.join(__dirname, "static")));
 app.set("view engine", "ejs");
