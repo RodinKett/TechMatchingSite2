@@ -1,9 +1,12 @@
+
+////haalt de buttons up en bij click dat het een kant opgaat////
 document.getElementById("button-volgende")
   .addEventListener("click", () => swipe("left"));
 
 document.getElementById("button-challenge")
   .addEventListener("click", () => swipe("right"));
 
+  ////pakt de bovenste kaart
   function getTopCard() {
   const cards = [...document.querySelectorAll(".swipe-card")];
   return cards.reduce((top, card) => {
@@ -14,8 +17,9 @@ document.getElementById("button-challenge")
 }
 
 function swipe(direction) {
-  const card = document.querySelector(".swipe-card"); 
+  const card = getTopCard(); 
   if (!card) return;
+
 
   const offset = direction === "right" ? "120%" : "-120%";
   const angle = direction === "right" ? 20 : -20;

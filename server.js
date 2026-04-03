@@ -382,7 +382,7 @@ app.get("/profiel", (req, res) => {
 // ---------------------
 // MATCHING ROUTE
 // ---------------------
-app.get("/matching", upload.single("profileFoto"), async (req, res) => {
+app.get("/matching", async (req, res) => {
   try {
     const db = client.db("StreetracerApp");
     const gebruikers = db.collection("users");
@@ -394,11 +394,8 @@ app.get("/matching", upload.single("profileFoto"), async (req, res) => {
     // Zet elk profiel netjes om naar wat de EJS verwacht
     const users = data.map(user => ({
       id: user._id.toString(),
-profielFoto: user.profielFoto
-  ? (user.profielFoto.startsWith("/uploads/")
-      ? user.profielFoto
-      : "/uploads/" + user.profielFoto)
-  : "/uploads/default.png",
+  
+profielFoto: user.profielFoto || "-",
       username: user.username || "Onbekend",
       voertuig: user.voertuig || "-",
       pk: user.pk || "-",

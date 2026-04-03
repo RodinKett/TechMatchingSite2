@@ -66,14 +66,13 @@
   margin: 1rem auto;
 }
 
-#border-links{
+.border-links{
   position: absolute;
   left: 0;
   top: 0;
-  z-index: 0;
 }
 
-#border-rechts{
+.border-rechts{
   position: absolute;
   right: 0;
   bottom: 0;
