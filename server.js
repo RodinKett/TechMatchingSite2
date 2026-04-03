@@ -21,7 +21,8 @@
  * 6. Start de server op poort 3000
  */
 
-
+/////connectie met data/////
+require("node:dns/promises").setServers(["1.1.1.1", "8.8.8.8"]);
 
 
 require("dotenv").config(); // Load environment variables
