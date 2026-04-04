@@ -32,7 +32,7 @@ const validator = require("validator");
 const { isLoggedIn } = require("../middleware/authMiddleware");
 const upload = require("../middleware/upload");
 
-router.get("/aanvullendeInformatie", isLoggedIn, function(req, res) {
+router.get("/aanvullendeInformatie", isLoggedIn, function(req, res) { 
   res.render("pages/aanvullendeInformatie"); // Render de loginpagina
 });
 

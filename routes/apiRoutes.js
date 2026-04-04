@@ -1,45 +1,38 @@
-/**
- * Car API Router
- * -----------------------
- * Dit bestand definieert verschillende API-endpoints voor het ophalen van 
- * informatie over auto's via de CarQuery API. 
- * Het biedt de volgende functionaliteit:
- * 
- * 1. /car-brands
- *    - Haalt een lijst op van alle automerken.
- * 
- * 2. /car-models/:make/:year
- *    - Haalt een lijst op van modellen voor een bepaald merk en jaar.
- * 
- * 3. /car-specs/:make/:model/:year
- *    - Haalt de specificaties (trims) op van een specifiek model en jaar.
- * 
- * De router verwerkt de API-responses en retourneert de gegevens als JSON.
- * Bij fouten wordt een statuscode 500 teruggegeven met een foutmelding.
- */
-
-
-
-
-// Importeer de express-module
 const express = require("express");
-
-// Maak een nieuwe router aan
 const router = express.Router();
 
-// Endpoint om een lijst van automerken op te halen
-router.get("/car-brands", async function(req, res) {
+const API_KEY = process.env.API_NINJAS_KEY;
+
+// ------------------- Car Brands -------------------
+router.get("/car-brands", async function (req, res) {
   try {
 
-    const response = await fetch("http://www.carqueryapi.com/api/0.3/?cmd=getMakes");
+    const response = await fetch(
+      "https://api.api-ninjas.com/v1/cars?make=toyota",
+      {
+        headers: {
+          "X-Api-Key": process.env.API_NINJAS_KEY
+        }
+      }
+    );
 
-    const text = await response.text();
-    console.log(text.slice(0,200));
+    const data = await response.json();
 
-    const json = text.replace(/^var data = /, "").replace(/;$/, "");
-    const data = JSON.parse(json);
+    if (!Array.isArray(data)) {
+      console.error("API error:", data);
+      return res.status(500).json({ error: "API Ninjas error." });
+    }
 
-    res.json(data.Makes);
+    const merken = [
+      { make_id: "toyota", make_display: "Toyota" },
+      { make_id: "bmw", make_display: "BMW" },
+      { make_id: "audi", make_display: "Audi" },
+      { make_id: "ford", make_display: "Ford" },
+      { make_id: "nissan", make_display: "Nissan" },
+      { make_id: "honda", make_display: "Honda" }
+    ];
+
+    res.json(merken);
 
   } catch (err) {
     console.error(err);
@@ -47,50 +40,61 @@ router.get("/car-brands", async function(req, res) {
   }
 });
 
-// Endpoint om modellen van een bepaald merk en jaar op te halen
-router.get("/car-models/:make/:year", async function(req, res) {
-  const make = req.params.make; // merk uit de URL
-  const year = req.params.year; // jaar uit de URL
+
+// ------------------- Car Models -------------------
+router.get("/car-models/:make/:year", async function (req, res) {
+
+  const make = req.params.make;
+  const year = req.params.year;
 
   try {
-    // Haal de modellen op van de API voor het opgegeven merk en jaar
     const response = await fetch(
-      `https://www.carqueryapi.com/api/0.3/?cmd=getModels&make=${make}&year=${year}`
+      `https://api.api-ninjas.com/v1/cars?make=${make}&year=${year}`,
+      { headers: { "X-Api-Key": API_KEY } }
     );
 
-    const text = await response.text();
-    const data = JSON.parse(text.replace("var data = ", "").replace(";", ""));
+    const data = await response.json();
 
-    // Stuur de lijst van modellen terug als JSON
-    res.json(data.Models);
+    const modellen = data.map(car => ({
+      model_name: car.model
+    }));
+
+    res.json(modellen);
+
   } catch (err) {
-    // Foutafhandeling
+    console.error(err);
     res.status(500).json({ error: "Modellen laden mislukt." });
   }
 });
 
-// Endpoint om specificaties van een specifiek model op te halen
-router.get("/car-specs/:make/:model/:year", async function(req, res) {
-  const make = req.params.make;   // merk uit de URL
-  const model = req.params.model; // model uit de URL
-  const year = req.params.year;   // jaar uit de URL
+
+// ------------------- Car Specs -------------------
+router.get("/car-specs/:make/:model/:year", async function (req, res) {
+
+  const make = req.params.make;
+  const model = req.params.model;
+  const year = req.params.year;
 
   try {
-    // Haal de trims/specificaties op van de API
     const response = await fetch(
-      `https://www.carqueryapi.com/api/0.3/?cmd=getTrims&make=${make}&model=${model}&year=${year}`
+      `https://api.api-ninjas.com/v1/cars?make=${make}&model=${model}&year=${year}`,
+      { headers: { "X-Api-Key": API_KEY } }
     );
 
-    const text = await response.text();
-    const data = JSON.parse(text.replace("var data = ", "").replace(";", ""));
+    const data = await response.json();
 
-    // Stuur de specificaties terug als JSON
-    res.json(data.Trims);
+    const trims = data.map(car => ({
+      model_engine_power_ps: car.horsepower,
+      model_weight_kg: car.weight,
+      model_drive: car.drive
+    }));
+
+    res.json(trims);
+
   } catch (err) {
-    // Foutafhandeling
-    res.status(500).json({ error: "Specificaties laden mislukt" });
+    console.error(err);
+    res.status(500).json({ error: "Specificaties laden mislukt." });
   }
 });
 
-// Exporteer de router zodat deze gebruikt kan worden in app.js
 module.exports = router;
