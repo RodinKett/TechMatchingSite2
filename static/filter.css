@@ -1,3 +1,11 @@
+.gedraaid {
+  transform: rotate(180deg);
+}
+
+.button:focus {
+  outline: none;
+}
+
 #body-filter, body{
   background-color: var(--kleur-blok-matching);
  
@@ -32,7 +40,7 @@
      fill: var(--kleur-svg);
  top: 0;
 width: 2em;
- transition: transform 0.3s ease;
+transition: transform 0.3s ease;
 }
 
 .filter-opties.active .pijltje {
