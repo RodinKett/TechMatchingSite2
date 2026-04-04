@@ -1,13 +1,13 @@
 ////haalt de buttons up en bij click dat het een kant opgaat////
-document.getElementById("button-volgende")
+document.getElementById("knop-volgende")
   .addEventListener("click", () => swipe("left"));
 
-document.getElementById("button-challenge")
+document.getElementById("knop-challenge")
   .addEventListener("click", () => swipe("right"));
 
   ////pakt de bovenste kaart
   function getTopCard() {
-  const cards = [...document.querySelectorAll(".swipe-card")];
+  const cards = [...document.querySelectorAll(".veeg-kaart")]; // ← update selector
   return cards.reduce((top, card) => {
     const z = parseInt(getComputedStyle(card).zIndex) || 0;
     const topZ = parseInt(getComputedStyle(top).zIndex) || 0;

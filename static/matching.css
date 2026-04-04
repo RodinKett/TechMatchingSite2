@@ -23,7 +23,7 @@
 }
 
 
-.swipe-card {
+.veeg-kaart {
   position: absolute;
   height: 100%;
   background: var(--kleur-achtergrond);
@@ -34,17 +34,17 @@
 }
 
 
-.swipe-card:nth-child(1) {
+.veeg-kaart:nth-child(1) {
   z-index: 3;
 
 }
 
-.swipe-card:nth-child(2) {
+.veeg-kaart:nth-child(2) {
   z-index: 2;
 
 }
 
-.swipe-card:nth-child(3) {
+.veeg-kaart:nth-child(3) {
   z-index: 1;
 
 }
