@@ -1,3 +1,18 @@
+
+////haalt de buttons up en bij click dat het een kant opgaat////
+document.getElementById("knop-volgende")
+  .addEventListener("click", () => swipe("left"));
+
+document.getElementById("knop-challenge")
+  .addEventListener("click", () => swipe("right"));
+
+
+  ///reset button filter///
+  document.getElementById("button-reset").addEventListener("click", () => {
+  window.location.href = "/matching";
+});
+
+
 ////filter overlay open en dicht kunnen doen////
 document.getElementById("button-filter")
   .addEventListener("click", () => {
@@ -18,12 +33,6 @@ document.getElementById("knop-resultaten")
 
 
 
-////haalt de buttons up en bij click dat het een kant opgaat////
-document.getElementById("knop-volgende")
-  .addEventListener("click", () => swipe("left"));
-
-document.getElementById("knop-challenge")
-  .addEventListener("click", () => swipe("right"));
 
   ////pakt de bovenste kaart
   function getTopCard() {

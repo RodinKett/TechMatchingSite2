@@ -387,15 +387,28 @@ app.get("/matching", async (req, res) => {
     const db = client.db("StreetracerApp");
     const gebruikers = db.collection("users");
 
-   
-    // Haal alle gebruikers op
-    const data = await gebruikers.find().toArray();
+    const q = req.query;
+    const meerdere = (val) => Array.isArray(val) ? val : [val];
 
-    // Zet elk profiel netjes om naar wat de EJS verwacht
+   const query = {
+  ...(q.jaartal && { "voertuig.jaartal": q.jaartal }),
+  ...(q.skillLevel && { skillLevel: { $in: meerdere(q.skillLevel) } }),
+  ...(q.wielaandrijving && { "voertuig.aandrijving": { $in: meerdere(q.wielaandrijving) } }),
+  ...(q.specialisatie && { specialisatie: { $in: meerdere(q.specialisatie) } }),
+  ...(q.jarenErvaring && { jarenErvaring: q.jarenErvaring }),
+  ...(q.mods && { "voertuig.opmerkingen": { $in: meerdere(q.mods) } }),
+  ...((q.pkVan || q.pkTot) && { "voertuig.pk": { ...(q.pkVan && { $gte: q.pkVan }), ...(q.pkTot && { $lte: q.pkTot }) } }),
+};
+
+    const data = await gebruikers.find(query).toArray();
+
+    console.log("MongoDB query:", query);
+    console.log("Gevonden gebruikers:", data.length);
+    console.log("Eerste gebruiker:", data[0]);
+
     const users = data.map(user => ({
       id: user._id.toString(),
-  
-profielFoto: user.profielFoto || "-",
+      profielFoto: user.profielFoto || "-",
       username: user.username || "Onbekend",
       voertuig: user.voertuig || "-",
       pk: user.pk || "-",
@@ -407,13 +420,12 @@ profielFoto: user.profielFoto || "-",
     }));
 
     res.render("Pages/matching", { users });
+
   } catch (err) {
     console.error("Fout bij ophalen matching-profielen:", err);
     res.status(500).send("Er ging iets mis bij het ophalen van de profielen.");
   }
 });
-
-
 
 // ---------------------
 // SERVER STARTEN + MONGO CONNECTIE
@@ -428,6 +440,5 @@ async function startServer() {
     console.error("Kon niet verbinden met MongoDB:", err);
   }
 }
-
 
 startServer();

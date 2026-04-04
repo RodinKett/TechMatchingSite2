@@ -1,79 +1,67 @@
-  <link rel="stylesheet" href="/filter.css" />
+<form action="/matching" method="GET">
 
-<button id="knop-filter-sluiten">Sluiten</button>
-
+     <button id="button-reset">
+        <p>Reset filters</p>
+        <!-- data ophalen van hoeveelheid filters -->
+        <p id="telling-filter"></p>
+      </button>
 <section id="parent-alles">
   <!-- jaartal -->
   <section class="filter-opties">
-    <button class="button">
-      Jaartal
-      <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <path fill="#fff" fill-rule="evenodd" d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z" clip-rule="evenodd"/>
-      </svg>
-    </button>
+    <button class="button" type="button">Jaartal  <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path fill="var(--kleur-icons)" fill-rule="evenodd" d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z" clip-rule="evenodd"/>
+      </svg></button>
     <input class="input-veld" type="number" name="jaartal" placeholder="Bijv 2023"/>
   </section>
 
   <!-- vaardigheid -->
   <section class="filter-opties">
-    <button class="button">
-      Vaardigheid
-      <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <button class="button" type="button">Vaardigheid  <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
         <path fill="var(--kleur-icons)" fill-rule="evenodd" d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z" clip-rule="evenodd"/>
-      </svg>
-    </button>
-    <label class="checkbox"><input type="checkbox"/> Beginner</label>
-    <label class="checkbox"><input type="checkbox"/> Bevorderd</label>
-    <label class="checkbox"><input type="checkbox"/> Ervaren</label>
-    <label class="checkbox"><input type="checkbox"/> Expert</label>
+      </svg></button>
+    <label class="checkbox"><input type="checkbox" name="skillLevel" value="Beginner"/> Beginner</label>
+    <label class="checkbox"><input type="checkbox" name="skillLevel" value="Bevorderd"/> Bevorderd</label>
+    <label class="checkbox"><input type="checkbox" name="skillLevel" value="Ervaren"/> Ervaren</label>
+    <label class="checkbox"><input type="checkbox" name="skillLevel" value="Expert"/> Expert</label>
   </section>
 
   <!-- wielaandrijving -->
   <section class="filter-opties">
-    <button class="button">
-      Wielaandrijving
-      <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <path fill="#fff" fill-rule="evenodd" d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z" clip-rule="evenodd"/>
-      </svg>
-    </button>
-    <label class="checkbox"><input type="checkbox"/> FWD</label>
-    <label class="checkbox"><input type="checkbox"/> RWD</label>
-    <label class="checkbox"><input type="checkbox"/> AWD</label>
-    <label class="checkbox"><input type="checkbox"/> 4WD</label>
+    <button class="button" type="button">Wielaandrijving  <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path fill="var(--kleur-icons)" fill-rule="evenodd" d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z" clip-rule="evenodd"/>
+      </svg></button>
+    <label class="checkbox"><input type="checkbox" name="wielaandrijving" value="FWD"/> FWD</label>
+    <label class="checkbox"><input type="checkbox" name="wielaandrijving" value="RWD"/> RWD</label>
+    <label class="checkbox"><input type="checkbox" name="wielaandrijving" value="AWD"/> AWD</label>
+    <label class="checkbox"><input type="checkbox" name="wielaandrijving" value="4WD"/> 4WD</label>
   </section>
 
   <!-- specialisatie -->
   <section class="filter-opties">
-    <button class="button">
-      Specialisatie
-      <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <button class="button" type="button">Specialisatie  <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
         <path fill="var(--kleur-icons)" fill-rule="evenodd" d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z" clip-rule="evenodd"/>
-      </svg>
-    </button>
-    <label class="checkbox"><input type="checkbox"/> Circuit racing</label>
-    <label class="checkbox"><input type="checkbox"/> Drag racing</label>
-    <label class="checkbox"><input type="checkbox"/> Drift racing</label>
-    <label class="checkbox"><input type="checkbox"/> Rally</label>
-    <label class="checkbox"><input type="checkbox"/> Uithoudingsracen</label>
+      </svg></button>
+    <label class="checkbox"><input type="checkbox" name="specialisatie" value="Circuit racing"/> Circuit racing</label>
+    <label class="checkbox"><input type="checkbox" name="specialisatie" value="Drag racing"/> Drag racing</label>
+    <label class="checkbox"><input type="checkbox" name="specialisatie" value="Drift racing"/> Drift racing</label>
+    <label class="checkbox"><input type="checkbox" name="specialisatie" value="Rally"/> Rally</label>
+    <label class="checkbox"><input type="checkbox" name="specialisatie" value="Uithoudingsracen"/> Uithoudingsracen</label>
   </section>
 
   <!-- pk -->
   <section class="filter-opties">
-    <button class="button">
-      PK
-      <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <button class="button" type="button">PK <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
         <path fill="var(--kleur-icons)" fill-rule="evenodd" d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z" clip-rule="evenodd"/>
-      </svg>
-    </button>
+      </svg></button>
     <section class="van-tot">
-      <select class="input-veld">
+      <select class="input-veld" name="pkVan">
         <option value="">van</option>
         <option value="100">100</option>
         <option value="150">150</option>
         <option value="200">200</option>
         <option value="250">250</option>
       </select>
-      <select class="input-veld">
+      <select class="input-veld" name="pkTot">
         <option value="">tot</option>
         <option value="100">100</option>
         <option value="150">150</option>
@@ -85,41 +73,26 @@
 
   <!-- ervaring -->
   <section class="filter-opties">
-    <button class="button">
-      Jaren ervaring
-      <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <button class="button" type="button">Jaren ervaring  <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
         <path fill="var(--kleur-icons)" fill-rule="evenodd" d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z" clip-rule="evenodd"/>
-      </svg>
-    </button>
-    <input class="input-veld" type="number" name="jaren-ervaring" placeholder="Bijvoorbeeld 5"/>
-  </section>
-
-  <!-- win rate -->
-  <section class="filter-opties">
-    <button class="button">
-      Win rate
-      <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <path fill="var(--kleur-icons)" fill-rule="evenodd" d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z" clip-rule="evenodd"/>
-      </svg>
-    </button>
+      </svg></button>
+    <input class="input-veld" type="number" name="jarenErvaring" placeholder="Bijvoorbeeld 5"/>
   </section>
 
   <!-- mods -->
   <section class="filter-opties">
-    <button class="button">
-      Mods
-      <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <button class="button" type="button">Mods <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
         <path fill="var(--kleur-icons)" fill-rule="evenodd" d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z" clip-rule="evenodd"/>
-      </svg>
-    </button>
-    <label class="checkbox"><input type="checkbox"/> Banden</label>
-    <label class="checkbox"><input type="checkbox"/> Suspensie</label>
-    <label class="checkbox"><input type="checkbox"/> Remmen</label>
-    <label class="checkbox"><input type="checkbox"/> Power modus</label>
-    <label class="checkbox"><input type="checkbox"/> Aero</label>
+      </svg></button>
+    <label class="checkbox"><input type="checkbox" name="mods" value="Banden"/> Banden</label>
+    <label class="checkbox"><input type="checkbox" name="mods" value="Suspensie"/> Suspensie</label>
+    <label class="checkbox"><input type="checkbox" name="mods" value="Remmen"/> Remmen</label>
+    <label class="checkbox"><input type="checkbox" name="mods" value="Power modus"/> Power modus</label>
+    <label class="checkbox"><input type="checkbox" name="mods" value="Aero"/> Aero</label>
   </section>
 </section>
 
-<section id="resultaten-weergeven">
-  <button id="knop-resultaten">Resultaten weergeven</button>
-</section>
+  <section id="resultaten-weergeven">
+    <button type="submit" id="knop-resultaten">Resultaten weergeven</button>
+  </section>
+</form>

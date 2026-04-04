@@ -2,9 +2,7 @@
   transform: rotate(180deg);
 }
 
-.button:focus {
-  outline: none;
-}
+
 
 #body-filter, body{
   background-color: var(--kleur-blok-matching);
@@ -58,6 +56,10 @@ transition: transform 0.3s ease;
   margin-left: 2em;
   font-size: 1.3em;
   justify-content: space-between;
+}
+
+.button:focus {
+  outline: none;
 }
 
 /* Alles onder de titel */
