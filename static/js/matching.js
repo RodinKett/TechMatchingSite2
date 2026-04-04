@@ -1,3 +1,23 @@
+////filter overlay open en dicht kunnen doen////
+document.getElementById("button-filter")
+  .addEventListener("click", () => {
+    document.getElementById("filter-overlay").classList.remove("verborgen");
+  });
+
+document.getElementById("knop-filter-sluiten")
+  .addEventListener("click", () => {
+    document.getElementById("filter-overlay").classList.add("verborgen");
+  });
+
+document.getElementById("knop-resultaten")
+  .addEventListener("click", () => {
+    document.getElementById("filter-overlay").classList.add("verborgen");
+  });
+
+
+
+
+
 ////haalt de buttons up en bij click dat het een kant opgaat////
 document.getElementById("knop-volgende")
   .addEventListener("click", () => swipe("left"));

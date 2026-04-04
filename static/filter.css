@@ -11,7 +11,7 @@
 
 #button-filter {
   display: flex;
-  background-color: var(--kleur-filtreren-knop);
+  background-color: var(--kleur-blok-matching);
   color: var(--kleur-tekst);
   border: none;
   font-weight: bold;
@@ -19,10 +19,11 @@
 }
 
 .svg-pijl{
+    fill: var(--);
     display: flex;
-    flex-direction: row;      /* 👈 naast elkaar */
-    align-items: center;      /* 👈 netjes uitlijnen */
-    justify-content: space-between; /* optioneel */
+    flex-direction: row;      
+    align-items: center;      
+    justify-content: space-between; 
 }
 
 .filter-opties {

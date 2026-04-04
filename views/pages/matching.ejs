@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/matching.css" />
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +13,8 @@
     />
     <link rel="stylesheet" href="/style.css" />
     <link rel="stylesheet" href="/footer.css" />
+    <link rel="stylesheet" href="/matching.css" />
+    <link rel="stylesheet" href="/filter.css" />
   </head>
   <body class="body-matching">
     <header><%- include('../partials/headerbasis'); %></header>
@@ -24,10 +26,13 @@
         <p id="telling-filter"></p>
       </button>
 
+     <%# overlay filter %>
+<section id="filter-overlay" class="verborgen">
+  <%- include('../partials/filter-overlay'); %>
+</section>
+
 
       <section class="alle-kaarten">
-
-
 ////haalt voor elke gebruiker een kaart op////
   <% users.forEach(user => { %>
 
@@ -99,6 +104,7 @@
 
 
 <script src="/js/matching.js"></script>
+<script src="/js/filter.js"></script>
 
     <footer><%- include('../partials/footer'); %></footer>
   </body>

@@ -1,3 +1,22 @@
+/* filter css */
+#filter-overlay {
+  position: fixed;
+  inset: 0;                        /* vult het hele scherm */
+  background: var(--kleur-achtergrond);
+  z-index: 100;
+  overflow-y: auto;
+  transition: opacity 0.3s ease;
+}
+
+#filter-overlay.verborgen {
+  display: none;
+}
+
+
+
+
+
+
 .body-matching {
   padding: 0;
   background-color: var(--kleur-achtergrond);
