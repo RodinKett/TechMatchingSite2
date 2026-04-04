@@ -1,29 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%- include('../partials/head'); %>
+  <meta charset="UTF-8">
+  <title>Loading</title>
+
+  <!-- CSS (load bootstrap from a CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/header.css">
+
+  <link rel="stylesheet" href="/404.css" />
 </head>
 <body class="container">
 
 <header>
-  <%- include('../partials/header'); %>
+  <%- include('../partials/headerbasis'); %>
 </header>
 
 <main>
-<div class="row">
-  <div class="col-sm-8">
-    <div class="jumbotron">
-      <h1>This is great</h1>
-      <p>Welcome to templating using EJS</p>
-    </div>
-  </div>
-
-  <div class="col-sm-4">
-    <div class="well">
-      <h3>404</h3>
-    </div>
-  </div>
-</div>
+  <h1>
+    404 Pagina niet gevonden
+  </h1>
+  <!-- <img src="/afbeeldingen/404error.svg" alt="Afbeelding van een bord met wegwijzers die aangeven dat de wegen doodlopen"> -->
+  <picture>
+          <source
+          srcset="/afbeeldingen/404error.svg"
+          media="(prefers-color-scheme: dark)"
+          />
+          <img
+          src="/afbeeldingen/404licht.svg"
+          alt="Afbeelding van een bord met wegwijzers die aangeven dat de wegen doodlopen"
+          />
+        </picture>
+  <p>
+    Deze pagina bestaat niet meer of is verplaatst
+  </p>
+  <a href="/">klik hier om terug te gaan naar de startpagina</a>
 </main>
 
 <footer>

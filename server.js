@@ -84,6 +84,18 @@ app.get("/loadingpage", (req, res) => {
   res.render("pages/loadingpage");
 });
 
+
+// ------------------- Error handeling ------------------
+app.use((req, res) => {
+  res.status(404).render("pages/404");
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).render("pages/500");
+});
+
+
 // ------------------- Server starten -------------------
 async function startServer() {
   try {
