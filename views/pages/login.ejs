@@ -27,7 +27,7 @@
         <input id="inlog-wachtwoord" type="password" name="password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$">
         <p class="error-inlog-wachtwoord" style="display:none;"></p>
 
-        <button type="submit" onclick="formatValidatie(event)">Inloggen</button>
+        <button type="submit" onclick="validateLogin(event)">Inloggen</button>
 
         <button type="button" class="link" onclick="gaNaar(1)">
           Nog geen account? <u><strong>Registreer</strong></u>
@@ -43,15 +43,15 @@
         <h2 id="titel-registratie-stap1">Registreren - Stap 1</h2>
 
         <label for="reg-gebruikersnaam">Gebruikersnaam</label>
-        <input id="reg-gebruikersnaam" type="text" name="reg-gebruikersnaam" required pattern="^[a-zA-Z0-9_-]{3,30}$" >
+        <input id="reg-gebruikersnaam" type="text" name="reg-gebruikersnaam" required>
         <p class="error-reg-gebruikersnaam" style="display:none;"></p>
 
         <label for="reg-email">Email</label>
-        <input id="reg-email" type="email" name="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+        <input id="reg-email" type="email" name="email" required>
         <p class="error-reg-email" style="display:none;"></p>
 
         <div>
-          <button type="button" class="knop-primaire" onclick="formatValidatie(event); gaNaar(2)">Volgende</button>
+          <button type="button" class="knop-primaire" onclick="if(validateRegisterStep1()) gaNaar(2)">Volgende</button>
           <button type="button" class="link" onclick="gaTerugNaar(0)">
             Heb je al een account <u><strong>log hier in</strong></u>      
           </button>
@@ -80,7 +80,7 @@
         <div>
           <div class="knoppen-rij">
             <button type="button" class="knop-secundaire" onclick="gaNaar(1)">Terug</button>
-            <button type="button" class="knop-primaire" onclick="gaNaar(3)">Volgende</button>
+            <button type="button" class="knop-primaire" onclick="if(validateRegisterStep2()) gaNaar(3)">Volgende</button>
           </div>
           <button type="button" class="link" onclick="gaTerugNaar(0)">
             Heb je al een account <u><strong>log hier in</strong></u>       
@@ -93,17 +93,17 @@
         <h2 id="titel-registratie-stap3">Registreren - Stap 3</h2>
 
         <label for="reg-wachtwoord">Wachtwoord</label>
-        <input id="reg-wachtwoord" type="password" name="reg-password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$">
+        <input id="reg-wachtwoord" type="password" name="reg-password" required >
         <p class="error-reg-password" style="display:none;"></p>
 
         <label for="reg-wachtwoord-bevestigen">Bevestig wachtwoord</label>
-        <input id="reg-wachtwoord-bevestigen" type="password" name="reg-wachtwoord-bevestigen" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$">
+        <input id="reg-wachtwoord-bevestigen" type="password" name="reg-wachtwoord-bevestigen" required >
         <p class="error-reg-password-bevestigen" style="display:none;"></p>
 
         <div>
           <div class="knoppen-rij">
             <button type="button" class="knop-secundaire" onclick="gaNaar(2)">Terug</button>
-            <button type="submit" class="knop-primaire">Registreren</button>
+            <button type="submit" class="knop-primaire" onclick="validateRegisterStep3(event)">Registreren</button>
           </div>
           <button type="button" class="link" onclick="gaTerugNaar(0)">
             Heb je al een account <u><strong>log hier in</strong></u>       
@@ -116,6 +116,7 @@
   </section>
 </main>
 
+<script src="/js/format-validatie.js"></script>
 <script src="/js/login-register.js"></script>
 
 <footer>

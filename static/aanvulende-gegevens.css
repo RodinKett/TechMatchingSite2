@@ -110,3 +110,16 @@ div label{
   padding-left: 1rem;
   margin-top:0;
 }
+
+
+
+p{
+  font-size: var(--font-size-normal);
+  color: var(--kleur-error);
+  text-shadow:0 0 15px var(--kleur-secundair-button-text);
+}
+
+/* Input error style */
+.input-error {
+  border: 3px solid red;
+}

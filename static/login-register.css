@@ -206,3 +206,14 @@ input[type="file"] {
   text-overflow: ellipsis;
   max-width: 70%; 
 }
+
+p{
+  font-size: var(--font-size-normal);
+  color: var(--kleur-error);
+  text-shadow:0 0 15px var(--kleur-secundair-button-text);
+}
+
+/* Input error style */
+.input-error {
+  border: 3px solid red;
+}
