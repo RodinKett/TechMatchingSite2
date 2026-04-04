@@ -1,4 +1,3 @@
-
 ////haalt de buttons up en bij click dat het een kant opgaat////
 document.getElementById("button-volgende")
   .addEventListener("click", () => swipe("left"));
@@ -7,8 +6,8 @@ document.getElementById("button-challenge")
   .addEventListener("click", () => swipe("right"));
 
   ////pakt de bovenste kaart
-  function haalBovensteKaart() {
-  const cards = [...document.querySelectorAll(".veeg-kaart")];
+  function getTopCard() {
+  const cards = [...document.querySelectorAll(".swipe-card")];
   return cards.reduce((top, card) => {
     const z = parseInt(getComputedStyle(card).zIndex) || 0;
     const topZ = parseInt(getComputedStyle(top).zIndex) || 0;
@@ -17,9 +16,8 @@ document.getElementById("button-challenge")
 }
 
 function swipe(direction) {
-  const card = haalBovensteKaart(); 
+  const card = getTopCard(); // ← use this instead
   if (!card) return;
-
 
   const offset = direction === "right" ? "120%" : "-120%";
   const angle = direction === "right" ? 20 : -20;
@@ -43,6 +41,3 @@ function swipe(direction) {
     card.style.transition = "transform 0.35s ease, opacity 0.35s ease";
   }, 350);
 }
-
-
-
