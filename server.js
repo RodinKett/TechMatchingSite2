@@ -407,7 +407,6 @@ profielFoto: user.profielFoto || "-",
     }));
 
     res.render("Pages/matching", { users });
- console.log(users)
   } catch (err) {
     console.error("Fout bij ophalen matching-profielen:", err);
     res.status(500).send("Er ging iets mis bij het ophalen van de profielen.");
