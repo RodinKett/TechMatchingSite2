@@ -309,39 +309,241 @@ function validateUpdateAccount(event) {
 
   let valid = true;
 
+  // =====================
+  // ACCOUNT
+  // =====================
+
+  const email = document.getElementById("update-email")?.value.trim();
+  const currentPassword = document.getElementById("huidig-wachtwoord")?.value;
   const newPassword = document.getElementById("nieuw-wachtwoord")?.value;
   const confirmPassword = document.getElementById("bevestig-wachtwoord")?.value;
+  const fileInput = document.getElementById("upload-profiel");
 
-  const errorConfirm = document.querySelector(".error-bevestig-wachtwoord");
+  const errorEmail = document.querySelector(".error-email");
+  const errorCurrentPassword = document.querySelector(".error-huidig-wachtwoord");
+  const errorNewPassword = document.querySelector(".error-nieuw-wachtwoord");
+  const errorConfirmPassword = document.querySelector(".error-bevestig-wachtwoord");
+  const errorProfileFoto = document.querySelector(".error-profileFoto");
 
-  if (errorConfirm) errorConfirm.style.display = "none";
+  if (errorEmail) errorEmail.style.display = "none";
+  if (errorCurrentPassword) errorCurrentPassword.style.display = "none";
+  if (errorNewPassword) errorNewPassword.style.display = "none";
+  if (errorConfirmPassword) errorConfirmPassword.style.display = "none";
+  if (errorProfileFoto) errorProfileFoto.style.display = "none";
 
-  if (newPassword !== "" && newPassword !== confirmPassword) {
+  const updateEmailInput = document.getElementById("update-email");
+  const huidigWachtwoordInput = document.getElementById("huidig-wachtwoord");
+  const nieuwWachtwoordInput = document.getElementById("nieuw-wachtwoord");
+  const bevestigWachtwoordInput = document.getElementById("bevestig-wachtwoord");
+  const uploadProfielInput = document.getElementById("upload-profiel");
 
-    errorConfirm.textContent = "Wachtwoorden komen niet overeen.";
-    errorConfirm.style.display = "block";
+  updateEmailInput?.classList.remove("input-error");
+  huidigWachtwoordInput?.classList.remove("input-error");
+  nieuwWachtwoordInput?.classList.remove("input-error");
+  bevestigWachtwoordInput?.classList.remove("input-error");
+  uploadProfielInput?.classList.remove("input-error");
 
+
+
+  if (!emailRegex.test(email)) {
+    errorEmail.textContent = "Ongeldig email formaat.";
+    errorEmail.style.display = "block";
+
+    updateEmailInput.classList.add("input-error");
     valid = false;
   }
 
-  if (!valid) event.preventDefault();
-}
+  // wachtwoord wijzigen
+  if (newPassword !== "") {
 
-function isAdult(dob) {
+    if (!currentPassword) {
+      errorCurrentPassword.textContent = "Voer je huidige wachtwoord in.";
+      errorCurrentPassword.style.display = "block";
 
-  const birthDate = new Date(dob);
-  const today = new Date();
+      huidigWachtwoordInput.classList.add("input-error");
+      valid = false;
+    }
 
-  let age = today.getFullYear() - birthDate.getFullYear();
+    if (!passwordRegex.test(newPassword)) {
+      errorNewPassword.textContent = "Wachtwoord minimaal 8 tekens met hoofdletter, kleine letter en cijfer.";
+      errorNewPassword.style.display = "block";
 
-  const monthDifference = today.getMonth() - birthDate.getMonth();
+      nieuwWachtwoordInput.classList.add("input-error");
+      valid = false;
+    }
 
-  if (
-    monthDifference < 0 ||
-    (monthDifference === 0 && today.getDate() < birthDate.getDate())
-  ) {
-    age--;
+    if (newPassword !== confirmPassword) {
+      errorConfirmPassword.textContent = "Wachtwoorden komen niet overeen.";
+      errorConfirmPassword.style.display = "block";
+
+      bevestigWachtwoordInput.classList.add("input-error");
+      valid = false;
+    }
   }
 
-  return age >= 18;
+  // image type check
+  if (fileInput && fileInput.files.length > 0) {
+
+    const file = fileInput.files[0];
+    const allowed = ["image/jpeg", "image/png", "image/webp"];
+
+    if (!allowed.includes(file.type)) {
+      errorProfileFoto.textContent = "Alleen JPG, PNG of WEBP toegestaan.";
+      errorProfileFoto.style.display = "block";
+
+      uploadProfielInput.classList.add("input-error");
+      valid = false;
+    }
+  }
+
+
+  // =====================
+  // PERSOON GEGEVENS
+  // =====================
+
+  const ervaring = Number(document.getElementById("jarenErvaring")?.value);
+  const opmerkingen = document.getElementById("aanvullendeOpmerkingen")?.value.trim();
+  const specialisaties = document.querySelectorAll('input[name="specialisatie"]:checked');
+
+  const errorErvaring = document.querySelector(".error-jarenErvaring");
+  const errorSpecialisatie = document.querySelector(".error-specialisatie");
+  const errorOpmerkingen = document.querySelector(".error-aanvullendeOpmerkingen");
+
+  if (errorErvaring) errorErvaring.style.display = "none";
+  if (errorSpecialisatie) errorSpecialisatie.style.display = "none";
+  if (errorOpmerkingen) errorOpmerkingen.style.display = "none";
+
+  const jarenErvaringInput = document.getElementById("jarenErvaring");
+  const aanvullendeOpmerkingenInput = document.getElementById("aanvullendeOpmerkingen");
+  const specialisatieInputs = document.querySelectorAll('input[name="specialisatie"]');
+
+  specialisatieInputs?.forEach(cb => cb.classList.remove("input-error"));
+  aanvullendeOpmerkingenInput?.classList.remove("input-error");
+  jarenErvaringInput?.classList.remove("input-error");
+
+
+
+
+  if (!ervaring || ervaring < 0 || ervaring > 99) {
+    errorErvaring.textContent = "Voer een geldig aantal jaren ervaring in.";
+    errorErvaring.style.display = "block";
+
+    jarenErvaringInput.classList.add("input-error");
+    valid = false;
+  }
+
+  if (specialisaties.length === 0) {
+    errorSpecialisatie.textContent = "Selecteer minimaal één specialisatie.";
+    errorSpecialisatie.style.display = "block";
+
+    specialisatieInputs.forEach(cb => cb.classList.add("input-error"));
+    valid = false;
+  }
+
+  if (!opmerkingenRegex.test(opmerkingen)) {
+    errorOpmerkingen.textContent = "Max 500 tekens, letters, cijfers en basis leestekens.";
+    errorOpmerkingen.style.display = "block";
+
+    aanvullendeOpmerkingenInput.classList.add("input-error");
+    valid = false;
+  }
+
+
+  // =====================
+  // VOERTUIG
+  // =====================
+
+  const voertuigJaar = Number(document.getElementById("jaartalVoertuig")?.value);
+  const merkInput = document.getElementById("merkVoertuig-api");
+  const voertuigInput = document.getElementById("voertuig-api");
+  const mods = document.querySelectorAll('input[name="mods"]:checked');
+
+  const errorJaartal = document.querySelector(".error-jaartalVoertuig");
+  const errorMerk = document.querySelector(".error-merkVoertuig-api");
+  const errorModel = document.querySelector(".error-voertuig-api");
+  const errorMods = document.querySelector(".error-mods");
+
+  if (errorJaartal) errorJaartal.style.display = "none";
+  if (errorMerk) errorMerk.style.display = "none";
+  if (errorModel) errorModel.style.display = "none";
+  if (errorMods) errorMods.style.display = "none";
+
+  const jaartalVoertuigInput = document.getElementById("jaartalVoertuig");
+  const merkVoertuigApiInput = document.getElementById("merkVoertuig-api");
+  const voertuigApiInput = document.getElementById("voertuig-api");
+  const modsInputs = document.querySelectorAll('input[name="mods"]');
+  
+  modsInputs?.forEach(cb => cb.classList.remove("input-error"));
+  jaartalVoertuigInput?.classList.remove("input-error");
+  merkVoertuigApiInput?.classList.remove("input-error");
+  voertuigApiInput?.classList.remove("input-error");
+
+
+
+
+  if (voertuigJaar < 1950 || voertuigJaar > 2025) {
+    errorJaartal.textContent = "Voer een geldig jaartal in.";
+    errorJaartal.style.display = "block";
+
+    jaartalVoertuigInput.classList.add("input-error");
+    valid = false;
+  }
+
+  if (!merkInput.value || merkInput.value === "") {
+    errorMerk.textContent = "Selecteer een merk.";
+    errorMerk.style.display = "block";
+
+    merkVoertuigApiInput.classList.add("input-error");
+    valid = false;
+  }
+
+  if (!voertuigInput.value || voertuigInput.value === "") {
+    errorModel.textContent = "Selecteer een model.";
+    errorModel.style.display = "block";
+
+    voertuigApiInput.classList.add("input-error");
+    valid = false;
+  }
+
+  if (mods.length === 0) {
+    errorMods.textContent = "Selecteer minimaal één mod.";
+    errorMods.style.display = "block";
+
+    modsInputs.forEach(cb => cb.classList.add("input-error"));
+    valid = false;
+  }
+
+
+  if (!valid) {
+    event.preventDefault();
+  }
 }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+
+const jaartalInput = document.getElementById("jaartalVoertuig");
+const merkInput = document.getElementById("merkVoertuig-api");
+const voertuigInput = document.getElementById("voertuig-api");
+
+const pkInput = document.getElementById("pk");
+const gewichtInput = document.getElementById("gewicht");
+const aandrijvingInput = document.getElementById("aandrijving");
+
+jaartalInput.addEventListener("change", () => {
+  merkInput.value = "-";
+  voertuigInput.value = "-";
+
+  pkInput.value = "";
+  gewichtInput.value = "";
+  aandrijvingInput.value = "";
+});
+
+merkInput.addEventListener("change", () => {
+  voertuigInput.value = "-";
+
+  pkInput.value = "";
+  gewichtInput.value = "";
+  aandrijvingInput.value = "";
+});
