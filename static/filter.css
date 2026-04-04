@@ -1,0 +1,111 @@
+#body-filter, body{
+  background-color: var(--kleur-blok-matching);
+ 
+}
+
+#parent-alles {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10%;
+}
+
+#button-filter {
+  display: flex;
+  background-color: var(--kleur-filtreren-knop);
+  color: var(--kleur-tekst);
+  border: none;
+  font-weight: bold;
+  width: 10em;
+}
+
+.svg-pijl{
+    display: flex;
+    flex-direction: row;      /* 👈 naast elkaar */
+    align-items: center;      /* 👈 netjes uitlijnen */
+    justify-content: space-between; /* optioneel */
+}
+
+.filter-opties {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  padding: 1em 0;
+  border-bottom: solid 0.05em var(--kleur-tekst);
+  margin-bottom: 2em;
+}
+
+.pijltje{
+ top: 0;
+width: 2em;
+ transition: transform 0.3s ease;
+}
+
+.filter-opties.active .pijltje {
+  transform: rotate(180deg);
+}
+
+/* Titel */
+.button {
+  display: flex;
+  background: none;
+  border: none;
+  color: var(--kleur-tekst);
+  text-align: left;
+  font-weight: bold;
+  margin-left: 2em;
+  font-size: 1.3em;
+  justify-content: space-between;
+}
+
+/* Alles onder de titel */
+.filter-opties label,
+.filter-opties select,
+.filter-opties input {
+  margin-left: 1.6em;
+}
+
+.checkbox {
+  color: var(--kleur-tekst);
+   font-size: 1.2em;
+}
+
+.input-veld {
+  width: 30%;
+ font-size: 1.2em;
+ background-color: var(--kleur-blok-matching);
+ border: solid var(--kleur-tekst);
+ color: var(--kleur-tekst);
+}
+
+.van-tot {
+  display: flex;
+
+}
+
+#resultaten-weergeven {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2em 0;
+}
+
+#resultaten-weergeven button {
+  color: var(--kleur-tekst);
+  background-color: var(--kleur-accent);
+  font-weight: bold;
+  border: none;
+  width: 80%;
+  height: 3em;
+}
+
+
+/* standaard dicht */
+.filter-opties > *:not(.button) {
+  display: none;
+}
+
+/* open wanneer active */
+.filter-opties.open > *:not(.button) {
+  display: block;
+}
+
