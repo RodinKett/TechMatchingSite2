@@ -83,10 +83,6 @@ app.get("/loadingpage", (req, res) => {
   res.render("pages/loadingpage");
 });
 
-app.get("/laadpagina", (req, res) => {
-  res.render("pages/laadpagina");
-});
-
 // ------------------- Server starten -------------------
 async function startServer() {
   try {
