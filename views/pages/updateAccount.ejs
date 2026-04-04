@@ -27,10 +27,6 @@
         <h2 class="accordion-header">Account gegevens</h2>
         <div class="accordion-content">
 
-          <label for="update-gebruikersnaam">Gebruikersnaam</label>
-          <input id="update-gebruikersnaam" type="text" name="update-gebruikersnaam" value="<%= user.username %>"  pattern="^[a-zA-Z0-9_-]{3,30}$">
-          <p class="error-update-gebruikersnaam" style="display:none;"></p>
-
           <label for="update-email">Email</label>
           <input id="update-email" type="email" name="email" value="<%= user.email %>"  pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
           <p class="error-email" style="display:none;"></p>
@@ -46,10 +42,6 @@
           <label for="bevestig-wachtwoord">Bevestig wachtwoord</label>
           <input id="bevestig-wachtwoord" type="password" name="bevestig-wachtwoord" placeholder="Bevestig nieuw wachtwoord">
           <p class="error-bevestig-wachtwoord" style="display:none;"></p>
-
-          <label for="update-geboortedatum">Geboortedatum</label>
-          <input id="update-geboortedatum" type="date" name="dob" value="<%= user.dob %>">
-          <p class="error-dob" style="display:none;"></p>
 
           <label for="upload-profiel">Upload profielfoto</label>
           <input type="file" id="upload-profiel" name="profileFoto" accept="image/*">
@@ -81,7 +73,7 @@
             <label><input type="checkbox" name="specialisatie" value="Drag racing" <%= user.specialisatie?.includes("Drag racing") ? "checked" : "" %>> Drag racing</label>
             <label><input type="checkbox" name="specialisatie" value="Drift racing" <%= user.specialisatie?.includes("Drift racing") ? "checked" : "" %>> Drift racing</label>
             <label><input type="checkbox" name="specialisatie" value="Rally" <%= user.specialisatie?.includes("Rally") ? "checked" : "" %>> Rally</label>
-            <label><input type="checkbox" name="specialisatie" value="Endurance racing" <%= user.specialisatie?.includes("Endurance racing") ? "checked" : "" %>> Endurance racing</label>
+            <label><input type="checkbox" name="specialisatie" value="Geen" <%= user.specialisatie?.includes("Geen") ? "checked" : "" %>> Geen</label>
           </div>
           <p class="error-specialisatie" style="display:none;"></p>
 
@@ -126,6 +118,7 @@
             <label><input type="checkbox" name="mods" value="Brakes" <%= user.mods?.includes("Brakes") ? "checked" : "" %>> Brakes</label>
             <label><input type="checkbox" name="mods" value="Power" <%= user.mods?.includes("Power") ? "checked" : "" %>> Power</label>
             <label><input type="checkbox" name="mods" value="Aero" <%= user.mods?.includes("Aero") ? "checked" : "" %>> Aero</label>
+            <label><input type="checkbox" name="mods" value="Geen" <%= user.mods?.includes("Geen") ? "checked" : "" %>> Geen</label>
           </div>
           <p class="error-mods" style="display:none;"></p>
 

@@ -201,47 +201,47 @@ function validateAanvullendeGegevens(event) {
 
   let valid = true;
 
-  const ervaring = document.getElementById("jarenErvaring")?.value;
+  const ervaring = Number(document.getElementById("jarenErvaring")?.value);
   const opmerkingen = document.getElementById("aanvullendeOpmerkingen")?.value.trim();
-  const voertuigJaar = document.getElementById("jaartalVoertuig")?.value;
+  const voertuigJaar = Number(document.getElementById("jaartalVoertuig")?.value);
   const specialisaties = document.querySelectorAll('input[name="specialisatie"]:checked');
   const mods = document.querySelectorAll('input[name="mods"]:checked');
 
   const errorErvaring = document.querySelector(".error-jarenErvaring");
   const errorSpecialisatie = document.querySelector(".error-specialisatie");
   const errorMods = document.querySelector(".error-mods");
-  const errorVoertuig = document.querySelector(".error-jaartalVoertuig");
+  const errorJaartalVoertuig = document.querySelector(".error-jaartalVoertuig");
   const errorOpmerkingen = document.querySelector(".error-aanvullendeOpmerkingen");
+  const errorMerk = document.querySelector(".error-merkVoertuig-api");
+  const errorVoertuig = document.querySelector(".error-voertuig-api");
 
   if (errorErvaring) errorErvaring.style.display = "none";
   if (errorSpecialisatie) errorSpecialisatie.style.display = "none";
   if (errorMods) errorMods.style.display = "none";
+  if (errorJaartalVoertuig) errorJaartalVoertuig.style.display = "none";
+  if (errorOpmerkingen) errorOpmerkingen.style.display = "none";
+  if (errorMerk) errorMerk.style.display = "none";
   if (errorVoertuig) errorVoertuig.style.display = "none";
-  if (errorOpmerkingen) errorVoertuig.style.display = "none";
 
   const specialisatieInputs = document.querySelectorAll('input[name="specialisatie"]');
   const modsInputs = document.querySelectorAll('input[name="mods"]');
   const jarenErvaringInput = document.getElementById("jarenErvaring");
   const opmerkingenInput = document.getElementById("aanvullendeOpmerkingen");
   const jaartalVoertuigInput = document.getElementById("jaartalVoertuig");
-
+  const merkInput = document.getElementById("merkVoertuig-api");
+  const voertuigInput = document.getElementById("voertuig-api");
 
   specialisatieInputs?.forEach(cb => cb.classList.remove("input-error"));
   modsInputs?.forEach(cb => cb.classList.remove("input-error"));
   jarenErvaringInput?.classList.remove("input-error");
   opmerkingenInput?.classList.remove("input-error");
   jaartalVoertuigInput?.classList.remove("input-error");
+  merkInput?.classList.remove("input-error");
+  voertuigInput?.classList.remove("input-error");
 
   
-  if (!ervaring || ervaring.length === 0) {
-    errorErvaring.textContent = "required";
-    errorErvaring.style.display = "block";
 
-    jarenErvaringInput.classList.add("input-error");
-    valid = false;
-  }
-
-  if (ervaring < 0 || ervaring > 99) {
+  if (!ervaring || ervaring < 0 || ervaring > 99) {
     errorErvaring.textContent = "Voer een geldig aantal jaren ervaring in.";
     errorErvaring.style.display = "block";
 
@@ -266,25 +266,33 @@ function validateAanvullendeGegevens(event) {
   }
 
   if (voertuigJaar < 1950 || voertuigJaar > 2025) {
-    errorVoertuig.textContent = "Voer een geldig jaartal in.";
-    errorVoertuig.style.display = "block";
+    errorJaartalVoertuig.textContent = "Voer een geldig jaartal in.";
+    errorJaartalVoertuig.style.display = "block";
 
     jaartalVoertuigInput.classList.add("input-error");
     valid = false;
   }
 
-  if (!opmerkingen || opmerkingen.length === 0) {
-    errorOpmerkingen.textContent = "Schrijf een bericht over jezelf: max. 500 tekens, letters, cijfers, spaties en enkele leestekens toegestaan";
-    errorOpmerkingen.style.display = "block";
-    
-    opmerkingenInput.classList.add("input-error");
+  if (merkInput.value === "-") {
+    errorMerk.textContent = "Selecteer een merk.";
+    errorMerk.style.display = "block";
+
+    merkInput.classList.add("input-error");
     valid = false;
   }
 
-  if (opmerkingen && !opmerkingenRegex.test(opmerkingen)) {
-    errorOpmerkingen.textContent = "Schrijf een bericht over jezelf: max. 500 tekens, letters, cijfers, spaties en enkele leestekens toegestaan";
+  if (voertuigInput.value === "-") {
+    errorVoertuig.textContent = "Selecteer een model.";
+    errorVoertuig.style.display = "block";
+
+    voertuigInput.classList.add("input-error");
+    valid = false;
+  }
+
+  if (!opmerkingen || !opmerkingenRegex.test(opmerkingen)) {
+    errorOpmerkingen.textContent ="Schrijf een bericht over jezelf: max. 500 tekens, letters, cijfers, spaties en enkele leestekens toegestaan";
     errorOpmerkingen.style.display = "block";
-    
+
     opmerkingenInput.classList.add("input-error");
     valid = false;
   }
