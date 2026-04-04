@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <title>Loading</title>
+
+  <!-- CSS (load bootstrap from a CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/header.css">
+
+  <link rel="stylesheet" href="/laadpagina.css" />
+  </head>
+  <body>
+    <header></header>
+
+    <!-- BRONVERMELDING: Progress Bar Tutorial CSS, HTML, JavaScript
+        Video: https://youtu.be/4LBRMSk6PLY?si=idS_I-GS9WIsLfdP  -->
+    <main class="laadpagina">
+        <h1>Een moment gedult, we zijn de pagina voor u aan het ophalen</h1>
+    
+        <section class="progressie-container">
+          <picture>
+          <source
+          srcset="/afbeeldingen/laadanimatie-auto-side-donker.svg"
+          media="(prefers-color-scheme: dark)"
+          />
+          <img
+          src="/afbeeldingen/laadanimatie-auto-side.svg"
+          alt="Afbeelding van een auto die van links naar rechts gaat"
+          />
+        </picture>
+          <div class="progressiebar"></div>
+        </section>
+    </main>
+
+    <!-- <footer></footer> -->
+     <script src="/js/laadpagina.js"></script>
+  </body>
+</html>
