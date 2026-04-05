@@ -1,12 +1,12 @@
 :root{
     /* Kleur */
-    --kleur-tekst:hsl(0deg 0% 100%);
-    --kleur-border-zijkant:hsl(0deg 0% 100%);
+    --kleur-tekst:hsl(202deg 26% 12%);
+    --kleur-border-zijkant:hsl(202deg 26% 12%);
     --kleur-accent:hsl(356deg 69% 50%);
-    --kleur-achtergrond: hsl(202deg 26% 12%);
+    --kleur-achtergrond: hsl(0deg 0% 100%);
     --kleur-invulveld:hsl(204deg 55% 18%);
-    --kleur-tekst-links-knop:hsl(204deg 55% 18%);
-    --kleur-achtergrond-linker-knop:hsl(0deg 0% 100%);
+    --kleur-tekst-links-knop:hsl(0deg 0% 100%);
+    --kleur-achtergrond-linker-knop:hsl(204deg 55% 18%);
     --kleur-achtergrond-blok-verzoek:hsl(204deg 55% 18%);
     --kleur-tekst-inlog:hsl(0deg 0% 75%);
     --kleur-leaderbord-1:hsl(41deg 93% 52%);
@@ -15,10 +15,14 @@
     --kleur-rank:hsl(41deg 93% 52%);
     --kleur-footer-achtergrond:hsl(205deg 58% 21%);
     --kleur-footer-aangeklikt:hsl(41deg 93% 52%);
-    --kleur-chatbericht-ik:hsl(205deg 54% 63%);
-    --kleur-chatbericht-hun:hsl(0deg 0% 100%);
-    --kleur-corner-border:hsl(0deg 0% 100%);
+    --kleur-corner-border:hsl(202deg 26% 12%);
     --kleur-blok-matching: hsl(204deg 55% 18%);
+    --kleur-placeholder-text: hsl(0deg 0% 75%);
+    --kleur-primair-button-bg: hsl(356deg 69% 50%);
+    --kleur-primair-button-text: hsl(0deg 0% 100%);
+    --kleur-secundair-button-bg: hsl(204deg 55% 18%);
+    --kleur-secundair-button-text: hsl(0deg 0% 100%);
+    --kleur-link: hsl(356deg 69% 50%);
 
     /* Font */
     --font-size-form-title: 3rem;
@@ -82,4 +86,68 @@
     --wit-ruimte-xl-s: 8em 1em;
     --wit-ruimte-xl-m: 8em 2em;
     --wit-ruimte-xl-l: 8em 4em;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root{
+    --kleur-tekst:hsl(0deg 0% 100%);
+    --kleur-border-zijkant:hsl(0deg 0% 100%);
+    --kleur-accent:hsl(356deg 69% 50%);
+    --kleur-achtergrond: hsl(202deg 26% 12%);
+    --kleur-invulveld:hsl(204deg 55% 18%);
+    --kleur-tekst-links-knop:hsl(204deg 55% 18%);
+    --kleur-achtergrond-linker-knop:hsl(0deg 0% 100%);
+    --kleur-achtergrond-blok-verzoek:hsl(204deg 55% 18%);
+    --kleur-tekst-inlog:hsl(0deg 0% 75%);
+    --kleur-leaderbord-1:hsl(41deg 93% 52%);
+    --kleur-leaderbord-2:hsl(206deg 4% 65%);
+    --kleur-leaderbord-3:hsl(30deg 70% 45%);
+    --kleur-rank:hsl(41deg 93% 52%);
+    --kleur-footer-achtergrond:hsl(205deg 58% 21%);
+    --kleur-footer-aangeklikt:hsl(41deg 93% 52%);
+    --kleur-chatbericht-ik:hsl(205deg 54% 63%);
+    --kleur-chatbericht-hun:hsl(0deg 0% 100%);
+    --kleur-corner-border:hsl(0deg 0% 100%);
+    --kleur-link: hsl(41deg 93% 52%);
+  }
+
+}
+
+/* ------------------- Buttons ------------------- */
+button {
+    width: 100%;
+    background: var(--kleur-secundair-button-bg);
+    color: var(--kleur-secundair-button-text);
+    padding: var(--wit-ruimte-s-m);
+    font-size: var(--font-size-normal);
+    cursor: pointer;
+    font-family: var(--font-family-kopjes);
+}
+
+.knop-primaire {
+  background: var(--kleur-primair-button-bg);
+  color: var(--kleur-primair-button-text);
+  width: 50%;
+  align-self: flex-end;
+  border-radius: 0.5em;
+}
+
+.knop-secundaire {
+  background: var(--kleur-secundair-button-bg);
+  color: var(--kleur-secundair-button-text);
+  width: 50%;
+  align-self: flex-start;
+  border-radius: 0.5em;
+}
+
+.knoppen-rij {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--lijn-hoogte-xl);
+}
+
+.knoppen-rij button {
+  width: 48%;
+  margin: 0;
 }

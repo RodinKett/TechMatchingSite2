@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Update Account</title>
+
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/updateProfile.css">
+  <link rel="stylesheet" href="/header.css">
+
+</head>
+
+<body class="container">
+
+  <header>
+    <%- include('../partials/headerbasis.ejs'); %>
+  </header>
+
+  <main>
+
+    <h1>Update account</h1>
+
+    <form id="formulier-aanvullende-gegevens" action="/updateAccount" method="POST" enctype="multipart/form-data">
+
+      <!-- ACCOUNT DATA -->
+
+      <div class="accordion open">
+
+        <h2 class="accordion-header">Account gegevens</h2>
+
+        <div class="accordion-content">
+
+          <label for="update-gebruikersnaam">Gebruikersnaam</label>
+          <input id="update-gebruikersnaam" type="text" name="update-gebruikersnaam" value="<%= user.username %>"  pattern="^[a-zA-Z0-9_-]{3,30}$">
+
+          <label for="update-email">Email</label>
+          <input id="update-email" type="email" name="email" value="<%= user.email %>"  pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+
+          <label for="huidig-wachtwoord">Huidig wachtwoord</label>
+          <input type="password" id="huidig-wachtwoord" name="huidig-wachtwoord" placeholder="Verplicht als je wachtwoord wilt wijzigen">
+
+          <label for="nieuw-wachtwoord">Nieuw wachtwoord</label>
+          <input id="nieuw-wachtwoord" type="password" name="nieuw-wachtwoord" placeholder="Laat leeg als je niet wil wijzigen" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$" >
+
+          <label for="bevestig-wachtwoord">Bevestig wachtwoord</label>
+          <input id="bevestig-wachtwoord" type="password" name="bevestig-wachtwoord" placeholder="Bevestig nieuw wachtwoord">
+
+          <label for="update-telefoonnummer">Telefoonnummer</label>
+          <input id="update-telefoonnummer" type="tel" name="update-telefoonnummer" value="<%= user.phone %>" pattern="^\+?[0-9]{7,15}$">
+
+          <label for="update-geboortedatum">Geboortedatum</label>
+          <input id="update-geboortedatum" type="date" name="dob" value="<%= user.dob %>">
+
+          <label for="update-geslacht">Geslacht</label>
+          <select id="update-geslacht" name="update-geslacht">
+            <option value="man" <%=user.gender==="man" ? "selected" : "" %>> Man </option>
+            <option value="vrouw" <%=user.gender==="vrouw" ? "selected" : "" %>> Vrouw </option>
+            <option value="anders" <%=user.gender==="anders" ? "selected" : "" %>> Anders </option>
+          </select>
+
+
+
+          <label for="upload-profiel">Upload profielfoto</label>
+          <input type="file" id="upload-profiel" name="profileFoto" accept="image/*">
+
+          <label for="upload-profiel" class="upload-label">
+            <img src="afbeeldingen/upload-photo.svg" alt="Upload Profiel foto">
+            <span class="file-name">Upload profielfoto</span>
+          </label>
+          <img id="previewImage" class="voorbeeld-afbeelding" src="/uploads/<%= user.profielFoto %>">
+
+        </div>
+      </div>
+
+      <span></span>
+
+      <!-- PERSON DATA -->
+
+      <div class="accordion">
+        <h2 class="accordion-header">Aanvullende persoons gegevens</h2>
+        <div class="accordion-content">
+
+          <label for="skillLevel">Vaardigheid</label>
+          <select id="skillLevel" name="skillLevel">
+            <option value="beginer" <%=user.skillLevel==="beginer" ? "selected" : "" %>> Beginner </option>
+            <option value="bekend" <%=user.skillLevel==="bekend" ? "selected" : "" %>> Bekend </option>
+            <option value="expert" <%=user.skillLevel==="expert" ? "selected" : "" %>> Expert </option>
+          </select>
+
+          <label for="jarenErvaring">Jaren ervaring</label>
+          <input id="jarenErvaring" type="number" name="jarenErvaring" value="<%= user.jarenErvaring %>" requiredmin="0" max="99">
+
+          <label for="specialisatie">Specialisatie</label>
+          <input id="specialisatie" type="text" name="specialisatie" value="<%= user.specialisatie %>" pattern="^[a-zA-Z\s-]{3,30}$">
+
+        </div>
+      </div>
+
+      <span></span>
+
+      <!-- VOERTUIG DATA -->
+      <div class="accordion">
+        <h2 class="accordion-header">Voertuig</h2>
+        <div class="accordion-content">
+
+          <label for="jaartalVoertuig">Jaartal voertuig</label>
+          <input id="jaartalVoertuig" type="number" name="jaartalVoertuig" value="<%= user.voertuig?.jaartal || '' %>" min="1950" max="2025">
+
+          <label for="merkVoertuig-api">Merk voertuig</label>
+          <select id="merkVoertuig-api" name="merkVoertuig-api" data-huidig-merk="<%= user.voertuig?.merk || '' %>">
+            <option value="">Selecteer merk</option>
+          </select>
+
+          <label for="voertuig-api">Model voertuig</label>
+          <select id="voertuig-api" name="voertuig-api" data-huidig-model="<%= user.voertuig?.model || '' %>" disabled>
+            <option value="">Selecteer model</option>
+          </select>
+
+          <input type="hidden" name="pk" id="pk" value="<%= user.voertuig?.pk || '' %>">
+          <input type="hidden" name="gewicht" id="gewicht" value="<%= user.voertuig?.gewicht || '' %>">
+          <input type="hidden" name="aandrijving" id="aandrijving" value="<%= user.voertuig?.aandrijving || '' %>">
+
+          <label for="aanvullendeOpmerkingen">Aanvullende opmerkingen</label>
+          <input id="aanvullendeOpmerkingen" type="text" name="aanvullendeOpmerkingen" value="<%= user.voertuig?.opmerkingen || '' %>" pattern="^[a-zA-Z0-9\s.,!?]{0,150}$">
+
+        </div>
+      </div>
+
+      <button type="submit">Opslaan</button>
+
+    </form>
+
+  </main>
+
+  <script src="/js/car-api.js"></script>
+  <script src="/js/update-account.js"></script>
+
+  <footer></footer>
+
+</body>
+
+</html>
