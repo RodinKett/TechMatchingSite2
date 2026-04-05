@@ -20,6 +20,9 @@
   --kleur-corner-border: hsl(0deg 0% 100%);
   --kleur-blok-matching: hsl(204deg 55% 18%);
   --kleur-filtreren-knop: hsl(204.52deg 55.56% 40.59%);
+    --kleur-svg: hsl(0deg 0% 100%);
+    --kleur-footer-actief: hsl(41deg 93% 52%);
+    --kleur-achtergrond-actief: hsl(202deg 26% 12%);
 
   /* Font */
   --font-size-form-title: 3rem;

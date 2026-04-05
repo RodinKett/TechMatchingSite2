@@ -12,3 +12,8 @@ footer section {
   align-items: center; 
   height: 100%;          
 }
+
+footer .footer-icon.actief svg * {
+  fill: var(--kleur-footer-actief);
+  stroke: var(--kleur-footer-actief);
+}
