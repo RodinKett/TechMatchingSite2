@@ -21,7 +21,8 @@
  * 6. Start de server op poort 3000
  */
 
-
+/////connectie met data/////
+require("node:dns/promises").setServers(["1.1.1.1", "8.8.8.8"]);
 
 
 require("dotenv").config(); // Load environment variables
@@ -82,6 +83,18 @@ app.get("/", (req, res) => {
 app.get("/loadingpage", (req, res) => {
   res.render("pages/loadingpage");
 });
+
+
+// ------------------- Error handeling ------------------
+app.use((req, res) => {
+  res.status(404).render("pages/404");
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).render("pages/500");
+});
+
 
 // ------------------- Server starten -------------------
 async function startServer() {
