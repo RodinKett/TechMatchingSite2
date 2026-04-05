@@ -11,9 +11,13 @@
   margin: 0 2em;
 }
 
-#foto-section {
-  text-align: center;
+.foto-section {
+  display: grid;
+  grid-template-rows: auto auto auto;
+
 }
+
+
 
 #foto-section img {
   max-width: 100%;
@@ -22,17 +26,23 @@
   margin: 1rem auto;
 }
 
-#naam-edit-profiel{
+#positie-edit{
   display: flex;
   justify-content: space-between;
-
 }
 
-#edit-profiel{
-  width: 2em;
 
+.naam-gebruiker {
+  color: var(--kleur-tekst);
 }
 
+  #edit-profiel{
+    width: 2em;
+  }
+
+#middenlijn{
+  margin: 1em 0;
+}
 
 dl {
   display: grid;

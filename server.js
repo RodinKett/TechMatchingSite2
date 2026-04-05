@@ -537,28 +537,15 @@ app.get("/", (req, res) => {
 });
 
 
-app.get("/matching", (req, res) => {
-  res.render("Pages/matching");
-});
-
-app.get("/profiel", (req, res) => {
-  res.render("Pages/profiel");
-
-});
-
 app.get("/loadingpage", (req, res) => {
   res.render("Pages/loadingpage");
 });
 
-app.get("/profiel", (req, res) => {
-  res.render("Pages/profiel");
-});
 
 
 
 
-
-
+//////////////////matching pagina met filters en kaarten////////////////////
 app.get("/matching", async (req, res) => {
   try {
     const db = client.db("StreetracerApp");
@@ -611,8 +598,44 @@ app.get("/matching", async (req, res) => {
 // SERVER STARTEN + MONGO CONNECTIE
 // ---------------------
 
+app.get("/profiel", async (req, res) => {
+    // try {
+    // if (!req.session.user) {
+    //   return res.redirect("/login");
+    // }
+    try {
+    const db = client.db("StreetracerApp");
+    const gebruikers = db.collection("users");
 
-startServer();
+    // tijdelijk voor development
+    const data = await gebruikers.findOne({});  // pakt gewoon de eerste gebruiker
+
+    console.log("gevonden data:", data);
+
+    const user = {
+      id: data._id.toString(),
+      profielFoto: data.profielFoto || "-",
+      username: data.username || "Onbekend",
+      merk: data.voertuig?.merk || "-",
+      model: data.voertuig?.model || "-",
+      jaartal: data.voertuig?.jaartal || "-",
+      pk: data.voertuig?.pk || "-",
+      aandrijving: data.voertuig?.aandrijving || "-",
+      mods: data.mods || [],
+      specialisatie: data.specialisatie || "-",
+      jarenErvaring: data.jarenErvaring || "-",
+      skillLevel: data.skillLevel || "-",
+      opmerkingen: data.opmerkingen || "Geen opmerkingen",
+    };
+
+    res.render("Pages/profiel", { user });
+
+  } catch (err) {
+    console.error("Fout bij ophalen profiel:", err);
+    res.status(500).send("Er ging iets mis bij het ophalen van het profiel.");
+  }
+});
+
 
 async function startServer() {
   try {
