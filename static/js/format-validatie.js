@@ -354,6 +354,14 @@ function validateUpdateAccount(event) {
   }
 
   // wachtwoord wijzigen
+  if (currentPassword && !passwordRegex.test(currentPassword)) {
+    errorCurrentPassword.textContent = "Huidig wachtwoord minimaal 8 tekens met hoofdletter, kleine letter en cijfer.";
+    errorCurrentPassword.style.display = "block";
+
+    huidigWachtwoordInput.classList.add("input-error");
+    valid = false;
+  }
+
   if (newPassword !== "") {
 
     if (!currentPassword) {
@@ -369,6 +377,14 @@ function validateUpdateAccount(event) {
       errorNewPassword.style.display = "block";
 
       nieuwWachtwoordInput.classList.add("input-error");
+      valid = false;
+    }
+
+    if (!passwordRegex.test(confirmPassword)) {
+      errorConfirmPassword.textContent = "Wachtwoord minimaal 8 tekens met hoofdletter, kleine letter en cijfer.";
+      errorConfirmPassword.style.display = "block";
+
+      bevestigWachtwoordInput.classList.add("input-error");
       valid = false;
     }
 
@@ -523,27 +539,58 @@ function validateUpdateAccount(event) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
-const jaartalInput = document.getElementById("jaartalVoertuig");
-const merkInput = document.getElementById("merkVoertuig-api");
-const voertuigInput = document.getElementById("voertuig-api");
+(function() {
+  const jaartalInput = document.getElementById("jaartalVoertuig");
+  const merkInput = document.getElementById("merkVoertuig-api");
+  const voertuigInput = document.getElementById("voertuig-api");
 
-const pkInput = document.getElementById("pk");
-const gewichtInput = document.getElementById("gewicht");
-const aandrijvingInput = document.getElementById("aandrijving");
+  const pkInput = document.getElementById("pk");
+  const gewichtInput = document.getElementById("gewicht");
+  const aandrijvingInput = document.getElementById("aandrijving");
 
-jaartalInput.addEventListener("change", () => {
-  merkInput.value = "-";
-  voertuigInput.value = "-";
+  jaartalInput.addEventListener("change", () => {
+    merkInput.value = "-";
+    voertuigInput.value = "-";
 
-  pkInput.value = "";
-  gewichtInput.value = "";
-  aandrijvingInput.value = "";
-});
+    pkInput.value = "";
+    gewichtInput.value = "";
+    aandrijvingInput.value = "";
+  });
 
-merkInput.addEventListener("change", () => {
-  voertuigInput.value = "-";
+  merkInput.addEventListener("change", () => {
+    voertuigInput.value = "-";
 
-  pkInput.value = "";
-  gewichtInput.value = "";
-  aandrijvingInput.value = "";
-});
+    pkInput.value = "";
+    gewichtInput.value = "";
+    aandrijvingInput.value = "";
+  });
+})();
+
+
+
+function isAdult(dob) {
+
+  const birthDate = new Date(dob);
+  const today = new Date();
+
+  let age = today.getFullYear() - birthDate.getFullYear();
+
+  const monthDifference = today.getMonth() - birthDate.getMonth();
+
+  if (
+    monthDifference < 0 ||
+    (monthDifference === 0 && today.getDate() < birthDate.getDate())
+  ) {
+    age--;
+  }
+
+  return age >= 18;
+}
+
+
+
+
+
+
+
+

@@ -171,6 +171,29 @@ input[type="file"] {
   border: var(--border-width-input) var(--border-style-input) var(--border-color-input);
 }
 
+/* checkbox */
+div label{
+  font-size: var(--font-size-normal);
+  margin-top: var(--lijn-hoogte-s);
+  color: var(--kleur-tekst)
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+  margin-top: var(--lijn-hoogte-m);
+  padding-left: 1rem;
+}
+
+.checkbox input[type="checkbox"] {
+  width: auto;          /* prevents 100% width */
+  transform: scale(3); /* makes checkbox bigger */
+  padding: 0;
+  padding-left: 1rem;
+  margin-top:0;
+}
+
 p{
   font-size: var(--font-size-normal);
   color: var(--kleur-error);
@@ -179,5 +202,5 @@ p{
 
 /* Input error style */
 .input-error {
-  border: 3px solid red;
+  border: 3px solid var(--kleur-error);
 }

@@ -121,5 +121,5 @@ p{
 
 /* Input error style */
 .input-error {
-  border: 3px solid red;
+  border: 3px solid var(--kleur-error);
 }

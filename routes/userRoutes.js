@@ -36,22 +36,33 @@ router.get("/aanvullendeInformatie", isLoggedIn, function(req, res) {
   res.render("pages/aanvullendeInformatie"); // Render de loginpagina
 });
 
-router.get("/updateAccount", isLoggedIn, function(req, res) {
-  res.render("pages/updateAccount"); // Render de loginpagina
+router.get("/updateAccount", isLoggedIn, async function(req, res) {
+  try {
+    const db = req.app.locals.db;
+    const users = db.collection("users");
+    const user = await users.findOne({ _id: new ObjectId(req.session.user.id) });
+
+    if (!user) return res.status(404).send("Gebruiker niet gevonden");
+
+    res.render("pages/updateAccount", { user }); // pass user to template
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Fout bij laden accountgegevens");
+  }
 });
 
 
 // ------------------- POST /aanvullendeInformatie -------------------
 router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profileFoto"), async function(req, res) {
   try {
-    const errors = [];
-
-    // Sanitize en converteer numeriek
-    const jarenErvaringNum = Number(req.body.jarenErvaring);
+    // --------------------------
+    // Sanitize & parse input
+    // --------------------------
+    const jarenErvaring = Number(req.body.jarenErvaring);
     const specialisatie = ([]).concat(req.body.specialisatie || []).map(s => validator.escape(validator.trim(s)));
     const opmerkingen = validator.escape(validator.trim(req.body.aanvullendeOpmerkingen || ""));
 
-    const jaartalVoertuigNum = Number(req.body.jaartalVoertuig);
+    const jaartalVoertuig = Number(req.body.jaartalVoertuig);
     const merkVoertuig = validator.escape(validator.trim(req.body["merkVoertuig-api"] || ""));
     const voertuigModel = validator.escape(validator.trim(req.body["voertuig-api"] || ""));
     const pk = Number(req.body.pk) || null;
@@ -59,32 +70,67 @@ router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profileFoto"), 
     const aandrijving = validator.escape(validator.trim(req.body.aandrijving || ""));
     const mods = [].concat(req.body.mods || []);
 
-    // Validatie van input
-    if (isNaN(jarenErvaringNum) || jarenErvaringNum < 0 || jarenErvaringNum > 99) {
-      errors.push("Jaren ervaring moet een getal tussen 0 en 99 zijn.");
+    // --------------------------
+    // Validation
+    // --------------------------
+    const errors = {};
+    const opmerkingenRegex = /^[\w\s.,!?()@-]{0,500}$/; // same as original
+
+    if (isNaN(jarenErvaring) || jarenErvaring < 0 || jarenErvaring > 99) {
+      errors.jarenErvaring = "Voer een geldig aantal jaren ervaring in (0-99).";
     }
 
-    if (isNaN(jaartalVoertuigNum) || jaartalVoertuigNum < 1950 || jaartalVoertuigNum > 2025) {
-      errors.push("Jaartal voertuig moet een geldig jaartal tussen 1950 en 2025 zijn.");
+    if (!specialisatie.length || specialisatie.includes("Geen")) {
+      errors.specialisatie = "Selecteer minimaal één specialisatie.";
     }
 
-    if (errors.length > 0) return res.status(400).send(errors.join("\n"));
+    if (!opmerkingenRegex.test(opmerkingen)) {
+      errors.aanvullendeOpmerkingen = "Max 500 tekens, letters, cijfers en basis leestekens.";
+    }
 
+    if (isNaN(jaartalVoertuig) || jaartalVoertuig < 1950 || jaartalVoertuig > 2025) {
+      errors.jaartalVoertuig = "Voer een geldig jaartal voertuig in (1950-2025).";
+    }
+
+    if (!merkVoertuig || merkVoertuig === "-") {
+      errors.merkVoertuig = "Selecteer een merk.";
+    }
+
+    if (!voertuigModel || voertuigModel === "-") {
+      errors.voertuigModel = "Selecteer een model.";
+    }
+
+    if (!mods.length || mods.includes("Geen")) {
+      errors.mods = "Selecteer minimaal één mod.";
+    }
+
+    if (req.file) {
+      const allowed = ["image/jpeg", "image/png", "image/webp"];
+      if (!allowed.includes(req.file.mimetype)) {
+        errors.profileFoto = "Alleen JPG, PNG of WEBP toegestaan voor profielfoto.";
+      }
+    }
+
+    if (Object.keys(errors).length > 0) {
+      return res.status(400).json({ errors });
+    }
+
+    // --------------------------
+    // Update DB
+    // --------------------------
     const db = req.app.locals.db;
     const users = db.collection("users");
     const userId = new ObjectId(req.session.user.id);
 
-    // Zorg dat voertuig altijd een object is
     const huidigeVoertuig = (await users.findOne({ _id: userId })).voertuig || {};
 
-    // Update gebruiker
     const updateData = {
-      jarenErvaring: jarenErvaringNum,
+      jarenErvaring,
       specialisatie,
       opmerkingen,
       voertuig: {
         ...huidigeVoertuig,
-        jaartal: jaartalVoertuigNum,
+        jaartal: jaartalVoertuig,
         merk: merkVoertuig,
         model: voertuigModel,
         pk,
@@ -95,15 +141,15 @@ router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profileFoto"), 
       }
     };
 
-    // Profielfoto verwerken
     if (req.file) updateData.profielFoto = req.file.filename;
 
     await users.updateOne({ _id: userId }, { $set: updateData });
 
-    res.redirect("/");
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Fout bij opslaan aanvullende gegevens");
+    res.json({ success: true });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ general: "Fout bij opslaan aanvullende gegevens" });
   }
 });
 
@@ -115,19 +161,17 @@ router.post("/updateAccount", isLoggedIn, upload.single("profileFoto"), async fu
     const userId = new ObjectId(req.session.user.id);
 
     const user = await users.findOne({ _id: userId });
-    if (!user) return res.status(404).send("Gebruiker niet gevonden");
+    if (!user) return res.status(404).send({ general: "Gebruiker niet gevonden" });
 
-    const errors = [];
-
-    // Formuliervelden sanitize
-    const username = req.body["update-gebruikersnaam"] ? validator.escape(validator.trim(req.body["update-gebruikersnaam"])) : null;
-    const email = req.body.email ? validator.trim(req.body.email) : null;
-    const dob = req.body.dob;
+    // ================================
+    // Sanitize input
+    // ================================
+    const email = req.body.email ? validator.trim(req.body.email) : "";
+    const dob = req.body.dob || "";
     const huidigWachtwoord = req.body["huidig-wachtwoord"];
     const nieuwWachtwoord = req.body["nieuw-wachtwoord"];
     const bevestigWachtwoord = req.body["bevestig-wachtwoord"];
 
-    // Aanvullende velden sanitize
     const jarenErvaringNum = Number(req.body.jarenErvaring);
     const specialisatie = [].concat(req.body.specialisatie || []).map(s => validator.escape(validator.trim(s)));
     const opmerkingen = validator.escape(validator.trim(req.body.aanvullendeOpmerkingen || ""));
@@ -140,29 +184,62 @@ router.post("/updateAccount", isLoggedIn, upload.single("profileFoto"), async fu
     const aandrijving = validator.escape(validator.trim(req.body.aandrijving || ""));
     const mods = [].concat(req.body.mods || []);
 
-    // Validatie
-    if (isNaN(jarenErvaringNum) || jarenErvaringNum < 0 || jarenErvaringNum > 99) errors.push("Jaren ervaring moet een getal tussen 0 en 99 zijn.");
-    if (isNaN(jaartalVoertuigNum) || jaartalVoertuigNum < 1950 || jaartalVoertuigNum > 2025) errors.push("Jaartal voertuig moet een geldig jaartal tussen 1950 en 2025 zijn.");
-    if (dob && !validator.isDate(dob)) errors.push("Ongeldige geboortedatum");
+    // ================================
+    // Validation
+    // ================================
+    const errors = {};
 
-    if (username) {
-      const existingUser = await users.findOne({ username, _id: { $ne: userId } });
-      if (existingUser) errors.push("Gebruikersnaam is al in gebruik");
-    }
-
+    if (email && !validator.isEmail(email)) errors.email = "Ongeldig email adres";
     if (email) {
-      if (!validator.isEmail(email)) errors.push("Ongeldig email adres");
       const existingEmail = await users.findOne({ email, _id: { $ne: userId } });
-      if (existingEmail) errors.push("Email is al geregistreerd");
+      if (existingEmail) errors.email = "Email is al geregistreerd";
     }
 
-    if (errors.length) return res.status(400).send(errors.join("\n"));
+    if (huidigWachtwoord && !await bcrypt.compare(huidigWachtwoord, user.password)) {
+      errors.huidigWachtwoord = "Huidig wachtwoord is onjuist";
+    }
 
+    if (nieuwWachtwoord) {
+      if (!huidigWachtwoord) errors.huidigWachtwoord = "Huidig wachtwoord is verplicht";
+      if (nieuwWachtwoord !== bevestigWachtwoord) errors.bevestigWachtwoord = "Wachtwoorden komen niet overeen";
+      if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$/.test(nieuwWachtwoord)) {
+        errors.nieuwWachtwoord = "Wachtwoord minimaal 8 tekens met hoofdletter, kleine letter en cijfer";
+      }
+    }
+
+    if (isNaN(jarenErvaringNum) || jarenErvaringNum < 0 || jarenErvaringNum > 99) {
+      errors.jarenErvaring = "Jaren ervaring moet tussen 0 en 99 zijn";
+    }
+
+    if (!specialisatie.length) errors.specialisatie = "Selecteer minimaal één specialisatie";
+
+    if (!opmerkingen || opmerkingen.length > 500) errors.aanvullendeOpmerkingen = "Max 500 tekens";
+
+    if (isNaN(jaartalVoertuigNum) || jaartalVoertuigNum < 1950 || jaartalVoertuigNum > 2025) {
+      errors.jaartalVoertuig = "Jaartal voertuig moet tussen 1950 en 2025 zijn";
+    }
+
+    if (!merkVoertuig) errors.merkVoertuig = "Selecteer een merk";
+    if (!voertuigModel) errors.voertuigModel = "Selecteer een model";
+    if (!mods.length) errors.mods = "Selecteer minimaal één mod";
+
+    if (req.file) {
+      const allowed = ["image/jpeg", "image/png", "image/webp"];
+      if (!allowed.includes(req.file.mimetype)) {
+        errors.profileFoto = "Alleen JPG, PNG of WEBP toegestaan";
+      }
+    }
+
+    // Return errors if any
+    if (Object.keys(errors).length > 0) {
+      return res.status(400).json({ errors });
+    }
+
+    // ================================
+    // Update user
+    // ================================
     const huidigeVoertuig = user.voertuig || {};
-
-    // Update object
     const updateData = {
-      username: username || user.username,
       email: email || user.email,
       dob: dob || user.dob,
       jarenErvaring: jarenErvaringNum || user.jarenErvaring,
@@ -184,20 +261,16 @@ router.post("/updateAccount", isLoggedIn, upload.single("profileFoto"), async fu
     if (req.file) updateData.profielFoto = req.file.filename;
 
     if (nieuwWachtwoord) {
-      if (!huidigWachtwoord) return res.status(400).send("Huidig wachtwoord is verplicht");
-      const match = await bcrypt.compare(huidigWachtwoord, user.password);
-      if (!match) return res.status(400).send("Huidig wachtwoord is onjuist");
-      if (nieuwWachtwoord !== bevestigWachtwoord) return res.status(400).send("Wachtwoorden komen niet overeen");
       updateData.password = await bcrypt.hash(nieuwWachtwoord, 10);
     }
 
     await users.updateOne({ _id: userId }, { $set: updateData });
-    req.session.user.username = updateData.username;
 
-    res.redirect("/");
+    res.json({ success: true });
+
   } catch (error) {
     console.error(error);
-    res.status(500).send("Fout bij updaten accountgegevens");
+    res.status(500).json({ general: "Fout bij updaten accountgegevens" });
   }
 });
 

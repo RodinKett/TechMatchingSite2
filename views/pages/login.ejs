@@ -20,11 +20,12 @@
         <h2 id="titel-inloggen">Inloggen</h2>
 
         <label for="inlog-gebruikersnaam">Gebruikersnaam</label>
-        <input id="inlog-gebruikersnaam" type="text" name="username" required pattern="^[a-zA-Z0-9_-]{3,30}$">
+        <input id="inlog-gebruikersnaam" type="text" name="username" required>
         <p class="error-inlog-gebruikersnaam" style="display:none;"></p>
+        
 
         <label for="inlog-wachtwoord">Wachtwoord</label>
-        <input id="inlog-wachtwoord" type="password" name="password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$">
+        <input id="inlog-wachtwoord" type="password" name="password" required>
         <p class="error-inlog-wachtwoord" style="display:none;"></p>
 
         <button type="submit" onclick="validateLogin(event)">Inloggen</button>
@@ -37,7 +38,7 @@
 
     <!-- Registratie Stap 1 -->
     <section class="sectie" aria-labelledby="titel-registratie-stap1">
-      <form class="formulier-box" id="formulier-registratie" action="/register" method="POST" enctype="multipart/form-data">
+      <form class="formulier-box formulier-box-register" id="formulier-registratie" action="/register" method="POST" enctype="multipart/form-data">
 
       <fieldset class="stap" id="stap1" style="display:none;">
         <h2 id="titel-registratie-stap1">Registreren - Stap 1</h2>
@@ -105,6 +106,7 @@
             <button type="button" class="knop-secundaire" onclick="gaNaar(2)">Terug</button>
             <button type="submit" class="knop-primaire" onclick="validateRegisterStep3(event)">Registreren</button>
           </div>
+          <p class="error-reg-general " style="display:none; "></p>
           <button type="button" class="link" onclick="gaTerugNaar(0)">
             Heb je al een account <u><strong>log hier in</strong></u>       
           </button>
