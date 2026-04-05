@@ -20,8 +20,9 @@
     --kleur-placeholder-text: hsl(0deg 0% 75%);
     --kleur-primair-button-bg: hsl(356deg 69% 50%);
     --kleur-primair-button-text: hsl(0deg 0% 100%);
-    --kleur-secundair-button-bg: hsl(204deg 55% 18%);
-    --kleur-secundair-button-text: hsl(0deg 0% 100%);
+    --kleur-secundair-button-bg: hsl(0deg 0% 100%);
+    --kleur-secundair-button-text: hsl(202deg 26% 12%);
+    --kleur-error:hsl(356deg 69% 50%);
     --kleur-link: hsl(356deg 69% 50%);
 
     /* Font */
@@ -31,6 +32,11 @@
     --font-size-normal: 2rem;
     --font-family-kopjes: arial, sans-serif;    /* Racing Sans One */
     --font-family-text: arial, sans-serif;      /*   Nunito Sans   */
+
+    /* Border variable                          border: var(--border-width-input) var(--border-style-input) var(--border-color-input); */
+    --border-color-input: hsl(0deg 0% 100%);
+    --border-width-input: 0.2rem;
+    --border-style-input: solid;
 
     /* Ruimte tussen de ruimtes */
     --lijn-hoogte-s: 1rem;

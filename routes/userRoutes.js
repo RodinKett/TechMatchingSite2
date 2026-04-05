@@ -24,209 +24,250 @@
 
 
 
-
 const express = require("express");
 const router = express.Router();
-const { ObjectId } = require("mongodb"); // Voor MongoDB ObjectId
-const bcrypt = require("bcrypt"); // Voor wachtwoord hashing
-const validator = require("validator"); // Voor validatie en ontsmetten van input
-const { isLoggedIn } = require("../middleware/authMiddleware"); // Middleware voor authenticatie
+const { ObjectId } = require("mongodb");
+const bcrypt = require("bcrypt");
+const validator = require("validator");
+const { isLoggedIn } = require("../middleware/authMiddleware");
 const upload = require("../middleware/upload");
 
-
-// ------------------- GET ROUTES -------------------
-
-// Render pagina voor aanvullende informatie
-router.get("/aanvullendeInformatie", isLoggedIn, function(req, res) {
-  res.render("pages/aanvullendeInformatie", { user: req.session.user });
+router.get("/aanvullendeInformatie", isLoggedIn, function(req, res) { 
+  res.render("pages/aanvullendeInformatie"); // Render de loginpagina
 });
 
-// Render pagina om accountgegevens te updaten
 router.get("/updateAccount", isLoggedIn, async function(req, res) {
-  const db = req.app.locals.db;
-  const users = db.collection("users");
-
-  // Haal de huidige gebruiker op uit de database
-  const user = await users.findOne({
-    _id: new ObjectId(req.session.user.id)
-  });
-
-  res.render("pages/updateAccount", { user });
-});
-
-// ------------------- POST ROUTES -------------------
-
-// Opslaan van aanvullende informatie van gebruiker
-router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profileFoto"), async function(req, res) {
   try {
-    const errors = [];
-
-    // Haal formuliergegevens op
-    const skillLevel = req.body.skillLevel;
-    const jarenErvaring = req.body.jarenErvaring;
-    const specialisatie = req.body.specialisatie;
-
-    const jaartalVoertuig = req.body.jaartalVoertuig;
-    const merkVoertuig = req.body["merkVoertuig-api"];
-    const voertuigModel = req.body["voertuig-api"];
-    const opmerkingen = req.body.aanvullendeOpmerkingen;
-
-    const pk = req.body.pk;
-    const gewicht = req.body.gewicht;
-    const aandrijving = req.body.aandrijving;
-
-    // Validatie van input
-    if (!["beginer", "bekend", "expert"].includes(skillLevel)) {
-      errors.push("Ongeldig skill level.");
-    }
-
-    if (!/^[0-9]{1,2}$/.test(jarenErvaring)) {
-      errors.push("Jaren ervaring moet 0-99 zijn.");
-    }
-
-    if (!/^[0-9]{4}$/.test(jaartalVoertuig)) {
-      errors.push("Jaartal voertuig moet 4 cijfers zijn.");
-    }
-
-    if (errors.length > 0) {
-      return res.status(400).send(errors.join("\n"));
-    }
-
     const db = req.app.locals.db;
     const users = db.collection("users");
-    const userId = new ObjectId(req.session.user.id);
+    const user = await users.findOne({ _id: new ObjectId(req.session.user.id) });
 
-    // Update gebruiker met aanvullende informatie
-    await users.updateOne(
-      { _id: userId },
-      {
-        $set: {
-          skillLevel,
-          jarenErvaring,
-          specialisatie,
-          voertuig: {
-            jaartal: jaartalVoertuig,
-            merk: merkVoertuig,
-            model: voertuigModel,
-            pk,
-            gewicht,
-            aandrijving,
-            opmerkingen
-          }
-        }
-      }
-    );
+    if (!user) return res.status(404).send("Gebruiker niet gevonden");
 
-    res.redirect("/");
-
+    res.render("pages/updateAccount", { user }); // pass user to template
   } catch (error) {
     console.error(error);
-    res.status(500).send("Fout bij opslaan aanvullende gegevens");
+    res.status(500).send("Fout bij laden accountgegevens");
   }
 });
 
-// Update van accountgegevens, inclusief optioneel wachtwoord
-// Update van accountgegevens, inclusief optioneel wachtwoord
-router.post("/updateAccount", isLoggedIn, upload.single("profileFoto"), async function(req, res) {
+
+// ------------------- POST /aanvullendeInformatie -------------------
+router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profielFoto"), async function(req, res) {
+  try {
+    // --------------------------
+    // Sanitize & parse input
+    // --------------------------
+    const jarenErvaring = Number(req.body.jarenErvaring);
+    const specialisatie = ([]).concat(req.body.specialisatie || []).map(s => validator.escape(validator.trim(s)));
+    const opmerkingen = validator.escape(validator.trim(req.body.aanvullendeOpmerkingen || ""));
+
+    const jaartalVoertuig = Number(req.body.jaartalVoertuig);
+    const merkVoertuig = validator.escape(validator.trim(req.body["merkVoertuig-api"] || ""));
+    const voertuigModel = validator.escape(validator.trim(req.body["voertuig-api"] || ""));
+    const pk = Number(req.body.pk) || null;
+    const gewicht = Number(req.body.gewicht) || null;
+    const aandrijving = validator.escape(validator.trim(req.body.aandrijving || ""));
+    const mods = [].concat(req.body.mods || []);
+
+    // --------------------------
+    // Validation
+    // --------------------------
+    const errors = {};
+    const opmerkingenRegex = /^[\w\s.,!?()@-]{0,500}$/; // same as original
+
+    if (isNaN(jarenErvaring) || jarenErvaring < 0 || jarenErvaring > 99) {
+      errors.jarenErvaring = "Voer een geldig aantal jaren ervaring in (0-99).";
+    }
+
+    if (!specialisatie.length || specialisatie.includes("Geen")) {
+      errors.specialisatie = "Selecteer minimaal één specialisatie.";
+    }
+
+    if (!opmerkingenRegex.test(opmerkingen)) {
+      errors.aanvullendeOpmerkingen = "Max 500 tekens, letters, cijfers en basis leestekens.";
+    }
+
+    if (isNaN(jaartalVoertuig) || jaartalVoertuig < 1950 || jaartalVoertuig > 2025) {
+      errors.jaartalVoertuig = "Voer een geldig jaartal voertuig in (1950-2025).";
+    }
+
+    if (!merkVoertuig || merkVoertuig === "-") {
+      errors.merkVoertuig = "Selecteer een merk.";
+    }
+
+    if (!voertuigModel || voertuigModel === "-") {
+      errors.voertuigModel = "Selecteer een model.";
+    }
+
+    if (!mods.length || mods.includes("Geen")) {
+      errors.mods = "Selecteer minimaal één mod.";
+    }
+
+    if (req.file) {
+      const allowed = ["image/jpeg", "image/png", "image/webp"];
+      if (!allowed.includes(req.file.mimetype)) {
+        errors.profielFoto = "Alleen JPG, PNG of WEBP toegestaan voor profielfoto.";
+      }
+    }
+
+    if (Object.keys(errors).length > 0) {
+      return res.status(400).json({ errors });
+    }
+
+    // --------------------------
+    // Update DB
+    // --------------------------
+    const db = req.app.locals.db;
+    const users = db.collection("users");
+    const userId = new ObjectId(req.session.user.id);
+
+    const huidigeVoertuig = (await users.findOne({ _id: userId })).voertuig || {};
+
+    const updateData = {
+      jarenErvaring,
+      specialisatie,
+      opmerkingen,
+      voertuig: {
+        ...huidigeVoertuig,
+        jaartal: jaartalVoertuig,
+        merk: merkVoertuig,
+        model: voertuigModel,
+        pk,
+        gewicht,
+        aandrijving,
+        mods,
+      }
+    };
+
+    if (req.file) updateData.profielFoto = req.file.filename;
+
+    await users.updateOne({ _id: userId }, { $set: updateData });
+
+    res.json({ success: true, redirect: "/loadingpage?next=/" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ general: "Fout bij opslaan aanvullende gegevens" });
+  }
+});
+
+// ------------------- POST /updateAccount -------------------
+router.post("/updateAccount", isLoggedIn, upload.single("profielFoto"), async function(req, res) {
   try {
     const db = req.app.locals.db;
     const users = db.collection("users");
     const userId = new ObjectId(req.session.user.id);
 
-    // Haal huidige gebruiker op
     const user = await users.findOne({ _id: userId });
-    if (!user) return res.status(404).send("Gebruiker niet gevonden");
+    if (!user) return res.status(404).send({ general: "Gebruiker niet gevonden" });
 
-    // Formuliervelden ophalen
-    const username = req.body["update-gebruikersnaam"];
-    const email = req.body.email;
-    const phone = req.body["update-telefoonnummer"];
-    const dob = req.body.dob;
-    const gender = req.body["update-geslacht"];
-
+    // ================================
+    // Sanitize input
+    // ================================
+    const email = req.body.email ? validator.trim(req.body.email) : "";
+    const dob = req.body.dob || "";
     const huidigWachtwoord = req.body["huidig-wachtwoord"];
     const nieuwWachtwoord = req.body["nieuw-wachtwoord"];
     const bevestigWachtwoord = req.body["bevestig-wachtwoord"];
 
-    // Aanvullende velden
-    const skillLevel = req.body.skillLevel;
-    const jarenErvaring = req.body.jarenErvaring;
-    const specialisatie = req.body.specialisatie;
+    const jarenErvaringNum = Number(req.body.jarenErvaring);
+    const specialisatie = [].concat(req.body.specialisatie || []).map(s => validator.escape(validator.trim(s)));
+    const opmerkingen = validator.escape(validator.trim(req.body.aanvullendeOpmerkingen || ""));
 
-    const jaartalVoertuig = req.body.jaartalVoertuig;
-    const merkVoertuig = req.body["merkVoertuig-api"];
-    const voertuigModel = req.body["voertuig-api"];
-    const pk = req.body.pk;
-    const gewicht = req.body.gewicht;
-    const aandrijving = req.body.aandrijving;
-    const opmerkingen = req.body.aanvullendeOpmerkingen;
+    const jaartalVoertuigNum = Number(req.body.jaartalVoertuig);
+    const merkVoertuig = validator.escape(validator.trim(req.body["merkVoertuig-api"] || ""));
+    const voertuigModel = validator.escape(validator.trim(req.body["voertuig-api"] || ""));
+    const pk = Number(req.body.pk) || null;
+    const gewicht = Number(req.body.gewicht) || null;
+    const aandrijving = validator.escape(validator.trim(req.body.aandrijving || ""));
+    const mods = [].concat(req.body.mods || []);
 
-    // Validatie van input
-    if (phone && !/^\+?[0-9]{7,15}$/.test(phone)) return res.status(400).send("Ongeldig telefoonnummer");
-    if (dob && !validator.isDate(dob)) return res.status(400).send("Ongeldige geboortedatum");
-    if (gender && !["man", "vrouw", "anders"].includes(gender)) return res.status(400).send("Ongeldig geslacht");
+    // ================================
+    // Validation
+    // ================================
+    const errors = {};
 
-    // Controleer unieke username/email
-    if (username) {
-      const existingUser = await users.findOne({ username, _id: { $ne: userId } });
-      if (existingUser) return res.status(400).send("Gebruikersnaam is al in gebruik");
-    }
-
+    if (email && !validator.isEmail(email)) errors.email = "Ongeldig email adres";
     if (email) {
       const existingEmail = await users.findOne({ email, _id: { $ne: userId } });
-      if (existingEmail) return res.status(400).send("Email is al geregistreerd");
+      if (existingEmail) errors.email = "Email is al geregistreerd";
     }
 
-    // Bouw updateData dynamisch, merge met bestaande data
+    if (huidigWachtwoord && !await bcrypt.compare(huidigWachtwoord, user.password)) {
+      errors.huidigWachtwoord = "Huidig wachtwoord is onjuist";
+    }
+
+    if (nieuwWachtwoord) {
+      if (!huidigWachtwoord) errors.huidigWachtwoord = "Huidig wachtwoord is verplicht";
+      if (nieuwWachtwoord !== bevestigWachtwoord) errors.bevestigWachtwoord = "Wachtwoorden komen niet overeen";
+      if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$/.test(nieuwWachtwoord)) {
+        errors.nieuwWachtwoord = "Wachtwoord minimaal 8 tekens met hoofdletter, kleine letter en cijfer";
+      }
+    }
+
+    if (isNaN(jarenErvaringNum) || jarenErvaringNum < 0 || jarenErvaringNum > 99) {
+      errors.jarenErvaring = "Jaren ervaring moet tussen 0 en 99 zijn";
+    }
+
+    if (!specialisatie.length) errors.specialisatie = "Selecteer minimaal één specialisatie";
+
+    if (!opmerkingen || opmerkingen.length > 500) errors.aanvullendeOpmerkingen = "Max 500 tekens";
+
+    if (isNaN(jaartalVoertuigNum) || jaartalVoertuigNum < 1950 || jaartalVoertuigNum > 2025) {
+      errors.jaartalVoertuig = "Jaartal voertuig moet tussen 1950 en 2025 zijn";
+    }
+
+    if (!merkVoertuig) errors.merkVoertuig = "Selecteer een merk";
+    if (!voertuigModel) errors.voertuigModel = "Selecteer een model";
+    if (!mods.length) errors.mods = "Selecteer minimaal één mod";
+
+    if (req.file) {
+      const allowed = ["image/jpeg", "image/png", "image/webp"];
+      if (!allowed.includes(req.file.mimetype)) {
+        errors.profielFoto = "Alleen JPG, PNG of WEBP toegestaan";
+      }
+    }
+
+    // Return errors if any
+    if (Object.keys(errors).length > 0) {
+      return res.status(400).json({ errors });
+    }
+
+    // ================================
+    // Update user
+    // ================================
+    const huidigeVoertuig = user.voertuig || {};
     const updateData = {
-      username: username || user.username,
       email: email || user.email,
-      phone: phone || user.phone,
       dob: dob || user.dob,
-      gender: gender || user.gender,
-      skillLevel: skillLevel || user.skillLevel,
-      jarenErvaring: jarenErvaring || user.jarenErvaring,
-      specialisatie: specialisatie || user.specialisatie,
+      jarenErvaring: jarenErvaringNum || user.jarenErvaring,
+      specialisatie,
+      opmerkingen,
       voertuig: {
-        ...user.voertuig,
-        jaartal: jaartalVoertuig ?? user.voertuig?.jaartal,
-        merk: merkVoertuig || user.voertuig?.merk,
-        model: voertuigModel || user.voertuig?.model,
-        pk: pk ?? user.voertuig?.pk,
-        gewicht: gewicht ?? user.voertuig?.gewicht,
-        aandrijving: aandrijving || user.voertuig?.aandrijving,
-        opmerkingen: opmerkingen || user.voertuig?.opmerkingen,
-      },
+        ...huidigeVoertuig,
+        jaartal: jaartalVoertuigNum || huidigeVoertuig.jaartal,
+        merk: merkVoertuig || huidigeVoertuig.merk,
+        model: voertuigModel || huidigeVoertuig.model,
+        pk: pk ?? huidigeVoertuig.pk,
+        gewicht: gewicht ?? huidigeVoertuig.gewicht,
+        aandrijving: aandrijving || huidigeVoertuig.aandrijving,
+        mods,
+      }
     };
 
-    // Profielfoto verwerken als er een bestand is geüpload
-    if (req.file) {
-      updateData.profielFoto = req.file.filename;
-    }
+    if (req.file) updateData.profielFoto = req.file.filename;
 
-    // Wachtwoord wijzigen indien nodig
     if (nieuwWachtwoord) {
-      if (!huidigWachtwoord) return res.status(400).send("Huidig wachtwoord is verplicht");
-      const match = await bcrypt.compare(huidigWachtwoord, user.password);
-      if (!match) return res.status(400).send("Huidig wachtwoord is onjuist");
-      if (nieuwWachtwoord !== bevestigWachtwoord) return res.status(400).send("Wachtwoorden komen niet overeen");
-
-      const hashedPassword = await bcrypt.hash(nieuwWachtwoord, 10);
-      updateData.password = hashedPassword;
+      updateData.password = await bcrypt.hash(nieuwWachtwoord, 10);
     }
 
-    // Update in database
     await users.updateOne({ _id: userId }, { $set: updateData });
 
-    // Update sessie
-    req.session.user.username = updateData.username;
-
-    res.redirect("/");
+    res.json({ success: true, redirect: "/loadingpage?next=/" });
   } catch (error) {
     console.error(error);
-    res.status(500).send("Fout bij updaten accountgegevens");
+    res.status(500).json({ general: "Fout bij updaten accountgegevens" });
   }
 });
 
-// Exporteer router
 module.exports = router;

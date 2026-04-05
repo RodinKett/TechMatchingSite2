@@ -68,7 +68,7 @@ function toonStap(stap) {
 // ------------------- Bestandsupload -------------------
 
 // Elementen voor bestand-upload ophalen
-const bestandInput = document.getElementById('profileUpload');
+const bestandInput = document.getElementById('profielUpload');
 const bestandNaamSpan = document.querySelector('.upload-label .file-name');
 
 // Event listener om bestandsnaam weer te geven
@@ -79,5 +79,97 @@ bestandInput.addEventListener('change', () => {
   } else {
     // Toon standaardtekst als er geen bestand is geselecteerd
     bestandNaamSpan.textContent = 'Upload profielfoto';
+  }
+});
+
+document.querySelector(".formulier-box-login").addEventListener("submit", async function(e) {
+  e.preventDefault(); // prevent normal form submission
+
+  // Clear previous errors
+  document.querySelector(".error-inlog-gebruikersnaam").style.display = "none";
+  document.querySelector(".error-inlog-wachtwoord").style.display = "none";
+
+  const username = document.getElementById("inlog-gebruikersnaam").value;
+  const password = document.getElementById("inlog-wachtwoord").value;
+
+  try {
+    const res = await fetch("/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      // Show error in the right <p>
+      if (data.field === "username") {
+        const el = document.querySelector(".error-inlog-gebruikersnaam");
+        el.textContent = data.message;
+        el.style.display = "block";
+      } else if (data.field === "password") {
+        const el = document.querySelector(".error-inlog-wachtwoord");
+        el.textContent = data.message;
+        el.style.display = "block";
+      } else if (data.field === "general") {
+        alert(data.message); // fallback for general errors
+      }
+    } else if (data.success) {
+      window.location.href = data.redirect; // redirect on success
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert("Er is iets misgegaan bij het inloggen.");
+  }
+});
+
+document.getElementById("formulier-registratie").addEventListener("submit", async function(e) {
+  e.preventDefault(); // prevent normal form submission
+
+  // Clear previous errors
+  const errorEls = this.querySelectorAll("p");
+  errorEls.forEach(el => { el.style.display = "none"; el.textContent = ""; });
+
+  // Gather all form data, including files
+  const formData = new FormData(this);
+
+  try {
+    const res = await fetch("/register", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      // Map server-side errors to the correct <p> elements
+      for (const key in data.errors) {
+        let selector;
+        switch (key) {
+          case "username": selector = ".error-reg-gebruikersnaam"; break;
+          case "email": selector = ".error-reg-email"; break;
+          case "password": selector = ".error-reg-password"; break;
+          case "dob": selector = ".error-reg-geboortedatum"; break;
+          case "profielFoto": selector = ".error-upload-foto"; break; // match your HTML
+          default: selector = null;
+        }
+        if (selector) {
+          const el = document.querySelector(selector);
+          if (el) {
+            el.textContent = data.errors[key];
+            el.style.display = "block";
+          }
+        } else {
+          alert(data.errors[key]);
+        }
+      }
+    } else if (data.success) {
+      window.location.href = data.redirect || "/";
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert("Er is iets misgegaan bij het registreren.");
   }
 });
