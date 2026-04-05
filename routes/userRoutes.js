@@ -144,7 +144,7 @@ router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profielFoto"), 
 
     await users.updateOne({ _id: userId }, { $set: updateData });
 
-    res.json({ success: true, redirect: "/" });
+    res.json({ success: true, redirect: "/loadingpage?next=/" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ general: "Fout bij opslaan aanvullende gegevens" });
@@ -263,7 +263,7 @@ router.post("/updateAccount", isLoggedIn, upload.single("profielFoto"), async fu
 
     await users.updateOne({ _id: userId }, { $set: updateData });
 
-    res.json({ success: true, redirect: "/" });
+    res.json({ success: true, redirect: "/loadingpage?next=/" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ general: "Fout bij updaten accountgegevens" });

@@ -80,12 +80,14 @@ app.get("/", (req, res) => {
   res.render("pages/index");
 });
 
+
+
+
+// ------------------- Feedback handeling ------------------
 app.get("/loadingpage", (req, res) => {
   res.render("pages/loadingpage");
 });
 
-
-// ------------------- Error handeling ------------------
 app.use((req, res) => {
   res.status(404).render("pages/404");
 });

@@ -124,7 +124,7 @@ router.post("/register", upload.single("profielFoto"), async (req, res) => {
     };
 
     // Redirect to aanvullendeInformatie
-    res.json({ success: true, redirect: "/aanvullendeInformatie" });
+    res.json({ success: true, redirect: "/loadingpage?next=/aanvullendeInformatie" });
 
   } catch (error) {
     console.error(error);
@@ -151,7 +151,7 @@ router.post("/login", async function(req, res) {
     }
 
     req.session.user = { id: user._id, username: user.username };
-    res.json({ success: true, redirect: "/" });
+    res.json({ success: true, redirect: "/loadingpage?next=/" });
 
   } catch (error) {
     console.error(error);
