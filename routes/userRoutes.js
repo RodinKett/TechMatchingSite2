@@ -36,6 +36,76 @@ const upload = require("../middleware/upload");
 
 // ------------------- GET ROUTES -------------------
 
+// Aanpassing Start hier LEADERBORD
+// BRONVERMELDING: Voor de missende data en hulp met fouten corrigeren: CHATGPT, co-pilot
+// Dat includes de username, spelers sort a en b en de math.floor, jij als speler de req.session
+router.get("/leaderbord", async function (req, res) {
+  try {
+    const db = req.app.locals.db;
+    const gebruikers = db.collection("users");
+
+    const data = await gebruikers.find().toArray();
+
+    const bepaalRang = (punten) => {
+      if (punten >= 5000) return "Expert";
+      if (punten >= 1000) return "Ervaren";
+      if (punten >= 100) return "Bevorderd"
+      return "Beginner"
+    };
+
+    // Maak een nieuw array 'spelers' met alle benodigde info
+    // Random wins, losses en ties genereren
+    const spelers = data.map(user => {
+      const wins = Math.floor(Math.random() *90);
+      const loss = Math.floor(Math.random() *30);
+      const ties = Math.floor(Math.random() *50);
+
+      // Bereken totaal aantal games en punten
+      const totaalGames = wins + loss + ties;
+      const punten = wins * 3 + ties * 1 - loss * 2;
+      const winstpercentage = totaalGames > 0 ? wins / totaalGames : 0;
+
+      // Return een object met alle info die je in de EJS template nodig hebt
+      return{
+        id: user._id.toString(),
+        naam: user.username || "onbekend",
+        gewonnen: wins,
+        verloren: loss,
+        gelijk: ties,
+        punten,
+        winstpercentage,
+        rang: bepaalRang(punten)
+      };
+    });
+
+    // Sorteer de spelers op punten, verlies en winstpercentage, dan naam
+    spelers.sort((a, b) => {
+      if (b.punten !== a.punten) return b.punten - a.punten; // Hoogste punten eers
+      if (a.verloren !== b.verloren) return a.verloren - b.verloren; // Bij gelijk punten minst verloren eerst
+      if (b.winstpercentage !== a.winstpercentage) return b.winstpercentage - a.winstpercentage; // Bij gelijk punten & verlies: hoogste winrate eerst
+      return a.naam.localeCompare(b.naam); //Bij alles gelijk: alfabetisch
+    });
+
+    spelers.forEach((speler, index) => {
+      speler.rank = index + 1;
+    });
+
+    // Vind de huidige ingelogde gebruiker (indien ingelogd)
+    let jij = null;
+    if (req.session.user) {
+      jij = spelers.find(s => s.id === req.session.user.id?.toString());
+    }
+
+    res.render("pages/leaderbord", { spelers, jij });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Er is iets fout gegaan bij het ophalen van het leaderbord");
+  }
+});
+
+// Eind aanpassing leaderbord
+
 // Render pagina voor aanvullende informatie
 router.get("/aanvullendeInformatie", isLoggedIn, function(req, res) {
   res.render("pages/aanvullendeInformatie", { user: req.session.user });

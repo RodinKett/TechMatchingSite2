@@ -1,5 +1,3 @@
-// const extraInfoButtons = document.querySelectorAll(".info-speler-knop")
-
 const infoRankKnop = document.querySelector(".info-rank-knop");
 const dropdown = document.querySelector(".info-rank-dropdown");
 
@@ -12,7 +10,7 @@ infoRankKnop.addEventListener("click", () => {
 });
 
 
-// Filteren simpel
+// kan je extra info bekijken van elke speler
 document.querySelectorAll(".info-speler-knop").forEach(button => {
   button.addEventListener("click", () => {
     const speler = button.closest(".leaderbord-speler, .jij");
@@ -21,17 +19,8 @@ document.querySelectorAll(".info-speler-knop").forEach(button => {
   });
 });
 
-// Anders =
-// function toggleExtraInfo(button) {
-//   const speler = button.closest(".leaderbord-speler");
-//   speler.classList.toggle("zichtbaar");
-// }
 
-// document.querySelectorAll(".info-speler-knop").forEach(button => {
-//   button.addEventListener("click", () => toggleExtraInfo(button));
-// });
-
-
+// Filteren op de pagina (beginner, etc)
 filter.addEventListener("change", () => {
     const gekozenRank = filter.value;
 
@@ -45,5 +34,3 @@ filter.addEventListener("change", () => {
         }
     });
 });
-
-
