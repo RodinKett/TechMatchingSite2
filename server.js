@@ -608,8 +608,8 @@ app.get("/profiel", async (req, res) => {
     const gebruikers = db.collection("users");
 
     // tijdelijk voor development
-    const data = await gebruikers.findOne({});  // pakt gewoon de eerste gebruiker
-
+    // const data = await gebruikers.findOne({});  // pakt gewoon de eerste gebruiker
+const data = await gebruikers.findOne({}, { skip: 1 });
     console.log("gevonden data:", data);
 
     const user = {
