@@ -53,7 +53,7 @@ router.get("/updateAccount", isLoggedIn, async function(req, res) {
 
 
 // ------------------- POST /aanvullendeInformatie -------------------
-router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profileFoto"), async function(req, res) {
+router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profielFoto"), async function(req, res) {
   try {
     // --------------------------
     // Sanitize & parse input
@@ -107,7 +107,7 @@ router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profileFoto"), 
     if (req.file) {
       const allowed = ["image/jpeg", "image/png", "image/webp"];
       if (!allowed.includes(req.file.mimetype)) {
-        errors.profileFoto = "Alleen JPG, PNG of WEBP toegestaan voor profielfoto.";
+        errors.profielFoto = "Alleen JPG, PNG of WEBP toegestaan voor profielfoto.";
       }
     }
 
@@ -152,7 +152,7 @@ router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profileFoto"), 
 });
 
 // ------------------- POST /updateAccount -------------------
-router.post("/updateAccount", isLoggedIn, upload.single("profileFoto"), async function(req, res) {
+router.post("/updateAccount", isLoggedIn, upload.single("profielFoto"), async function(req, res) {
   try {
     const db = req.app.locals.db;
     const users = db.collection("users");
@@ -224,7 +224,7 @@ router.post("/updateAccount", isLoggedIn, upload.single("profileFoto"), async fu
     if (req.file) {
       const allowed = ["image/jpeg", "image/png", "image/webp"];
       if (!allowed.includes(req.file.mimetype)) {
-        errors.profileFoto = "Alleen JPG, PNG of WEBP toegestaan";
+        errors.profielFoto = "Alleen JPG, PNG of WEBP toegestaan";
       }
     }
 

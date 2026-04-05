@@ -210,10 +210,10 @@ input[type="file"] {
 p{
   font-size: var(--font-size-normal);
   color: var(--kleur-error);
-  text-shadow:0 0 15px var(--kleur-secundair-button-text);
+  text-shadow:0 0 1rem var(--kleur-secundair-button-text);
 }
 
 /* Input error style */
 .input-error {
-  border: 3px solid var(--kleur-error);
+  border: var(--border-width-input) var(--border-style-input) var(--kleur-error);
 }

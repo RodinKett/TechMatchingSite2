@@ -106,13 +106,13 @@ function validateRegisterStep2() {
   const dobInput = document.getElementById("reg-geboortedatum");
   const dob = dobInput?.value;
 
-  const fileInput = document.getElementById("profileUpload");
+  const fileInput = document.getElementById("profielUpload");
 
   const errorDob = document.querySelector(".error-reg-dob");
   const errorUpload = document.querySelector(".error-upload-foto");
 
   const geboortedatumInput = document.getElementById("reg-geboortedatum");
-  const uploadInput = document.getElementById("profileUpload");
+  const uploadInput = document.getElementById("profielUpload");
 
   geboortedatumInput?.classList.remove("input-error");
   uploadInput?.classList.remove("input-error");
@@ -323,13 +323,13 @@ function validateUpdateAccount(event) {
   const errorCurrentPassword = document.querySelector(".error-huidig-wachtwoord");
   const errorNewPassword = document.querySelector(".error-nieuw-wachtwoord");
   const errorConfirmPassword = document.querySelector(".error-bevestig-wachtwoord");
-  const errorProfileFoto = document.querySelector(".error-profileFoto");
+  const errorProfielFoto = document.querySelector(".error-profielFoto");
 
   if (errorEmail) errorEmail.style.display = "none";
   if (errorCurrentPassword) errorCurrentPassword.style.display = "none";
   if (errorNewPassword) errorNewPassword.style.display = "none";
   if (errorConfirmPassword) errorConfirmPassword.style.display = "none";
-  if (errorProfileFoto) errorProfileFoto.style.display = "none";
+  if (errorProfielFoto) errorProfielFoto.style.display = "none";
 
   const updateEmailInput = document.getElementById("update-email");
   const huidigWachtwoordInput = document.getElementById("huidig-wachtwoord");
@@ -404,8 +404,8 @@ function validateUpdateAccount(event) {
     const allowed = ["image/jpeg", "image/png", "image/webp"];
 
     if (!allowed.includes(file.type)) {
-      errorProfileFoto.textContent = "Alleen JPG, PNG of WEBP toegestaan.";
-      errorProfileFoto.style.display = "block";
+      errorProfielFoto.textContent = "Alleen JPG, PNG of WEBP toegestaan.";
+      errorProfielFoto.style.display = "block";
 
       uploadProfielInput.classList.add("input-error");
       valid = false;
@@ -540,6 +540,7 @@ function validateUpdateAccount(event) {
 
 
 (function() {
+
   const jaartalInput = document.getElementById("jaartalVoertuig");
   const merkInput = document.getElementById("merkVoertuig-api");
   const voertuigInput = document.getElementById("voertuig-api");
@@ -547,6 +548,8 @@ function validateUpdateAccount(event) {
   const pkInput = document.getElementById("pk");
   const gewichtInput = document.getElementById("gewicht");
   const aandrijvingInput = document.getElementById("aandrijving");
+
+  if (!jaartalInput || !merkInput || !voertuigInput) return;
 
   jaartalInput.addEventListener("change", () => {
     merkInput.value = "-";
@@ -564,6 +567,7 @@ function validateUpdateAccount(event) {
     gewichtInput.value = "";
     aandrijvingInput.value = "";
   });
+
 })();
 
 

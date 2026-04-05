@@ -21,15 +21,16 @@
         <input id="jarenErvaring" type="number" name="jarenErvaring" required  min="0" max="99" >
         <p class="error-jarenErvaring" style="display:none;"></p>
 
-        <label for="specialisatie">Specialisatie</label>
-        <div>
-          <label class="checkbox"><input type="checkbox" name="specialisatie" value="Circuit racen" required> Circuit racen</label>
-          <label class="checkbox"><input type="checkbox" name="specialisatie" value="Drag racen"> Drag racen</label>
-          <label class="checkbox"><input type="checkbox" name="specialisatie" value="Drift racen"> Drift racen</label>
-          <label class="checkbox"><input type="checkbox" name="specialisatie" value="Rally"> Rally</label>
-          <label class="checkbox"><input type="checkbox" name="specialisatie" value="Uithoudingsracen"> Uithoudingsracen</label>
-          <label class="checkbox"><input type="checkbox" name="specialisatie" value="Geen"> Geen</label>
-        </div>
+        <fieldset>
+          <legend>Specialisatie</legend>
+
+          <label class="checkbox"> <input type="checkbox" name="specialisatie" value="Circuit racen" required> Circuit racen</label>
+          <label class="checkbox"><input type="checkbox" name="specialisatie" value="Drag racen">Drag racen</label>
+          <label class="checkbox"><input type="checkbox" name="specialisatie" value="Drift racen">Drift racen</label>
+          <label class="checkbox"><input type="checkbox" name="specialisatie" value="Rally">Rally</label>
+          <label class="checkbox"><input type="checkbox" name="specialisatie" value="Uithoudingsracen">Uithoudingsracen</label>
+          <label class="checkbox"><input type="checkbox" name="specialisatie" value="Geen">Geen</label>
+        </fieldset>
         <p class="error-specialisatie" style="display:none;"></p>
 
         <label for="aanvullendeOpmerkingen">Over mij</label>
@@ -60,15 +61,16 @@
         <input type="hidden" name="gewicht" id="gewicht">
         <input type="hidden" name="aandrijving" id="aandrijving">
 
-        <label for="mods">Mods</label>
-        <div>
+        <fieldset >
+          <legend>Mods</legend>
+
           <label class="checkbox"><input type="checkbox" name="mods" value="Tires"> Tires</label>
           <label class="checkbox"><input type="checkbox" name="mods" value="Suspension"> Suspension</label>
           <label class="checkbox"><input type="checkbox" name="mods" value="Brakes"> Brakes</label>
           <label class="checkbox"><input type="checkbox" name="mods" value="Power"> Power</label>
           <label class="checkbox"><input type="checkbox" name="mods" value="Aero"> Aero</label>
           <label class="checkbox"><input type="checkbox" name="mods" value="Geen"> Geen</label>
-        </div>
+        </fieldset>
         <p class="error-mods" style="display:none;"></p>
 
         <button type="submit" onclick="validateAanvullendeGegevens(event)">Opslaan</button>

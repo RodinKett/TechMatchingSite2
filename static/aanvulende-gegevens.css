@@ -28,9 +28,14 @@ span {
 }
 
 /* ------------------- Labels ------------------- */
-label {
+label, legend {
   display: block;
   font-size: var(--font-size-form-label);
+  margin-top: var(--lijn-hoogte-l);
+}
+
+fieldset{
+  border:none;
   margin-top: var(--lijn-hoogte-l);
 }
 
@@ -89,7 +94,7 @@ select option {
 
 
 /* checkbox */
-div label{
+fieldset label{
   font-size: var(--font-size-normal);
   margin-top: var(--lijn-hoogte-s);
   color: var(--kleur-tekst)
@@ -116,10 +121,10 @@ div label{
 p{
   font-size: var(--font-size-normal);
   color: var(--kleur-error);
-  text-shadow:0 0 15px var(--kleur-secundair-button-text);
+  text-shadow:0 0 1rem var(--kleur-secundair-button-text);
 }
 
 /* Input error style */
 .input-error {
-  border: 3px solid var(--kleur-error);
+  border: var(--border-width-input) var(--border-style-input) var(--kleur-error);
 }

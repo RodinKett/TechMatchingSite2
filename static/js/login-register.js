@@ -68,7 +68,7 @@ function toonStap(stap) {
 // ------------------- Bestandsupload -------------------
 
 // Elementen voor bestand-upload ophalen
-const bestandInput = document.getElementById('profileUpload');
+const bestandInput = document.getElementById('profielUpload');
 const bestandNaamSpan = document.querySelector('.upload-label .file-name');
 
 // Event listener om bestandsnaam weer te geven
@@ -151,7 +151,7 @@ document.getElementById("formulier-registratie").addEventListener("submit", asyn
           case "email": selector = ".error-reg-email"; break;
           case "password": selector = ".error-reg-password"; break;
           case "dob": selector = ".error-reg-geboortedatum"; break;
-          case "profileFoto": selector = ".error-upload-foto"; break; // match your HTML
+          case "profielFoto": selector = ".error-upload-foto"; break; // match your HTML
           default: selector = null;
         }
         if (selector) {

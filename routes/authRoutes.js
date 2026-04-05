@@ -24,7 +24,7 @@
  *    - Slaat de sessie op bij succesvolle login.
  * 
  * Middleware:
- * - upload.single("profileFoto"): gebruikt voor het uploaden van een profielfoto bij registratie.
+ * - upload.single("profielFoto"): gebruikt voor het uploaden van een profielfoto bij registratie.
  */
 
 
@@ -51,7 +51,7 @@ router.get("/logout", function(req, res) {
 });
 
 // POST registratie van een nieuwe gebruiker
-router.post("/register", upload.single("profileFoto"), async (req, res) => {
+router.post("/register", upload.single("profielFoto"), async (req, res) => {
   try {
     const db = req.app.locals.db;
     const users = db.collection("users");
@@ -67,7 +67,7 @@ router.post("/register", upload.single("profileFoto"), async (req, res) => {
     const email = req.body.email ? validator.trim(req.body.email) : "";
     const password = req.body["reg-password"] || "";
     const dob = req.body.dob ? validator.trim(req.body.dob) : "";
-    const profileFoto = req.file ? req.file.filename : null;
+    const profielFoto = req.file ? req.file.filename : null;
 
     // --------------------------
     // Validation
@@ -82,7 +82,7 @@ router.post("/register", upload.single("profileFoto"), async (req, res) => {
     if (req.file) {
       const allowed = ["image/jpeg", "image/png", "image/webp"];
       if (!allowed.includes(req.file.mimetype)) {
-        errors.profileFoto = "Alleen JPG, PNG of WEBP toegestaan voor profielfoto.";
+        errors.profielFoto = "Alleen JPG, PNG of WEBP toegestaan voor profielfoto.";
       }
     }
 
@@ -113,7 +113,7 @@ router.post("/register", upload.single("profileFoto"), async (req, res) => {
       email,
       password: hashedPassword,
       dob,
-      profielFoto: profileFoto,
+      profielFoto: profielFoto,
       createdAt: new Date()
     });
 

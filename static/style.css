@@ -33,6 +33,11 @@
     --font-family-kopjes: arial, sans-serif;    /* Racing Sans One */
     --font-family-text: arial, sans-serif;      /*   Nunito Sans   */
 
+    /* Border variable                          border: var(--border-width-input) var(--border-style-input) var(--border-color-input); */
+    --border-color-input: hsl(0deg 0% 100%);
+    --border-width-input: 0.2rem;
+    --border-style-input: solid;
+
     /* Ruimte tussen de ruimtes */
     --lijn-hoogte-s: 1rem;
     --lijn-hoogte-m: 2.5rem;

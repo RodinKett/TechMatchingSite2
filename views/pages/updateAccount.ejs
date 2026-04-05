@@ -44,8 +44,8 @@
           <p class="error-bevestig-wachtwoord" style="display:none;"></p>
 
           <label for="upload-profiel">Upload profielfoto</label>
-          <input type="file" id="upload-profiel" name="profileFoto" accept="image/*">
-          <p class="error-profileFoto" style="display:none;"></p>
+          <input type="file" id="upload-profiel" name="profielFoto" accept="image/*">
+          <p class="error-profielFoto" style="display:none;"></p>
 
           <label for="upload-profiel" class="upload-label">
             <img src="afbeeldingen/upload-photo.svg" alt="Upload Profiel foto">
@@ -67,15 +67,16 @@
           <input id="jarenErvaring" type="number" name="jarenErvaring" value="<%= user.jarenErvaring %>" required min="0" max="99">
           <p class="error-jarenErvaring" style="display:none;"></p>
 
-          <label for="specialisatie">Specialisatie</label>
-          <div>
+          <fieldset >
+            <legend>specialisatie</legend>
+            
             <label class="checkbox"><input type="checkbox" name="specialisatie" value="Circuit racen" <%= user.specialisatie?.includes("Circuit racen") ? "checked" : "" %>> Circuit racen</label>
             <label class="checkbox"><input type="checkbox" name="specialisatie" value="Drag racen" <%= user.specialisatie?.includes("Drag racen") ? "checked" : "" %>> Drag racen</label>
             <label class="checkbox"><input type="checkbox" name="specialisatie" value="Drift racen" <%= user.specialisatie?.includes("Drift racen") ? "checked" : "" %>> Drift racen</label>
             <label class="checkbox"><input type="checkbox" name="specialisatie" value="Rally" <%= user.specialisatie?.includes("Rally") ? "checked" : "" %>> Rally</label>
             <label class="checkbox"><input type="checkbox" name="specialisatie" value="Uithoudingsracen" <%= user.specialisatie?.includes("Uithoudingsracen") ? "checked" : "" %>> Uithoudingsracen</label>
             <label class="checkbox"><input type="checkbox" name="specialisatie" value="Geen" <%= user.specialisatie?.includes("Geen") ? "checked" : "" %>> Geen</label>
-          </div>
+          </fieldset>
           <p class="error-specialisatie" style="display:none;"></p>
 
           <label for="aanvullendeOpmerkingen">Over mij</label>
@@ -112,15 +113,16 @@
           <input type="hidden" name="gewicht" id="gewicht" value="<%= user.voertuig?.gewicht || '' %>">
           <input type="hidden" name="aandrijving" id="aandrijving" value="<%= user.voertuig?.aandrijving || '' %>">
 
-          <label for="mods">Mods</label>
-          <div>
+          <fieldset >
+            <legend>Mods</legend>
+
             <label class="checkbox"><input type="checkbox" name="mods" value="Tires" <%= user.mods?.includes("Tires") ? "checked" : "" %>> Tires</label>
             <label class="checkbox"><input type="checkbox" name="mods" value="Suspension" <%= user.mods?.includes("Suspension") ? "checked" : "" %>> Suspension</label>
             <label class="checkbox"><input type="checkbox" name="mods" value="Brakes" <%= user.mods?.includes("Brakes") ? "checked" : "" %>> Brakes</label>
             <label class="checkbox"><input type="checkbox" name="mods" value="Power" <%= user.mods?.includes("Power") ? "checked" : "" %>> Power</label>
             <label class="checkbox"><input type="checkbox" name="mods" value="Aero" <%= user.mods?.includes("Aero") ? "checked" : "" %>> Aero</label>
             <label class="checkbox"><input type="checkbox" name="mods" value="Geen" <%= user.mods?.includes("Geen") ? "checked" : "" %>> Geen</label>
-          </div>
+          </fieldset>
           <p class="error-mods" style="display:none;"></p>
 
         </div>
