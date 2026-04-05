@@ -67,6 +67,10 @@ dd {
 
 }
 
+.info-blok:nth-child(10) {
+ grid-column: 1 / 4;
+}
+
 #tekst {
   color: var(--kleur-tekst);
 }
