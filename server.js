@@ -599,10 +599,7 @@ app.get("/matching", async (req, res) => {
 // ---------------------
 
 app.get("/profiel", async (req, res) => {
-    // try {
-    // if (!req.session.user) {
-    //   return res.redirect("/login");
-    // }
+
     try {
     const db = client.db("StreetracerApp");
     const gebruikers = db.collection("users");
