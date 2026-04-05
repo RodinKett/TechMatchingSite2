@@ -137,7 +137,6 @@ router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profileFoto"), 
         gewicht,
         aandrijving,
         mods,
-        opmerkingen
       }
     };
 
@@ -145,8 +144,7 @@ router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profileFoto"), 
 
     await users.updateOne({ _id: userId }, { $set: updateData });
 
-    res.json({ success: true });
-
+    res.json({ success: true, redirect: "/" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ general: "Fout bij opslaan aanvullende gegevens" });
@@ -254,7 +252,6 @@ router.post("/updateAccount", isLoggedIn, upload.single("profileFoto"), async fu
         gewicht: gewicht ?? huidigeVoertuig.gewicht,
         aandrijving: aandrijving || huidigeVoertuig.aandrijving,
         mods,
-        opmerkingen
       }
     };
 
@@ -266,8 +263,7 @@ router.post("/updateAccount", isLoggedIn, upload.single("profileFoto"), async fu
 
     await users.updateOne({ _id: userId }, { $set: updateData });
 
-    res.json({ success: true });
-
+    res.json({ success: true, redirect: "/" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ general: "Fout bij updaten accountgegevens" });

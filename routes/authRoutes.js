@@ -66,7 +66,7 @@ router.post("/register", upload.single("profileFoto"), async (req, res) => {
       : "";
     const email = req.body.email ? validator.trim(req.body.email) : "";
     const password = req.body["reg-password"] || "";
-    const dob = req.body["reg-geboortedatum"] ? validator.trim(req.body["reg-geboortedatum"]) : "";
+    const dob = req.body.dob ? validator.trim(req.body.dob) : "";
     const profileFoto = req.file ? req.file.filename : null;
 
     // --------------------------
@@ -151,7 +151,7 @@ router.post("/login", async function(req, res) {
     }
 
     req.session.user = { id: user._id, username: user.username };
-    res.json({ success: true, redirect: "/aanvullendeInformatie" });
+    res.json({ success: true, redirect: "/" });
 
   } catch (error) {
     console.error(error);
