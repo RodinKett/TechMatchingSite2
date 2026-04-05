@@ -555,6 +555,65 @@ app.get("/profiel", (req, res) => {
 });
 
 
+
+
+
+
+app.get("/matching", async (req, res) => {
+  try {
+    const db = client.db("StreetracerApp");
+    const gebruikers = db.collection("users");
+
+    const q = req.query;
+    const meerdere = (val) => Array.isArray(val) ? val : [val];
+
+   const query = {
+  ...(q.jaartal && { "voertuig.jaartal": q.jaartal }),
+  ...(q.skillLevel && { skillLevel: { $in: meerdere(q.skillLevel) } }),
+  ...(q.wielaandrijving && { "voertuig.aandrijving": { $in: meerdere(q.wielaandrijving) } }),
+  ...(q.specialisatie && { specialisatie: { $in: meerdere(q.specialisatie) } }),
+  ...(q.jarenErvaring && { jarenErvaring: q.jarenErvaring }),
+  ...(q.mods && { "voertuig.opmerkingen": { $in: meerdere(q.mods) } }),
+  ...((q.pkVan || q.pkTot) && { "voertuig.pk": { ...(q.pkVan && { $gte: q.pkVan }), ...(q.pkTot && { $lte: q.pkTot }) } }),
+};
+
+    const data = await gebruikers.find(query).toArray();
+
+    console.log("MongoDB query:", query);
+    console.log("Gevonden gebruikers:", data.length);
+    console.log("Eerste gebruiker:", data[0]);
+
+    const users = data.map(user => ({
+      id: user._id.toString(),
+      profielFoto: user.profielFoto || "-",
+      username: user.username || "Onbekend",
+      merk: user.voertuig?.merk || "-",
+      model: user.voertuig?.model || "-",
+      jaartal: user.voertuig?.jaartal || "-",
+      pk: user.voertuig?.pk || "-",
+      aandrijving: user.voertuig?.aandrijving || "-",
+      mods: user.voertuig?.opmerkingen || "-",
+      specialisatie: user.specialisatie || "-",
+      jarenErvaring: user.jarenErvaring + " jaar" || "-",
+      skillLevel: user.skillLevel || "-",
+      opmerkingen: user.opmerkingen || "Geen opmerkingen",
+    }));
+
+    res.render("Pages/matching", { users });
+
+  } catch (err) {
+    console.error("Fout bij ophalen matching-profielen:", err);
+    res.status(500).send("Er ging iets mis bij het ophalen van de profielen.");
+  }
+});
+
+// ---------------------
+// SERVER STARTEN + MONGO CONNECTIE
+// ---------------------
+
+
+startServer();
+
 async function startServer() {
   try {
     await client.connect();

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/profiel.css" />
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,87 +13,123 @@
     />
     <link rel="stylesheet" href="/style.css" />
     <link rel="stylesheet" href="/footer.css" />
+    <link rel="stylesheet" href="/matching.css" />
+    <link rel="stylesheet" href="/filter.css" />
   </head>
   <body class="body-matching">
     <header><%- include('../partials/headerbasis'); %></header>
 
     <main id="main-matching">
-      <section id="alle-info">
-        <section id="foto-section">
-          
-          <p>rank 95</p>
-          <img
-            src="/afbeeldingen/lightning-mcqueen.png"
-            alt="Lightning McQueen"
-          />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="327"
-            height="11"
-            fill="none"
-          >
-            <path
-              fill="#fff"
-              d="m173.913.003 152.173.002v4.961l-157.155-.002zM167.335 5.956l158.751.003v4.961l-163.948-.002zM152.174 10.917 0 10.915V5.954l157.155.002zM158.751 4.964 0 4.962V0l163.948.002z"
-            />
-          </svg>
-          <section id="naam-edit-profiel">
-          <h2 id="naam-gebruiker">Lightning Mcqueen</h2>
-          
-          <svg id="edit-profiel" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M14 5C14 6.10457 13.1046 7 12 7C10.8954 7 10 6.10457 10 5C10 3.89543 10.8954 3 12 3C13.1046 3 14 3.89543 14 5Z" fill="#ffffff"></path> <path d="M14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12Z" fill="#ffffff"></path> <path d="M12 21C13.1046 21 14 20.1046 14 19C14 17.8954 13.1046 17 12 17C10.8954 17 10 17.8954 10 19C10 20.1046 10.8954 21 12 21Z" fill="#ffffff"></path> </g></svg>
-        </section>
-        </section>
-        <section>
-        
-        <section id="info">
-          <dl>
-            <div class="info-blok">
-              <dt>Voertuig:</dt>
-              <dd>Gen 4 NASCAR</dd>
-            </div>
+       <button id="button-filter">
+        <svg id="filter-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="M0 0h24v24H0z"/><path stroke="#fff" stroke-linecap="round" stroke-width="2" d="M4 5h12M4 12h6M14 12h6M8 19h12"/><circle cx="18" cy="5" r="2" stroke="#fff" stroke-linecap="round" stroke-width="2"/><circle cx="12" cy="12" r="2" stroke="#fff" stroke-linecap="round" stroke-width="2"/><circle cx="6" cy="19" r="2" stroke="#fff" stroke-linecap="round" stroke-width="2"/></g></svg>
+        <p id="p-filter">Filters</p>
+        <!-- data ophalen van hoeveelheid filters -->
+        <p id="telling-filter"></p>
+      </button>
 
-            <div class="info-blok">
-              <dt>PK</dt>
-              <dd>260</dd>
-            </div>
+     <%# overlay filter %>
+<section id="filter-overlay" class="verborgen">
+  <%- include('../partials/filter-overlay'); %>
+</section>
 
-            <div class="info-blok">
-              <dt>Jaar:</dt>
-              <dd>2006</dd>
-            </div>
 
-            <div class="info-blok">
-              <dt>Specialisatie:</dt>
-              <dd>Bochten</dd>
-            </div>
+      <section class="alle-kaarten">
 
-            <div class="info-blok">
-              <dt>Ervaring:</dt>
-              <dd>20 jaar</dd>
-            </div>
 
-            <div class="info-blok">
-              <dt>Win rate:</dt>
-              <dd>75%</dd>
-            </div>
+  <% if (users.length === 0) { %>
+    <p  id="geen-kaart">Geen gebruikers gevonden, pas filters aan</p>
+  <% } else { %>
+    <% users.forEach(user => { %>
 
-            <div class="info-blok">
-              <dt>Mods:</dt>
-              <dd>Stickers</dd>
-            </div>
-          </dl>
-        </section>
-
-        <section>
-          <h2 id="tekst">Opmerkingen:</h2>
-          <p id="tekst">
-            Ik race alleen in de avond en met intermediate+. Dus geen beginners
-          </p>
-        </section>
     
-      </section>
+    <section class="veeg-kaart">
+   
+    <!-- <svg class="styling-links" xmlns="http://www.w3.org/2000/svg" width="175" height="436" fill="none"><path fill="#fff" d="M169.383 4.778 0 4.776V0L174.93.002z"/><path fill="url(#a)" d="M.27 421.915V1.879h4.394v433.787z"/><defs><linearGradient id="a" x1="2.467" x2="2.471" y1="1.879" y2="435.666" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="#172127"/></linearGradient></defs></svg>
+        <svg class="styling-rechts" xmlns="http://www.w3.org/2000/svg" width="175" height="428" fill="none"><path fill="#fff" d="m5.524 422.915 168.72.002v4.776L0 427.69z"/><path fill="url(#a)" d="M169.937 13.407v409.508h4V0z"/><defs><linearGradient id="a" x1="171.937" x2="171.921" y1="422.915" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="#172127"/></linearGradient></defs></svg>
+     -->
+    <section class="foto-section">
+     <img class="profiel-foto" src="/uploads/<%= user.profielFoto %>" alt="foto">
+
+      <svg xmlns="http://www.w3.org/2000/svg" width="327" height="11" fill="none">
+        <path fill="#fff" d="m173.913.003 152.173.002v4.961l-157.155-.002zM167.335 5.956l158.751.003v4.961l-163.948-.002zM152.174 10.917 0 10.915V5.954l157.155.002zM158.751 4.964 0 4.962V0l163.948.002z"/>
+      </svg>
+
+      <h2 class="naam-gebruiker"><%= user.username %></h2>
+    </section>
+ 
+        <section id="info">
+      <dl>
+        <div class="info-blok">
+          <dt>Merk:</dt>
+          <dd><%= user.merk %></dd>
+        </div>
+
+          <div class="info-blok">
+          <dt>Model:</dt>
+          <dd><%= user.model %></dd>
+        </div>
+
+             <div class="info-blok">
+          <dt>Jaar:</dt>
+          <dd><%= user.jaartal %></dd>
+        </div>
+
+        <div class="info-blok">
+          <dt>PK:</dt>
+          <dd><%= user.pk %></dd>
+        </div>
+
+   
+
+          <div class="info-blok">
+          <dt>Wielaandrijving:</dt>
+          <dd><%= user.aandrijving %></dd>
+        </div>
+
         
-    </main>
+        <div class="info-blok">
+          <dt>Mods:</dt>
+          <dd><%= user.mods %></dd>
+        </div>
+
+        <div class="info-blok">
+          <dt>Specialisatie:</dt>
+          <dd><%= user.specialisatie %></dd>
+        </div>
+
+        <div class="info-blok">
+          <dt>Ervaring:</dt>
+          <dd><%= user.jarenErvaring %></dd>
+        </div>
+
+        <div class="info-blok">
+          <dt>Skill Level:</dt>
+          <dd><%= user.skillLevel %></dd>
+        </div>
+
+        <div class="info-blok">
+          <dt>Opmerkingen:</dt>
+          <dd><%= user.opmerkingen %></dd>
+        </div>
+      </dl>
+    </section>
+  </section>
+ 
+      <% }) %>
+  <% } %>
+
+ </section>
+
+  <section id="knop-matching">
+    <button type="button" id="knop-volgende">Volgende</button>
+    <button type="button" id="knop-challenge">Challenge</button>
+  </section>
+
+</main>
+
+
+<script src="/js/matching.js"></script>
+<script src="/js/filter.js"></script>
 
     <footer><%- include('../partials/footer'); %></footer>
   </body>
