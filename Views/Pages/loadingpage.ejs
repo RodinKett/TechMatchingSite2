@@ -12,33 +12,29 @@
   <link rel="stylesheet" href="/loadingpage.css" />
   </head>
   <body>
-    <header><%- include('../partials/headerbasis'); %></header>
+    <header></header>
 
+    <!-- BRONVERMELDING: Progress Bar Tutorial CSS, HTML, JavaScript
+        Video: https://youtu.be/4LBRMSk6PLY?si=idS_I-GS9WIsLfdP  -->
     <main class="laadpagina">
+        <h1>Een moment gedult, we zijn de pagina voor u aan het ophalen</h1>
     
-      <section class="laadanimatie">
-        <h1>De pagina is aan het laden</h1>
-
-        <div class="cirkelanimatie"></div>
-        <div class="cirkelanimatie2"></div>
-        <div class="loader"></div>
-        
-        <picture class="caranimatie">
-          <!--Stop hier een img in srcset Dit is voor wanneer je een bepaalde colorscheme gebruikt 
-          en de gebruiker wisselt het om, dan blijf de animatie goed-->
+        <section class="progressie-container">
+          <picture>
           <source
-          srcset="../../Afbeeldingen/cars-drift-animatie-002.svg"
+          srcset="/afbeeldingen/laadanimatie-auto-side-donker.svg"
           media="(prefers-color-scheme: dark)"
           />
           <img
-          src="../../Afbeeldingen/cars-drift-animatie-002.svg"
-          alt="laad animatie van een auto die rond draaid"
+          src="/afbeeldingen/laadanimatie-auto-side.svg"
+          alt="Afbeelding van een auto die van links naar rechts gaat"
           />
         </picture>
-      </section>
+          <div class="progressiebar"></div>
+        </section>
     </main>
 
     <!-- <footer></footer> -->
-     <script src="../../static/js/loadingpage.js"></script>
+     <script src="/js/loadingpage.js"></script>
   </body>
 </html>
