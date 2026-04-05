@@ -80,7 +80,17 @@ app.get("/", (req, res) => {
   res.render("pages/index");
 });
 
+app.get("/berichtenlijst", (req, res) => {
+  res.render("Pages/berichtenlijst");
+});
 
+app.get("/bericht", (req, res) => {
+  res.render("Pages/bericht");
+});
+
+app.get("/verzoeken", (req, res) => {
+  res.render("Pages/verzoeken");
+});
 
 
 // ------------------- Feedback handeling ------------------

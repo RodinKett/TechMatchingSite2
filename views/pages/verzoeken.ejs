@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EJS Is Fun</title>
+
+  <!-- CSS (load bootstrap from a CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/header.css">
+  <link rel="stylesheet" href="/verzoeken.css">
+
+  <style>
+    body {
+      padding-top: 50px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <%- include('../partials/headerbasis'); %>
+</header>
+
+<main class="container">
+
+  <h1>Verzoeken</h1>
+
+  <!-- VERZOEK -->
+  <section class="request-section">
+
+    <div class="request-card">
+
+      <!-- FOTO -->
+      <div class="request-image">
+        <img src="/uploads/1774121279467-881089780.jpeg" alt="Foto van een gebruiker">
+      </div>
+
+      <!-- INFO -->
+      <div class="request-info">
+
+        <h2 class="name">Francesco Bernoulli</h2>
+
+        <p>12 jaar ervaring</p>
+        <p>Driften</p>
+        <p>2009 Formula F1</p>
+        <p>Prototype Racer</p>
+
+      </div>
+
+      <!-- STATS -->
+      <div class="request-stats">
+
+        <div class="rank">
+          <span>Rang</span>
+          <strong>86</strong>
+        </div>
+
+        <div class="winrate">
+          <strong>70%</strong>
+          <span>Winrate</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="actions">
+      <button class="btn-decline">Negeer</button>
+      <button class="btn-accept">Accepteer</button>
+    </div>
+
+  </section>
+
+  <!-- VERZOEK -->
+  <section class="request-section">
+
+    <div class="request-card">
+
+      <!-- FOTO -->
+      <div class="request-image">
+        <img src="/uploads/1774121279467-881089780.jpeg" alt="Foto van een gebruiker">
+      </div>
+
+      <!-- INFO -->
+      <div class="request-info">
+
+        <h2 class="name">Francesco Bernoulli</h2>
+
+        <p>12 jaar ervaring</p>
+        <p>Driften</p>
+        <p>2009 Formula F1</p>
+        <p>Prototype Racer</p>
+
+      </div>
+
+      <!-- STATS -->
+      <div class="request-stats">
+
+        <div class="rank">
+          <span>Rang</span>
+          <strong>86</strong>
+        </div>
+
+        <div class="winrate">
+          <strong>70%</strong>
+          <span>Winrate</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="actions">
+      <button class="btn-decline">Negeer</button>
+      <button class="btn-accept">Accepteer</button>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

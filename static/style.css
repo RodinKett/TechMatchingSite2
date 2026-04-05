@@ -24,6 +24,8 @@
     --kleur-secundair-button-text: hsl(202deg 26% 12%);
     --kleur-error:hsl(356deg 69% 50%);
     --kleur-link: hsl(356deg 69% 50%);
+    --kleur-chatbericht-ik:hsl(205deg 54% 63%);
+    --kleur-chatbericht-hun:hsl(202deg 26% 12%);
 
     /* Font */
     --font-size-form-title: 3rem;
