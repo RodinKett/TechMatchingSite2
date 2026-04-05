@@ -16,17 +16,17 @@ document.getElementById("knop-challenge")
 ////filter overlay open en dicht kunnen doen////
 document.getElementById("button-filter")
   .addEventListener("click", () => {
-    document.getElementById("filter-overlay").classList.remove("verborgen");
+    document.getElementById("filter-overlay").classList.add("zichtbaar");
   });
 
 document.getElementById("knop-filter-sluiten")
   .addEventListener("click", () => {
-    document.getElementById("filter-overlay").classList.add("verborgen");
+    document.getElementById("filter-overlay").classList.remove("zichtbaar");
   });
 
 document.getElementById("knop-resultaten")
   .addEventListener("click", () => {
-    document.getElementById("filter-overlay").classList.add("verborgen");
+    document.getElementById("filter-overlay").classList.remove("zichtbaar");
   });
 
 
