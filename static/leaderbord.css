@@ -184,7 +184,7 @@ button {
 
 /* Jij highlight */
 .mij {
-  outline: 2px solid var(--kleur-accent);
+  outline: 0.13em solid var(--kleur-accent);
   background: var(--kleur-tekst-op-donker);
 }
 
