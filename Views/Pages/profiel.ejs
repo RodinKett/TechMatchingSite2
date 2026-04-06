@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/style.css" />
     <link rel="stylesheet" href="/footer.css" />
     <link rel="stylesheet" href="/profiel.css" />
+    <link rel="stylesheet" href="/loguit.css" />
     
  <link rel="stylesheet" href="/overlay-profiel.css" />
   </head>
@@ -21,7 +22,8 @@
     <header><%- include('../partials/headerbasis'); %></header>
 
     <main id="main-matching">
-
+<%- include("../partials/overlay-edit-button") %>
+<%- include("../partials/loguit") %>
       <section class="alle-kaarten">
     
   <section class="foto-section">
@@ -41,7 +43,7 @@
     </svg>
     </button>
 
-<%- include("../partials/overlay-edit-button") %>
+
 
   </section>
 
@@ -112,6 +114,7 @@
 <script src="/js/profiel.js"></script>
 <script src="/js/filter.js"></script>
 <script src="/js/overlay-edit.js"></script>
+<script src="/js/loguit.js"></script>
     <footer><%- include('../partials/footer'); %></footer>
   </body>
 </html>

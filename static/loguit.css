@@ -1,0 +1,13 @@
+#loguit-scherm {
+  position: fixed; /* niet absolute */
+  z-index: 20; /* hoger dan de edit-overlay */
+  background-color: var(--kleur-blok-matching);
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+}
+
+
+#loguit-scherm.verborgen {
+  display: none;
+}
