@@ -12,6 +12,9 @@ document.getElementById("knop-challenge")
   window.location.href = "/matching";
 });
 
+const params = new URLSearchParams(window.location.search);
+document.getElementById("telling-filter").textContent = params.size || "";
+
 
 ////filter overlay open en dicht kunnen doen////
 document.getElementById("button-filter")
@@ -29,6 +32,9 @@ document.getElementById("knop-resultaten")
     document.getElementById("filter-overlay").classList.remove("zichtbaar");
   });
 
+  if (document.getElementById("geen-kaart")) {
+  document.getElementById("knop-matching").style.display = "none";
+}
 
 
 
@@ -70,3 +76,5 @@ function swipe(direction) {
     card.style.transition = "transform 0.35s ease, opacity 0.35s ease";
   }, 350);
 }
+
+console.log(window.location.search);

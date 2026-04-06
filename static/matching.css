@@ -129,26 +129,30 @@ dd {
   align-items: center;
   position: sticky;
   bottom: 2em;
-  padding-top: 2em;
-  padding-bottom: 4em;
+  padding: 2em 0 4em;
   z-index: 4;
+}
+
+#knop-volgende,
+#knop-challenge {
+  width: 45%;
+  height: 3em;
+  border: none;
+  border-radius: 0.5em;
 }
 
 #knop-volgende {
   background: var(--kleur-achtergrond-linker-knop);
-  border-radius: 0.5em;
-  width: 45%;
-  height: 3em;
-
-  
 }
 
 #knop-challenge {
   background: var(--kleur-accent);
   color: var(--kleur-tekst);
-  border-radius: 0.5em;
-  width: 45%;
-  height: 3em;
+}
+
+#knop-volgende:focus,
+#knop-challenge:focus {
+  outline: none;
 }
 
 #geen-kaart {
@@ -157,3 +161,4 @@ dd {
   margin-top: 2em;
   font-size: 3em;
 }
+

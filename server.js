@@ -25,12 +25,15 @@
 require("node:dns/promises").setServers(["1.1.1.1", "8.8.8.8"]);
 
 
+
+
 require("dotenv").config(); // Load environment variables
 
 const path = require("path");
 const { MongoClient } = require("mongodb");
 const express = require("express");
 const session = require("express-session");
+
 
 // Routes importeren
 const apiRoutes = require("./routes/apiRoutes");
@@ -40,7 +43,7 @@ const userRoutes = require("./routes/userRoutes");
 const app = express();
 const port = 3000;
 
-
+const upload = require("./middleware/upload");
 app.use('/uploads', express.static('static/uploads'));
 
 
@@ -489,20 +492,14 @@ app.get("/loadingpage", (req, res) => {
   res.render("pages/loadingpage");
 });
 
-app.use((req, res) => {
-  res.status(404).render("pages/404");
-});
-
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).render("pages/500");
-});
 
 
 
 
 //////////////////matching pagina met filters en kaarten////////////////////
+
 app.get("/matching", async (req, res) => {
+  
   try {
     const db = client.db("StreetracerApp");
     const gebruikers = db.collection("users");
@@ -547,7 +544,8 @@ app.get("/matching", async (req, res) => {
   } catch (err) {
     console.error("Fout bij ophalen matching-profielen:", err);
     
-    res.status(500).console.log ("Er ging iets mis bij het ophalen van de profielen.");
+    console.error("Er ging iets mis bij het ophalen van de profielen.");
+res.status(500).render("pages/500");
   }
 });
 
@@ -561,11 +559,14 @@ app.get("/profiel", async (req, res) => {
     const db = client.db("StreetracerApp");
     const gebruikers = db.collection("users");
 
-    const data = await gebruikers.findOne({});
+      const data = await gebruikers.findOne({});
+    console.log("data:", data); // <- hier
+
+    // const data = await gebruikers.findOne({});
 
 // const data = await gebruikers.findOne({ _id: new ObjectId(req.session.user.id) });
 
-    console.log("gevonden data:", data);
+    // console.log("gevonden data:", data);
 
     const user = {
       id: data._id.toString(),
@@ -610,11 +611,23 @@ async function startServer() {
       console.log(`Server running on http://localhost:${port}`);
     });
 
-  } catch (error) {
+  } 
+  catch (error) {
     console.error("Failed to connect to MongoDB:", error);
   }
+
 }
 
 // Start de server
 
 startServer();
+
+
+app.use((req, res) => {
+  res.status(404).render("pages/404");
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).render("pages/500");
+});
