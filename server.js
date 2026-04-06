@@ -40,7 +40,7 @@ const userRoutes = require("./routes/userRoutes");
 const app = express();
 const port = 3000;
 
-<<<<<<< HEAD
+
 app.use('/uploads', express.static('static/uploads'));
 
 
