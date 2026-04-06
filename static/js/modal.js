@@ -10,7 +10,7 @@ infoRankKnop.addEventListener("click", () => {
 });
 
 
-// kan je extra info bekijken van elke speler
+// kan je extra info bekijken van elke speler BR: chagpt & co-pilot (closest gebruiken)
 document.querySelectorAll(".info-speler-knop").forEach(button => {
   button.addEventListener("click", () => {
     const speler = button.closest(".leaderbord-speler, .jij");
@@ -20,7 +20,7 @@ document.querySelectorAll(".info-speler-knop").forEach(button => {
 });
 
 
-// Filteren op de pagina (beginner, etc)
+// Filteren op de pagina (beginner, etc) BR: Chatgpt (filter hulp om werkend te rkijgen)
 filter.addEventListener("change", () => {
     const gekozenRank = filter.value;
 
