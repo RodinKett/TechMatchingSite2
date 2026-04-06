@@ -590,7 +590,8 @@ app.get("/matching", async (req, res) => {
 
   } catch (err) {
     console.error("Fout bij ophalen matching-profielen:", err);
-    res.status(500).send("Er ging iets mis bij het ophalen van de profielen.");
+    
+    res.status(500).console.log ("Er ging iets mis bij het ophalen van de profielen.");
   }
 });
 
@@ -628,7 +629,7 @@ const data = await gebruikers.findOne({ _id: new ObjectId(req.session.user.id) }
 
   } catch (err) {
     console.error("Fout bij ophalen profiel:", err);
-    res.status(500).send("Er ging iets mis bij het ophalen van het profiel.");
+    res.status(500).console.log ("Er ging iets mis bij het ophalen van het profiel.");
   }
 });
 
