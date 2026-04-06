@@ -18,6 +18,15 @@
 }
 
 
+#button-edit-profiel{
+  background-color: transparent;
+  border: none;
+}
+
+#button-edit-profiel:focus{
+  outline: none;
+border: none;
+}
 
 #foto-section img {
   max-width: 100%;
