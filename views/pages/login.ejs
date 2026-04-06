@@ -20,12 +20,17 @@
         <h2 id="titel-inloggen">Inloggen</h2>
 
         <label for="inlog-gebruikersnaam">Gebruikersnaam</label>
-        <input id="inlog-gebruikersnaam" type="text" name="username" required pattern="^[a-zA-Z0-9_-]{3,30}$">
+
+        <input id="inlog-gebruikersnaam" type="text" name="username" required>
+        <p class="error-inlog-gebruikersnaam" style="display:none;"></p>
+        
 
         <label for="inlog-wachtwoord">Wachtwoord</label>
-        <input id="inlog-wachtwoord" type="password" name="password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$">
+        <input id="inlog-wachtwoord" type="password" name="password" required>
+        <p class="error-inlog-wachtwoord" style="display:none;"></p>
 
-        <button type="submit">Inloggen</button>
+        <button type="submit" onclick="validateLogin(event)">Inloggen</button>
+
 
         <button type="button" class="link" onclick="gaNaar(1)">
           Nog geen account? <u><strong>Registreer</strong></u>
@@ -35,22 +40,25 @@
 
     <!-- Registratie Stap 1 -->
     <section class="sectie" aria-labelledby="titel-registratie-stap1">
-      <form class="formulier-box" id="formulier-registratie" action="/register" method="POST" enctype="multipart/form-data">
+
+      <form class="formulier-box formulier-box-register" id="formulier-registratie" action="/register" method="POST" enctype="multipart/form-data">
+>>>>>>> 594ea18230ef62ed8336c1bae9243194d0366906
 
       <fieldset class="stap" id="stap1" style="display:none;">
         <h2 id="titel-registratie-stap1">Registreren - Stap 1</h2>
 
         <label for="reg-gebruikersnaam">Gebruikersnaam</label>
-        <input id="reg-gebruikersnaam" type="text" name="reg-gebruikersnaam" required pattern="^[a-zA-Z0-9_-]{3,30}$" >
+
+        <input id="reg-gebruikersnaam" type="text" name="reg-gebruikersnaam" required>
+        <p class="error-reg-gebruikersnaam" style="display:none;"></p>
 
         <label for="reg-email">Email</label>
-        <input id="reg-email" type="email" name="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
-
-        <label for="reg-telefoonnummer">Telefoonnummer</label>
-        <input id="reg-telefoonnummer" type="tel" name="reg-telefoonnummer" required pattern="^\+?[0-9]{7,15}$">
+        <input id="reg-email" type="email" name="email" required>
+        <p class="error-reg-email" style="display:none;"></p>
 
         <div>
-          <button type="button" class="knop-primaire" onclick="gaNaar(2)">Volgende</button>
+          <button type="button" class="knop-primaire" onclick="if(validateRegisterStep1()) gaNaar(2)">Volgende</button>
+
           <button type="button" class="link" onclick="gaTerugNaar(0)">
             Heb je al een account <u><strong>log hier in</strong></u>      
           </button>
@@ -64,27 +72,26 @@
         <label for="reg-geboortedatum">Geboortedatum</label>
         <input id="reg-geboortedatum" type="date" name="dob" required>
 
-        <label for="reg-geslacht">Geslacht</label>
-        <select id="reg-geslacht" name="reg-geslacht" >
-          <option value="man" >Man</option>
-          <option value="vrouw">Vrouw</option>
-          <option value="anders"> Anders </option>
-        </select>
 
-        <label for="reg-profiel">Upload profielfoto</label>
+        <p class="error-reg-dob" style="display:none;"></p>
+
+        <label for="profielUpload">Upload profielfoto</label>
         <!-- File input -->
-        <input type="file" id="upload-profiel"  name="profileFoto" accept="image/*">
+        <input type="file" id="profielUpload"  name="profielFoto" accept="image/*">
 
         <!-- Label triggers the input -->
-        <label for="upload-profiel" class="upload-label">
-          <img src="afbeeldingen/upload-photo.svg" alt="Upload Profile">
+        <label for="profielUpload" class="upload-label">
+          <img src="afbeeldingen/upload-photo.svg" alt="Upload Profiel">
           <span class="file-name">Upload profielfoto</span>
         </label>
+        <p class="error-upload-foto" style="display:none;"></p>
+
 
         <div>
           <div class="knoppen-rij">
             <button type="button" class="knop-secundaire" onclick="gaNaar(1)">Terug</button>
-            <button type="button" class="knop-primaire" onclick="gaNaar(3)">Volgende</button>
+            <button type="button" class="knop-primaire" onclick="if(validateRegisterStep2()) gaNaar(3)">Volgende</button>
+
           </div>
           <button type="button" class="link" onclick="gaTerugNaar(0)">
             Heb je al een account <u><strong>log hier in</strong></u>       
@@ -97,16 +104,22 @@
         <h2 id="titel-registratie-stap3">Registreren - Stap 3</h2>
 
         <label for="reg-wachtwoord">Wachtwoord</label>
-        <input id="reg-wachtwoord" type="password" name="reg-password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$">
+
+        <input id="reg-wachtwoord" type="password" name="reg-password" required >
+        <p class="error-reg-password" style="display:none;"></p>
 
         <label for="reg-wachtwoord-bevestigen">Bevestig wachtwoord</label>
-        <input id="reg-wachtwoord-bevestigen" type="password" name="reg-wachtwoord-bevestigen" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$">
+        <input id="reg-wachtwoord-bevestigen" type="password" name="reg-wachtwoord-bevestigen" required >
+        <p class="error-reg-password-bevestigen" style="display:none;"></p>
+
 
         <div>
           <div class="knoppen-rij">
             <button type="button" class="knop-secundaire" onclick="gaNaar(2)">Terug</button>
-            <button type="submit" class="knop-primaire">Registreren</button>
+            <button type="submit" class="knop-primaire" onclick="validateRegisterStep3(event)">Registreren</button>
           </div>
+          <p class="error-reg-general " style="display:none; "></p>
+
           <button type="button" class="link" onclick="gaTerugNaar(0)">
             Heb je al een account <u><strong>log hier in</strong></u>       
           </button>
@@ -118,6 +131,7 @@
   </section>
 </main>
 
+<script src="/js/format-validatie.js"></script>
 <script src="/js/login-register.js"></script>
 
 <footer>

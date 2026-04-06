@@ -28,9 +28,14 @@ span {
 }
 
 /* ------------------- Labels ------------------- */
-label {
+label, legend {
   display: block;
   font-size: var(--font-size-form-label);
+  margin-top: var(--lijn-hoogte-l);
+}
+
+fieldset{
+  border:none;
   margin-top: var(--lijn-hoogte-l);
 }
 
@@ -85,4 +90,41 @@ select {
 select option {
   font-size: 40%;      
   line-height: 1.2em;  
+}
+
+
+/* checkbox */
+fieldset label{
+  font-size: var(--font-size-normal);
+  margin-top: var(--lijn-hoogte-s);
+  color: var(--kleur-tekst)
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+  margin-top: var(--lijn-hoogte-m);
+  padding-left: 1rem;
+}
+
+.checkbox input[type="checkbox"] {
+  width: auto;          /* prevents 100% width */
+  transform: scale(3); /* makes checkbox bigger */
+  padding: 0;
+  padding-left: 1rem;
+  margin-top:0;
+}
+
+
+
+p{
+  font-size: var(--font-size-normal);
+  color: var(--kleur-error);
+  text-shadow:0 0 1rem var(--kleur-secundair-button-text);
+}
+
+/* Input error style */
+.input-error {
+  border: var(--border-width-input) var(--border-style-input) var(--kleur-error);
 }

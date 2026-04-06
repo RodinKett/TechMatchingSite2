@@ -1,11 +1,14 @@
 body {
   background-color: var(--kleur-achtergrond);
+  margin: 0;
+  padding: var(--wit-ruimte-m-geen);
 }
 
 main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100vw;
   padding: var(--wit-ruimte-xl-geen);
 }
 

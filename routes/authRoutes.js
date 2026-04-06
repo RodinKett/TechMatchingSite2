@@ -24,7 +24,7 @@
  *    - Slaat de sessie op bij succesvolle login.
  * 
  * Middleware:
- * - upload.single("profileFoto"): gebruikt voor het uploaden van een profielfoto bij registratie.
+ * - upload.single("profielFoto"): gebruikt voor het uploaden van een profielfoto bij registratie.
  */
 
 
@@ -51,51 +51,85 @@ router.get("/logout", function(req, res) {
 });
 
 // POST registratie van een nieuwe gebruiker
-router.post("/register", upload.single("profileFoto"), async function(req, res) {
+router.post("/register", upload.single("profielFoto"), async (req, res) => {
   try {
     const db = req.app.locals.db;
     const users = db.collection("users");
 
-    // Formuliergegevens ophalen
-    const username = validator.escape(req.body["reg-gebruikersnaam"]);
-    const email = req.body.email;
-    const password = req.body["reg-password"];
-    const phone = req.body["reg-telefoonnummer"];
-    const dob = req.body["reg-geboortedatum"];
-    const gender = req.body["reg-geslacht"];
-    const profileFoto = req.file ? req.file.filename : null;
+    const errors = {};
 
-    // Check bestaande gebruiker
-    const existingUser = await users.findOne({ username });
-    if (existingUser) return res.status(400).send("Gebruikersnaam bestaat al");
+    // --------------------------
+    // Sanitize & parse input
+    // --------------------------
+    const username = req.body["reg-gebruikersnaam"] 
+      ? validator.escape(validator.trim(req.body["reg-gebruikersnaam"])) 
+      : "";
+    const email = req.body.email ? validator.trim(req.body.email) : "";
+    const password = req.body["reg-password"] || "";
+    const dob = req.body.dob ? validator.trim(req.body.dob) : "";
+    const profielFoto = req.file ? req.file.filename : null;
 
-    // Wachtwoord hashen
+    // --------------------------
+    // Validation
+    // --------------------------
+    if (!username) errors.username = "Vul een gebruikersnaam in.";
+    if (!email) errors.email = "Vul een emailadres in.";
+    else if (!validator.isEmail(email)) errors.email = "Ongeldig emailadres.";
+    
+    if (!password || password.length < 6) errors.password = "Wachtwoord moet minimaal 6 tekens zijn.";
+
+    // Profielfoto validation
+    if (req.file) {
+      const allowed = ["image/jpeg", "image/png", "image/webp"];
+      if (!allowed.includes(req.file.mimetype)) {
+        errors.profielFoto = "Alleen JPG, PNG of WEBP toegestaan voor profielfoto.";
+      }
+    }
+
+    // Check existing username
+    if (username) {
+      const existingUser = await users.findOne({ username });
+      if (existingUser) errors.username = "Gebruikersnaam bestaat al";
+    }
+
+    // Check existing email
+    if (email) {
+      const existingEmail = await users.findOne({ email });
+      if (existingEmail) errors.email = "Email is al geregistreerd";
+    }
+
+    // Stop if there are errors
+    if (Object.keys(errors).length > 0) {
+      return res.status(400).json({ errors });
+    }
+
+    // --------------------------
+    // Hash password & insert
+    // --------------------------
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Nieuwe gebruiker opslaan
     const result = await users.insertOne({
       username,
       email,
       password: hashedPassword,
-      phone,
       dob,
-      gender,
-      profielFoto: profileFoto,
+      profielFoto: profielFoto,
       createdAt: new Date()
     });
 
-    // Sessies
+    // Save session
     req.session.user = {
       id: result.insertedId,
       username
     };
 
-    // Redirect naar aanvullende informatie (of homepagina)
-    res.redirect("/aanvullendeInformatie");
+    // Redirect to aanvullendeInformatie
+    res.json({ success: true, redirect: "/loadingpage?next=/aanvullendeInformatie" });
 
   } catch (error) {
     console.error(error);
-    res.status(500).send("Fout bij registreren");
+    console.log("error met het aanmaken van een account")
+    res.status(500).render("pages/500");
   }
 });
 
@@ -106,26 +140,24 @@ router.post("/login", async function(req, res) {
     const users = db.collection("users");
 
     let { username, password } = req.body;
-
-    // Zoek de gebruiker op
     const user = await users.findOne({ username });
-    if (!user) return res.status(400).send("Gebruiker niet gevonden");
 
-    // Vergelijk het ingevoerde wachtwoord met het gehashte wachtwoord
+    if (!user) {
+      return res.status(400).json({ field: "username", message: "Gebruiker niet gevonden" });
+    }
+
     const match = await bcrypt.compare(password, user.password);
-    if (!match) return res.status(400).send("Wachtwoord fout");
+    if (!match) {
+      return res.status(400).json({ field: "password", message: "Wachtwoord fout" });
+    }
 
-    // Sla de gebruiker op in de sessie
-    req.session.user = {
-      id: user._id,
-      username: user.username
-    };
-
-    res.redirect("/aanvullendeInformatie");
+    req.session.user = { id: user._id, username: user.username };
+    res.json({ success: true, redirect: "/loadingpage?next=/" });
 
   } catch (error) {
     console.error(error);
-    res.status(500).send("Login fout");
+    console.log("error met het inloggen")
+    res.status(500).render("pages/500");
   }
 });
 

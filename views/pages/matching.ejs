@@ -1,0 +1,132 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>EJS Is Fun</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- CSS (load bootstrap from a CDN) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/footer.css" />
+    <link rel="stylesheet" href="/matching.css" />
+    <link rel="stylesheet" href="/filter.css" />
+  </head>
+  <body class="body-matching">
+    <header><%- include('../partials/headerbasis'); %></header>
+
+    <main id="main-matching">
+       <button id="knop-filter">
+        <svg id="filter-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="M0 0h24v24H0z"/><path stroke="var(--kleur-icons)" stroke-linecap="round" stroke-width="2" d="M4 5h12M4 12h6M14 12h6M8 19h12"/><circle cx="18" cy="5" r="2" stroke="var(--kleur-icons)" stroke-linecap="round" stroke-width="2"/><circle cx="12" cy="12" r="2" stroke="var(--kleur-icons)" stroke-linecap="round" stroke-width="2"/><circle cx="6" cy="19" r="2" stroke="var(--kleur-icons)" stroke-linecap="round" stroke-width="2"/></g></svg>
+        <p id="p-filter">Filters</p>
+      
+      </button>
+
+     <%# overlay filter %>
+<section id="filter-overlay" class="verborgen">
+  <%- include('../partials/filter-overlay'); %>
+</section>
+
+
+      <section class="alle-kaarten">
+
+
+  <% if (users.length === 0) { %>
+    <p  id="geen-kaart">Geen gebruikers gevonden, pas filters aan</p>
+  <% } else { %>
+    <% users.forEach(user => { %>
+
+    
+    <section class="veeg-kaart">
+   
+    <section class="foto-section">
+     <img class="profiel-foto" src="/uploads/<%= user.profielFoto %>" alt="foto">
+
+      <svg xmlns="http://www.w3.org/2000/svg" width="327" height="11" fill="none">
+        <path fill="var(--kleur-icons)" d="m173.913.003 152.173.002v4.961l-157.155-.002zM167.335 5.956l158.751.003v4.961l-163.948-.002zM152.174 10.917 0 10.915V5.954l157.155.002zM158.751 4.964 0 4.962V0l163.948.002z"/>
+      </svg>
+
+      <h2 class="naam-gebruiker"><%= user.username %></h2>
+    </section>
+ 
+        <section id="info">
+      <dl>
+        <div class="info-blok">
+          <dt>Merk:</dt>
+          <dd><%= user.merk %></dd>
+        </div>
+
+          <div class="info-blok">
+          <dt>Model:</dt>
+          <dd><%= user.model %></dd>
+        </div>
+
+             <div class="info-blok">
+          <dt>Jaar:</dt>
+          <dd><%= user.jaartal %></dd>
+        </div>
+
+        <div class="info-blok">
+          <dt>PK:</dt>
+          <dd><%= user.pk %></dd>
+        </div>
+
+   
+
+          <div class="info-blok">
+          <dt>Wielaandrijving:</dt>
+          <dd><%= user.aandrijving %></dd>
+        </div>
+
+        
+        <div class="info-blok">
+          <dt>Mods:</dt>
+          <dd><%= user.mods %></dd>
+        </div>
+
+        <div class="info-blok">
+          <dt>Specialisatie:</dt>
+          <dd><%= user.specialisatie %></dd>
+        </div>
+
+        <div class="info-blok">
+          <dt>Ervaring:</dt>
+          <dd><%= user.jarenErvaring %></dd>
+        </div>
+
+        <div class="info-blok">
+          <dt>Skill Level:</dt>
+          <dd><%= user.skillLevel %></dd>
+        </div>
+
+        <div class="info-blok">
+          <dt>Opmerkingen:</dt>
+          <dd><%= user.opmerkingen %></dd>
+        </div>
+      </dl>
+    </section>
+  </section>
+ 
+      <% }) %>
+  <% } %>
+
+ </section>
+
+  <section id="knop-matching">
+    <button type="button" id="knop-volgende">Volgende</button>
+    <button type="button" id="knop-challenge">Challenge</button>
+  </section>
+
+</main>
+
+
+<script src="/js/matching.js"></script>
+<script src="/js/filter.js"></script>
+
+    <footer><%- include('../partials/footer'); %></footer>
+  </body>
+</html>

@@ -7,7 +7,7 @@
  * 2. Laad modellen afhankelijk van geselecteerd merk en jaartal (/api/car-models/:make/:year)
  * 3. Laad voertuig-specificaties zoals pk, gewicht en aandrijving (/api/car-specs/:make/:model/:year)
  * 4. Zorgt voor automatische selectie van reeds opgeslagen waarden van de gebruiker
- * 5. Beheert event listeners voor selectie van merk, model en jaartal
+ * 5. Beheert event listeners voor selectie van merk, model en jaartal 
  */
 
 // HTML elementen ophalen

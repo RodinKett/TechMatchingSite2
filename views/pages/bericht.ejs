@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EJS Is Fun</title>
+
+  <!-- CSS (load bootstrap from a CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/header.css">
+  <link rel="stylesheet" href="/bericht.css">
+
+  <style>
+    body {
+      padding-top: 50px;
+    }
+  </style>
+</head>
+
+<body class="page">
+
+<header class="header">
+  <%- include('../partials/headerchatting'); %>
+</header>
+
+<main class="chat-page">
+
+  <!-- USER INFO (zelfde als verzoek pagina) -->
+  <section class="chat-user">
+
+    <div class="request-card">
+
+      <!-- FOTO -->
+      <div class="request-image">
+        <img src="/uploads/1774121279467-881089780.jpeg" alt="Foto van een gebruiker">
+      </div>
+
+      <!-- INFO -->
+      <div class="request-info">
+
+        <h2 class="name">Francesco Bernoulli</h2>
+
+        <p>12 jaar ervaring</p>
+        <p>Driften</p>
+        <p>2009 Formula F1</p>
+        <p>Prototype Racer</p>
+
+      </div>
+
+      <!-- STATS -->
+      <div class="request-stats">
+
+        <div class="rank">
+          <span>Rang</span>
+          <strong>86</strong>
+        </div>
+
+        <div class="winrate">
+          <strong>70%</strong>
+          <span>Winrate</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    </div>
+
+  </section>
+
+  <!-- CHAT -->
+  <section class="chat-messages">
+
+    <div class="message other">
+      <p>Vanavond racen?</p>
+      <span class="time">19:22</span>
+    </div>
+
+    <div class="message me">
+      <p>Ja man!!</p>
+      <span class="time">19:23</span>
+    </div>
+
+    <div class="message other">
+      <p>
+        Top! Ik dacht zelf rond 20:00 weer bij dezelfde plek.
+        Misschien kunnen we daarna nog een tweede race doen?
+      </p>
+      <span class="time">19:24</span>
+    </div>
+
+    <div class="message me">
+      <p>
+        Ja goed idee. Ik neem ook nog iemand mee,
+        wordt gezellig en competitief haha
+      </p>
+      <span class="time">19:25</span>
+    </div>
+
+    <div class="message other">
+      <p>
+        Nice! Ik ga alvast wat voorbereiden.
+        Tot straks!
+      </p>
+      <span class="time">19:26</span>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- INPUT + FOOTER -->
+<section class="chat-bottom">
+
+  <div class="chat-input">
+    <input type="text" placeholder="Typ een bericht...">
+
+    <button>
+      <img src="/afbeeldingen/stuurChatIcoon.svg">
+    </button>
+  </div>
+
+  <footer>
+    <%- include('../partials/footer'); %>
+  </footer>
+
+</section>
+
+</body>
+</html>
