@@ -35,7 +35,7 @@ document.getElementById("knop-resultaten")
 
 
   ////pakt de bovenste kaart
-  function getTopCard() {
+  function pakEersteKaart() {
   const cards = [...document.querySelectorAll(".veeg-kaart")]; // ← update selector
   return cards.reduce((top, card) => {
     const z = parseInt(getComputedStyle(card).zIndex) || 0;
@@ -45,7 +45,7 @@ document.getElementById("knop-resultaten")
 }
 
 function swipe(direction) {
-  const card = getTopCard(); // ← use this instead
+  const card = pakEersteKaart(); // ← use this instead
   if (!card) return;
 
   const offset = direction === "right" ? "120%" : "-120%";

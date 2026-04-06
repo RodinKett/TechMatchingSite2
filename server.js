@@ -91,7 +91,7 @@ app.get("/", (req, res) => {
 
 
 app.get("/filter", (req, res) => {
-  res.render("Pages/filter");
+  res.render("pages/filter");
 });
 
 
