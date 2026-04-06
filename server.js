@@ -89,22 +89,27 @@ app.get("/", (req, res) => {
   res.render("pages/index");
 });
 
+app.get("/berichtenlijst", (req, res) => {
+   const verzoekAantal = 2; 
+
+  res.render("pages/berichtenlijst", {
+    verzoekAantal: verzoekAantal
+  });
+});
+
+app.get("/bericht", (req, res) => {
+  res.render("pages/bericht");
+});
+
+app.get("/verzoeken", (req, res) => {
+  res.render("pages/verzoeken");
+});
 
 app.get("/filter", (req, res) => {
   res.render("pages/filter");
 });
 
 
-
-
-// ------------------- Feedback handeling ------------------
-app.get("/loadingpage", (req, res) => {
-  res.render("pages/loadingpage");
-});
-
-app.use((req, res) => {
-  res.status(404).render("pages/404");
-});
 
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -152,7 +157,7 @@ app.post("/register", upload.single("profileFoto"), async (req, res) => {
     }
 
     // === Gender validation ===
-    if (!["man", "vrouw"].includes(gender)) {
+    if (!["man", "vrouw", "anders"].includes(gender)) {
       errors.push("Ongeldig geslacht.");
     }
 
@@ -183,7 +188,7 @@ app.post("/register", upload.single("profileFoto"), async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Profile photo
-    const profielFoto = req.file ? "/uploads/" + req.file.filename : null;
+    const profileFoto = req.file ? "/uploads/" + req.file.filename : null;
 
     // Insert user
     const result = await users.insertOne({
@@ -193,7 +198,7 @@ app.post("/register", upload.single("profileFoto"), async (req, res) => {
       password: hashedPassword,
       dob,
       gender,
-      profielFoto,
+      profileFoto,
       createdAt: new Date(),
     });
 
@@ -287,6 +292,10 @@ app.post("/aanvullendeInformatie", async (req, res) => {
     const voertuigModel = req.body["voertuig-api"];
     const opmerkingen = req.body.aanvullendeOpmerkingen;
 
+    const pk = req.body.pk;
+    const gewicht = req.body.gewicht;
+    const aandrijving = req.body.aandrijving;
+
     // Skill level
     if (!["beginer", "bekend", "expert"].includes(skillLevel)) {
       errors.push("Ongeldig skill level.");
@@ -332,6 +341,9 @@ app.post("/aanvullendeInformatie", async (req, res) => {
             jaartal: jaartalVoertuig,
             merk: merkVoertuig,
             model: voertuigModel,
+            pk: pk,
+            gewicht: gewicht,
+            aandrijving: aandrijving,
             opmerkingen
           }
         }
@@ -344,6 +356,112 @@ app.post("/aanvullendeInformatie", async (req, res) => {
     console.error(error);
     res.status(500).send("Fout bij opslaan aanvullende gegevens");
   }
+});
+
+
+
+
+
+app.post("/updateAccount", upload.single("profileFoto"), async (req, res) => {
+
+  if (!req.session.user) {
+    return res.redirect("/login");
+  }
+
+  const db = client.db("StreetracerApp");
+  const users = db.collection("users");
+
+  const userId = new ObjectId(req.session.user.id);
+
+  const user = await users.findOne({ _id: userId });
+
+  const username = req.body["update-gebruikersnaam"];
+  const email = req.body.email;
+  const phone = req.body["update-telefoonnummer"];
+  const dob = req.body.dob;
+  const gender = req.body["update-geslacht"];
+
+  const huidigWachtwoord = req.body["huidig-wachtwoord"];
+  const nieuwWachtwoord = req.body["nieuw-wachtwoord"];
+  const bevestigWachtwoord = req.body["bevestig-wachtwoord"];
+
+  const existingUser = await users.findOne({ username, _id: { $ne: userId } });
+  if (existingUser) return res.status(400).send("Gebruikersnaam is al in gebruik");
+
+  const existingEmail = await users.findOne({ email, _id: { $ne: userId } });
+  if (existingEmail) return res.status(400).send("Email is al geregistreerd");
+
+  if (!/^\+?[0-9]{7,15}$/.test(phone)) {
+    return res.status(400).send("Ongeldig telefoonnummer");
+  }
+
+  if (!validator.isDate(dob)) {
+    return res.status(400).send("Ongeldige geboortedatum");
+  }
+
+  if (!["man", "vrouw", "anders"].includes(gender)) {
+    return res.status(400).send("Ongeldig geslacht");
+  }
+
+  const updateData = {
+    username,
+    email,
+    phone,
+    dob,
+    gender
+  };
+
+
+  // wachtwoord update
+if (nieuwWachtwoord && nieuwWachtwoord.length > 0) {
+
+  const match = await bcrypt.compare(huidigWachtwoord, user.password);
+
+  if (!match) {
+    return res.status(400).send("Huidig wachtwoord is onjuist");
+  }
+
+  if (nieuwWachtwoord !== bevestigWachtwoord) {
+    return res.status(400).send("Wachtwoorden komen niet overeen");
+  }
+
+  const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$/;
+
+  if (!passwordPattern.test(nieuwWachtwoord)) {
+    return res.status(400).send("Wachtwoord voldoet niet aan eisen");
+  }
+
+  const hashedPassword = await bcrypt.hash(nieuwWachtwoord, 10);
+  updateData.password = hashedPassword;
+
+}
+
+  // profiel foto
+  if (req.file) {
+    // oude foto verwijderen
+    if (user.profileFoto) {
+      const oldFile = path.basename(user.profileFoto);
+      const oldPath = path.join(__dirname, "static/uploads", oldFile);
+
+      fs.unlink(oldPath, (err) => {
+        if (err) console.log("Oude foto niet verwijderd:", err);
+      });
+    }
+    updateData.profileFoto = "/uploads/" + req.file.filename;
+  }
+
+  await users.updateOne(
+    { _id: userId },
+    { $set: updateData }
+  );
+
+  // Update session values
+  req.session.user.username = username;
+  if (updateData.profileFoto) {
+    req.session.user.profileFoto = updateData.profileFoto;
+  }
+
+  res.redirect("/");
 });
 
 
@@ -365,17 +483,25 @@ app.get("/", (req, res) => {
   res.render("Pages/index");
 });
 
-app.get("/profiel", (req, res) => {
-  res.render("Pages/profiel");
+
+// ------------------- Feedback handeling ------------------
+app.get("/loadingpage", (req, res) => {
+  res.render("pages/loadingpage");
+});
+
+app.use((req, res) => {
+  res.status(404).render("pages/404");
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).render("pages/500");
 });
 
 
 
 
-
-// ---------------------
-// MATCHING ROUTE
-// ---------------------
+//////////////////matching pagina met filters en kaarten////////////////////
 app.get("/matching", async (req, res) => {
   try {
     const db = client.db("StreetracerApp");
@@ -420,7 +546,47 @@ app.get("/matching", async (req, res) => {
 
   } catch (err) {
     console.error("Fout bij ophalen matching-profielen:", err);
-    res.status(500).send("Er ging iets mis bij het ophalen van de profielen.");
+    
+    res.status(500).console.log ("Er ging iets mis bij het ophalen van de profielen.");
+  }
+});
+
+// ---------------------
+// SERVER STARTEN + MONGO CONNECTIE
+// ---------------------
+
+app.get("/profiel", async (req, res) => {
+
+    try {
+    const db = client.db("StreetracerApp");
+    const gebruikers = db.collection("users");
+
+    const data = await gebruikers.findOne({});
+
+// const data = await gebruikers.findOne({ _id: new ObjectId(req.session.user.id) });
+
+    console.log("gevonden data:", data);
+
+    const user = {
+      id: data._id.toString(),
+      profielFoto: data.profielFoto || "-",
+      username: data.username || "Onbekend",
+      merk: data.voertuig?.merk || "-",
+      model: data.voertuig?.model || "-",
+      jaartal: data.voertuig?.jaartal || "-",
+      pk: data.voertuig?.pk || "-",
+      aandrijving: data.voertuig?.aandrijving || "-",
+      mods: data.mods || [],
+      specialisatie: data.specialisatie || "-",
+      jarenErvaring: data.jarenErvaring || "-",
+      skillLevel: data.skillLevel || "-",
+      opmerkingen: data.opmerkingen || "Geen opmerkingen",
+    };
+
+    res.render("Pages/profiel", { user });
+
+  } catch (err) {
+    console.error("Fout bij ophalen profiel:", err);
   }
 });
 
@@ -448,5 +614,7 @@ async function startServer() {
     console.error("Failed to connect to MongoDB:", error);
   }
 }
+
+// Start de server
 
 startServer();

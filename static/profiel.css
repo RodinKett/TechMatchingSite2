@@ -1,3 +1,85 @@
-main {
+.body-matching {
+  padding: 0;
   background-color: var(--kleur-achtergrond);
+}
+
+#alle-info{
+  position: relative;
+}
+
+#main-matching {
+  margin: 0 2em;
+}
+
+.foto-section {
+  display: grid;
+  grid-template-rows: auto auto auto;
+
+}
+
+
+#button-edit-profiel{
+  background-color: transparent;
+  border: none;
+}
+
+#button-edit-profiel:focus{
+  outline: none;
+border: none;
+}
+
+#foto-section img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+}
+
+#positie-edit{
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.naam-gebruiker {
+  color: var(--kleur-tekst);
+}
+
+  #edit-profiel{
+    width: 2em;
+  }
+
+#middenlijn{
+  margin: 1em 0;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 1rem;
+
+}
+
+dt,
+dd {
+  color: var(--kleur-tekst);
+  text-align: center;
+}
+
+#naam-gebruiker {
+  color: var(--kleur-tekst);
+  margin: 1em 0;
+}
+
+.info-blok {
+  background-color: var(--kleur-blok-matching);
+
+}
+
+.info-blok:nth-child(10) {
+ grid-column: 1 / 4;
+}
+
+#tekst {
+  color: var(--kleur-tekst);
 }

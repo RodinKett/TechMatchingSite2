@@ -3,53 +3,118 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%- include('../partials/head'); %>
+    <meta charset="UTF-8" />
+    <title>EJS Is Fun</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- CSS (load bootstrap from a CDN) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/footer.css" />
+    <link rel="stylesheet" href="/profiel.css" />
+    <link rel="stylesheet" href="/loguit.css" />
+    
+ <link rel="stylesheet" href="/overlay-profiel.css" />
   </head>
-  <body class="container">
-    <header><%- include('../partials/header'); %></header>
+  <body class="body-matching">
+    <header><%- include('../partials/headerbasis'); %></header>
 
-    <main>
-      <section>
-        <img
-          src="/afbeeldingen/lightning-mcqueen.png"
-          alt="Lightning McQueen"
-        />
-        <h2>lightning-mcqueen</h2>
-      </section>
+    <main id="main-matching">
+<%- include("../partials/overlay-edit-button") %>
+<%- include("../partials/loguit") %>
+      <section class="alle-kaarten">
+    
+  <section class="foto-section">
+  <img class="profiel-foto" src="/uploads/<%= user.profielFoto %>" alt="foto">
 
-      <section>
-        <dl>
-          <dt>Voertuig:</dt>
-          <dd>Gen 4 NASCAR</dd>
+   <svg id="middenlijn" xmlns="http://www.w3.org/2000/svg" width="327" height="11" fill="none">
+    <path fill="var(--kleur-icons)" d="m173.913.003 152.173.002v4.961l-157.155-.002zM167.335 5.956l158.751.003v4.961l-163.948-.002zM152.174 10.917 0 10.915V5.954l157.155.002zM158.751 4.964 0 4.962V0l163.948.002z"/>
+  </svg>
+  <section id="positie-edit">
+    <h2 class="naam-gebruiker"><%= user.username %></h2>
 
-          <dt>PK</dt>
-          <dd>260</dd>
+    <button id="button-edit-profiel">
+    <svg id="edit-profiel" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
+      <g fill="var(--kleur-icons)">
+        <path d="M8 12a2 2 0 1 1 0 4 2 2 0 0 1 0-4M8 6a2 2 0 1 1 0 4 2 2 0 0 1 0-4M10 2a2 2 0 1 0-4 0 2 2 0 0 0 4 0"/>
+      </g>
+    </svg>
+    </button>
 
+
+
+  </section>
+
+ 
+</section>
+ 
+        <section id="info">
+      <dl>
+        <div class="info-blok">
+          <dt>Merk:</dt>
+          <dd><%= user.merk %></dd>
+        </div>
+
+          <div class="info-blok">
+          <dt>Model:</dt>
+          <dd><%= user.model %></dd>
+        </div>
+
+             <div class="info-blok">
           <dt>Jaar:</dt>
-          <dd>2006</dd>
+          <dd><%= user.jaartal %></dd>
+        </div>
 
-          <dt>Specialisatie:</dt>
-          <dd>Bochten</dd>
+        <div class="info-blok">
+          <dt>PK:</dt>
+          <dd><%= user.pk %></dd>
+        </div>
 
-          <dt>Ervaring:</dt>
-          <dd>20 jaar</dd>
+   
 
-          <dt>Win rate:</dt>
-          <dd>75%</dd>
+          <div class="info-blok">
+          <dt>Wielaandrijving:</dt>
+          <dd><%= user.aandrijving %></dd>
+        </div>
 
+        
+        <div class="info-blok">
           <dt>Mods:</dt>
-          <dd>Stickers</dd>
-        </dl>
-      </section>
+          <dd><%= user.mods %></dd>
+        </div>
 
-      <section>
-        <h2>Opmerkingen:</h2>
-        <p>
-          Ik race alleen in de avond en met intermediate+. Dus geen beginners
-        </p>
-      </section>
-    </main>
+        <div class="info-blok">
+          <dt>Specialisatie:</dt>
+          <dd><%= user.specialisatie %></dd>
+        </div>
 
+        <div class="info-blok">
+          <dt>Ervaring:</dt>
+          <dd><%= user.jarenErvaring %></dd>
+        </div>
+
+        <div class="info-blok">
+          <dt>Skill Level:</dt>
+          <dd><%= user.skillLevel %></dd>
+        </div>
+
+        <div class="info-blok">
+          <dt>Opmerkingen:</dt>
+          <dd><%= user.opmerkingen %></dd>
+        </div>
+      </dl>
+    </section>
+  </section>
+ </section>
+</main>
+
+
+<script src="/js/profiel.js"></script>
+<script src="/js/filter.js"></script>
+<script src="/js/overlay-edit.js"></script>
+<script src="/js/loguit.js"></script>
     <footer><%- include('../partials/footer'); %></footer>
   </body>
 </html>
