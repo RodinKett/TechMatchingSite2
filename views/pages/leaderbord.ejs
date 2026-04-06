@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+  <title>Leaderbord</title>
+
+  <!-- CSS (load bootstrap from a CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/header.css">
+
+  <link rel="stylesheet" href="/leaderbord.css" />
+  <!-- <link rel="stylesheet" href="/leaderbord2.css" /> -->
+  </head>
+
+  <body class="container">
+    <header><%- include('../partials/headerbasis'); %></header>
+
+    <main>
+      <section class="leaderbord-header">
+        <h1>leaderbord</h1>
+        <img
+          src="/afbeeldingen/leaderbord-icoon.svg"
+          alt="Afbeelding van een trofee met vleugels als hendels"
+        />
+      </section>
+
+      <!-- BRONVERMELDING: voor huidige rang chatgpt en fallback (?)-->
+      <section class="kolom-stats-titel">
+        <p>Rank: <%= jij ? jij.rank : "Onbekend" %></p>
+
+        <button class="info-rank-knop">
+          <img src="/afbeeldingen/informatie-icoon.svg" 
+            alt="Informatie icoon, klik hier op om meer informatie over het rank systeem te vinden">
+        </button>
+
+        <div class="info-rank-dropdown hidden">
+          <p>Punten systeem:</p>
+          <p>Winnen: +3pt</p>
+          <p>Verliezen: -1pt</p>
+          <p>Gelijkspel: +1pt</p>
+
+          <p>Ranking systeem:</p>
+          <p>Beginner = 0pt</p>
+          <p>Bevorderd = 100pt</p>
+          <p>Ervaren = 1000pt</p>
+          <p>Expert = 5000pt</p>
+        </div>
+
+        <select id="filter-rank">
+          <option value="">Alles</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Bevorderd">Bevorderd</option>
+          <option value="Ervaren">Ervaren</option>
+          <option value="Expert">Expert</option>
+        </select>
+
+      </section>
+
+      <!-- Leaderbord lijst -->
+       <!-- BRONVERMELDING: hoe ik de top 3 in ranks moet stijlen en data-rang -->
+      <section>
+        <ol class="leaderbord-spelers">
+          <% spelers.forEach((speler) => { %>
+            <li class="leaderbord-speler
+              <%= speler.rank === 1 ? 'eerste' : '' %>
+              <%= speler.rank === 2 ? 'tweede' : '' %>
+              <%= speler.rank === 3 ? 'derde' : '' %>
+              <%= jij && speler.id === jij.id ? 'mij' : '' %>"
+              data-rang="<%= speler.rang %>">
+
+              <div class="leaderbord-stats">
+                <span class="plaats"><%= speler.rank %></span>
+                <span class="naam"><%= speler.naam%></span>
+                <span class="gewonnen">Punten: <%= speler.punten%></span>
+    
+                <button class="info-speler-knop" data-id="<%= speler.id%>">
+                  <img src="/afbeeldingen/informatie-icoon.svg" 
+                  alt="Informatie icoon, klik hier op om meer informatie over de speler te vinden">
+                </button>
+              </div>
+
+
+              <div class="extra-info">
+                <span>Wins: <%= speler.gewonnen %></span>
+                <span>Losses: <%= speler.verloren %></span>
+                <span>Ties: <%= speler.gelijk %></span>
+                <span>Winrate: <%= (speler.winstpercentage * 100).toFixed(1) %>%</span>
+              </div>              
+
+            </li>
+          <% }) %>
+        </ol>
+      </section>
+
+      <!-- Player info -->
+       <!-- BRONVERMELDING: Defensive coding, om fouten te voorkomen en jij net zo maken als de spelers (i) -->
+      <section>
+        <ul class="leaderbord-jij">
+          <li class="jij">
+
+            <div class="leaderbord-stats">
+              <span class="plaats"><%= jij ? jij.rank : "-" %></span>
+              <span class="naam"><%= jij ? jij.naam : "Onbekend" %></span>
+              <span class="gewonnen">Punten: <%= jij ? jij.punten : "0" %></span>
+
+              <button class="info-speler-knop" data-id="<%= jij ? jij.id : "" %>">
+                  <img src="/afbeeldingen/informatie-icoon.svg" 
+                  alt="Informatie icoon, klik hier op om meer informatie over de speler te vinden">
+              </button>
+            </div>
+
+            <div class="extra-info">
+                <span>Wins: <%= jij ? jij.gewonnen : "0" %></span>
+                <span>Losses: <%= jij ? jij.verloren : "0" %></span>
+                <span>Ties: <%= jij ? jij.gelijk : "0" %></span>
+                <span>Winrate: <%= jij ? (jij.winstpercentage * 100).toFixed(1) : "0" %>%</span>
+            </div>   
+
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer><%- include('../partials/footer'); %></footer>
+
+    <script src="/js/modal.js"></script>
+  </body>
+</html>

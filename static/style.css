@@ -1,6 +1,7 @@
 :root{
     /* Kleur */
     --kleur-tekst:hsl(202deg 26% 12%);
+    --kleur-tekst-op-donker: hsl(0deg 0% 100%);
     --kleur-border-zijkant:hsl(202deg 26% 12%);
     --kleur-accent:hsl(356deg 69% 50%);
     --kleur-achtergrond: hsl(0deg 0% 100%);
@@ -8,7 +9,9 @@
     --kleur-tekst-links-knop:hsl(0deg 0% 100%);
     --kleur-achtergrond-linker-knop:hsl(204deg 55% 18%);
     --kleur-achtergrond-blok-verzoek:hsl(204deg 55% 18%);
+    --kleur-achtergrond-blok: hsl(204deg 55% 18%);
     --kleur-tekst-inlog:hsl(0deg 0% 75%);
+    --kleur-tekst-leaderbord-top: hsl(202deg 26% 12%);
     --kleur-leaderbord-1:hsl(41deg 93% 52%);
     --kleur-leaderbord-2:hsl(206deg 4% 65%);
     --kleur-leaderbord-3:hsl(30deg 70% 45%);
@@ -56,6 +59,7 @@
     --wit-ruimte-l: 4em;
     --wit-ruimte-xl: 8em;
     --wit-ruimte-xxl: 12em;
+    --wit-ruimte-extreem: 20em;
 
     /* wit-ruimte geen boven onder */
     --wit-ruimte-geen-xs: 0 0.5em;
@@ -107,7 +111,9 @@
     --kleur-tekst-links-knop:hsl(204deg 55% 18%);
     --kleur-achtergrond-linker-knop:hsl(0deg 0% 100%);
     --kleur-achtergrond-blok-verzoek:hsl(204deg 55% 18%);
+    --kleur-achtergrond-blok: hsl(204deg 55% 18%);
     --kleur-tekst-inlog:hsl(0deg 0% 75%);
+    --kleur-tekst-leaderbord-top: hsl(202deg 26% 12%);
     --kleur-leaderbord-1:hsl(41deg 93% 52%);
     --kleur-leaderbord-2:hsl(206deg 4% 65%);
     --kleur-leaderbord-3:hsl(30deg 70% 45%);
@@ -116,7 +122,9 @@
     --kleur-footer-aangeklikt:hsl(41deg 93% 52%);
     --kleur-chatbericht-ik:hsl(205deg 54% 63%);
     --kleur-chatbericht-hun:hsl(0deg 0% 100%);
-    --kleur-corner-border:hsl(0deg 0% 100%);
+
+    /* Als op wit bg zit dan donkere border */
+    --kleur-corner-border: hsl(0deg 0% 100%);
     --kleur-link: hsl(41deg 93% 52%);
   }
 

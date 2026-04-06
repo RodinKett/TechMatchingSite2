@@ -88,10 +88,13 @@ app.get("/matching", (req, res) => {
 app.get("/profiel", (req, res) => {
   res.render("pages/profiel");
 });
-// ------------------- Feedback handeling ------------------
+
 app.get("/loadingpage", (req, res) => {
   res.render("pages/loadingpage");
 });
+
+// ------------------- Feedback handeling ------------------
+
 app.use((req, res) => {
   res.status(404).render("pages/404");
 });

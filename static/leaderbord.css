@@ -1,0 +1,213 @@
+body {
+  overflow-y: auto;
+  background-color: var(--kleur-achtergrond);
+  padding-bottom: var(--wit-ruimte-xl);
+}
+
+
+h1,
+p,
+span {
+  color: var(--kleur-tekst);
+  font-size: var(--font-size-normal)
+}
+
+p {
+  font-family: var(--font-family-kopjes);
+}
+
+button {
+  padding: var(--wit-ruimte-s-m);
+  font-size: var(--font-size-normal);
+}
+
+.leaderbord-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--wit-ruimte-s);
+    border: 0.2rem solid var(--kleur-corner-border);
+    background-color: var(--kleur-achtergrond-blok);
+}
+
+.leaderbord-header h1 {
+  color: var(--kleur-tekst-op-donker);
+}
+
+.leaderbord-header img {
+    max-width: 5em;
+}
+
+/* Volle breedte voor spelers kaartje */
+.leaderbord-spelers {
+  list-style: none;
+  padding-left: var(--wit-ruimte-geen);
+  padding-bottom: var(--wit-ruimte-extreem);
+  margin: var(--wit-ruimte-m-geen);
+  flex: 1;
+}
+
+.kolom-stats-titel {
+  position: relative;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1em;
+  padding: var(--wit-ruimte-m-geen);
+}
+
+.kolom-stats-titel p,
+.kolom-stats-titel button {
+  align-self:  center;
+}
+
+.kolom-stats-titel #filter-rank {
+  position: absolute;
+  top: 2em;
+  right: 0;
+  font-size: var(--font-size-normal);
+  background-color: var(--kleur-achtergrond-blok);
+  color: var(--kleur-tekst-op-donker);
+  border: .2em solid var(--kleur-corner-border);
+}
+
+.info-rank-knop,
+.info-speler-knop {
+  background: none;
+  border: none;
+  width: auto;
+}
+
+/* Wanneer je rank i open klikt */
+.info-rank-dropdown {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, auto);
+  background-color: var(--kleur-achtergrond-blok);
+  padding: var(--wit-ruimte-m);
+  margin: var(--wit-ruimte-s-geen);
+}
+
+/* Moet er onder, zodat het automatisch dicht staat */
+.info-rank-dropdown.hidden {
+  display: none;
+}
+
+.info-rank-dropdown p {
+  color: var(--kleur-tekst-op-donker);
+}
+
+/* Titels nemen volle breedte in */
+.info-rank-dropdown p:nth-of-type(1),
+.info-rank-dropdown p:nth-of-type(5) {
+  grid-column: 1 / -1;
+  padding-top: var(--wit-ruimte-s);
+  color: hsl(41deg 93% 52%);
+}
+
+/* Punten naast elkaar plaatsen */
+.info-rank-dropdown p:nth-child(6),
+.info-rank-dropdown p:nth-child(8) {
+  grid-column: 1 / span 2;
+}
+
+.info-rank-dropdown p:nth-child(7),
+.info-rank-dropdown p:nth-child(9) {
+  grid-column: 3 / span 2;
+}
+
+/* Container van elke speler */
+.leaderbord-speler {
+  display: flex;
+  flex-direction: column;
+  padding: var(--wit-ruimte-s-m);
+  margin-bottom: var(--wit-ruimte-s);
+  background: var(--kleur-achtergrond-blok);
+}
+
+.leaderbord-speler span {
+  color: var(--kleur-tekst-op-donker);
+}
+
+/* BOVENSTE RIJ */
+.leaderbord-stats {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Rank */
+.plaats {
+  font-size: var(--font-size-form-title);
+  font-weight: 700;
+}
+
+/* Naam groeit mee */
+.naam {
+  flex-grow: 1;
+  font-weight: 500;
+}
+
+/* Leaderbord info speler opengeklapt (wins, losses, etc) */
+.extra-info {
+  display: none;
+  margin-top: var(--wit-ruimte-s);
+  padding-top: var(--wit-ruimte-s);
+  border-top: .1em solid var(--kleur-tekst-op-donker);
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.leaderbord-speler.zichtbaar .extra-info,
+.jij.zichtbaar .extra-info {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+/* Top 3 styling */
+.eerste {
+  background-color: var(--kleur-leaderbord-1);
+}
+
+.tweede {
+  background-color: var(--kleur-leaderbord-2);
+}
+
+.derde {
+  background-color: var(--kleur-leaderbord-3);
+}
+
+.eerste span,
+.tweede span,
+.derde span {
+  color: var(--kleur-tekst-leaderbord-top);
+}
+
+/* Jij highlight */
+.mij {
+  outline: 0.13em solid var(--kleur-accent);
+  background: var(--kleur-tekst-op-donker);
+}
+
+.leaderbord-jij {
+  padding: var(--wit-ruimte-s);
+  position: fixed;
+  bottom: 15em;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  background-color: var(--kleur-accent);
+}
+
+.jij {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 1em;
+  padding: var(--wit-ruimte-s-m);
+  border: solid var(--kleur-accent) 2em;
+  margin: var(--wit-ruimte-s-geen);
+} 
+
+.jij span {
+  color: var(--kleur-tekst-op-donker);
+}
