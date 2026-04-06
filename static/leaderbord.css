@@ -16,6 +16,10 @@ p {
   font-family: var(--font-family-kopjes);
 }
 
+button {
+  padding: var(--wit-ruimte-s-m);
+  font-size: var(--font-size-normal);
+}
 
 .leaderbord-header {
     display: flex;
@@ -38,7 +42,7 @@ p {
 .leaderbord-spelers {
   list-style: none;
   padding-left: var(--wit-ruimte-geen);
-  padding-bottom: var(--wit-ruimte-xl);
+  padding-bottom: var(--wit-ruimte-extreem);
   margin: var(--wit-ruimte-m-geen);
   flex: 1;
 }
