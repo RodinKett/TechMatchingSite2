@@ -8,7 +8,7 @@ document.getElementById("knop-challenge")
 
 
   ///reset button filter///
-  document.getElementById("button-reset").addEventListener("click", () => {
+  document.getElementById("knop-reset").addEventListener("click", () => {
   window.location.href = "/matching";
 });
 
