@@ -17,7 +17,7 @@
 #overlay-blur {
   position: fixed;
   inset: 0;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(0.6em);
   background: transparent;
    pointer-events: none;
 }
@@ -26,8 +26,8 @@
   display: none;
 }
 
-#edit{
-    border-bottom: 0.05em solid var(--kleur-tekst);
+#loguit{
+    border-top: 0.05em solid var(--kleur-tekst);
 }
 
 .knop{
