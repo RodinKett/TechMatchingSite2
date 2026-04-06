@@ -1,0 +1,38 @@
+#profiel-overlay {
+    display: flex;
+    flex-direction: column;
+  position: absolute;
+  background-color: var(--kleur-blok-matching);
+  border: none;
+  padding: 2em ;
+  right: 20%;
+  z-index: 10;
+}
+
+
+#profiel-overlay.verborgen {
+  display: none;
+}
+
+#overlay-blur {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(0.6em);
+  background: transparent;
+   pointer-events: none;
+}
+
+#overlay-blur.verborgen {
+  display: none;
+}
+
+#loguit{
+    border-top: 0.05em solid var(--kleur-tekst);
+}
+
+.knop{
+    border: none;
+    background-color: transparent;
+    color: var(--kleur-tekst);
+
+}

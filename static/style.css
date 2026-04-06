@@ -17,6 +17,7 @@
     --kleur-footer-aangeklikt:hsl(41deg 93% 52%);
     --kleur-corner-border:hsl(202deg 26% 12%);
     --kleur-blok-matching: hsl(204deg 55% 18%);
+    --kleur-icons: hsl(0deg 0% 100%);
     --kleur-placeholder-text: hsl(0deg 0% 75%);
     --kleur-primair-button-bg: hsl(356deg 69% 50%);
     --kleur-primair-button-text: hsl(0deg 0% 100%);
@@ -95,7 +96,6 @@
     --wit-ruimte-xl-m: 8em 2em;
     --wit-ruimte-xl-l: 8em 4em;
 }
-
 
 @media (prefers-color-scheme: dark) {
   :root{
