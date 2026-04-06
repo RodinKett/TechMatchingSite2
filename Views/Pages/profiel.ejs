@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="/style.css" />
     <link rel="stylesheet" href="/footer.css" />
     <link rel="stylesheet" href="/profiel.css" />
+    
+ <link rel="stylesheet" href="/overlay-profiel.css" />
   </head>
   <body class="body-matching">
     <header><%- include('../partials/headerbasis'); %></header>
@@ -30,6 +32,7 @@
   </svg>
   <section id="positie-edit">
     <h2 class="naam-gebruiker"><%= user.username %></h2>
+
     <button id="button-edit-profiel">
     <svg id="edit-profiel" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
       <g fill="var(--kleur-icons)">
@@ -37,6 +40,9 @@
       </g>
     </svg>
     </button>
+
+<%- include("../partials/overlay-edit-button") %>
+
   </section>
 
  
@@ -105,7 +111,7 @@
 
 <script src="/js/profiel.js"></script>
 <script src="/js/filter.js"></script>
-<script src="/js/overlay-edit-button.js"></script>
+<script src="/js/overlay-edit.js"></script>
     <footer><%- include('../partials/footer'); %></footer>
   </body>
 </html>
