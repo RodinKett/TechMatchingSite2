@@ -80,7 +80,21 @@ app.get("/", (req, res) => {
   res.render("pages/index");
 });
 
+app.get("/berichtenlijst", (req, res) => {
+   const verzoekAantal = 2; 
 
+  res.render("pages/berichtenlijst", {
+    verzoekAantal: verzoekAantal
+  });
+});
+
+app.get("/bericht", (req, res) => {
+  res.render("pages/bericht");
+});
+
+app.get("/verzoeken", (req, res) => {
+  res.render("pages/verzoeken");
+});
 
 
 // ------------------- Feedback handeling ------------------
