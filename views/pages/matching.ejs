@@ -20,11 +20,10 @@
     <header><%- include('../partials/headerbasis'); %></header>
 
     <main id="main-matching">
-       <button id="button-filter">
-        <svg id="filter-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="M0 0h24v24H0z"/><path stroke="#fff" stroke-linecap="round" stroke-width="2" d="M4 5h12M4 12h6M14 12h6M8 19h12"/><circle cx="18" cy="5" r="2" stroke="#fff" stroke-linecap="round" stroke-width="2"/><circle cx="12" cy="12" r="2" stroke="#fff" stroke-linecap="round" stroke-width="2"/><circle cx="6" cy="19" r="2" stroke="#fff" stroke-linecap="round" stroke-width="2"/></g></svg>
+       <button id="knop-filter">
+        <svg id="filter-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="M0 0h24v24H0z"/><path stroke="var(--kleur-icons)" stroke-linecap="round" stroke-width="2" d="M4 5h12M4 12h6M14 12h6M8 19h12"/><circle cx="18" cy="5" r="2" stroke="var(--kleur-icons)" stroke-linecap="round" stroke-width="2"/><circle cx="12" cy="12" r="2" stroke="var(--kleur-icons)" stroke-linecap="round" stroke-width="2"/><circle cx="6" cy="19" r="2" stroke="var(--kleur-icons)" stroke-linecap="round" stroke-width="2"/></g></svg>
         <p id="p-filter">Filters</p>
-        <!-- data ophalen van hoeveelheid filters -->
-        <p id="telling-filter"></p>
+      
       </button>
 
      <%# overlay filter %>
@@ -44,14 +43,11 @@
     
     <section class="veeg-kaart">
    
-    <!-- <svg class="styling-links" xmlns="http://www.w3.org/2000/svg" width="175" height="436" fill="none"><path fill="#fff" d="M169.383 4.778 0 4.776V0L174.93.002z"/><path fill="url(#a)" d="M.27 421.915V1.879h4.394v433.787z"/><defs><linearGradient id="a" x1="2.467" x2="2.471" y1="1.879" y2="435.666" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="#172127"/></linearGradient></defs></svg>
-        <svg class="styling-rechts" xmlns="http://www.w3.org/2000/svg" width="175" height="428" fill="none"><path fill="#fff" d="m5.524 422.915 168.72.002v4.776L0 427.69z"/><path fill="url(#a)" d="M169.937 13.407v409.508h4V0z"/><defs><linearGradient id="a" x1="171.937" x2="171.921" y1="422.915" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="#172127"/></linearGradient></defs></svg>
-     -->
     <section class="foto-section">
      <img class="profiel-foto" src="/uploads/<%= user.profielFoto %>" alt="foto">
 
       <svg xmlns="http://www.w3.org/2000/svg" width="327" height="11" fill="none">
-        <path fill="#fff" d="m173.913.003 152.173.002v4.961l-157.155-.002zM167.335 5.956l158.751.003v4.961l-163.948-.002zM152.174 10.917 0 10.915V5.954l157.155.002zM158.751 4.964 0 4.962V0l163.948.002z"/>
+        <path fill="var(--kleur-icons)" d="m173.913.003 152.173.002v4.961l-157.155-.002zM167.335 5.956l158.751.003v4.961l-163.948-.002zM152.174 10.917 0 10.915V5.954l157.155.002zM158.751 4.964 0 4.962V0l163.948.002z"/>
       </svg>
 
       <h2 class="naam-gebruiker"><%= user.username %></h2>

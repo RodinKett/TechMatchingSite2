@@ -1,0 +1,138 @@
+.gedraaid {
+  transform: rotate(180deg);
+}
+
+#button-reset{
+  position: relative;
+  background-color: var(--kleur-blok-matching);
+  color: var(--kleur-tekst);
+  font-weight: bold;
+  border: solid 0.2em var(--kleur-blok-matching);
+}
+
+#body-filter, body{
+  background-color: var(--kleur-blok-matching);
+ 
+}
+
+#parent-alles {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10%;
+}
+
+.filter-opties {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  padding: 1em 0;
+  border-bottom: solid 0.05em var(--kleur-tekst);
+  margin-bottom: 2em;
+  margin-top: 1em;
+  
+}
+
+#knoppen-filter {
+  position: relative;
+  top: 2em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 2em;
+}
+
+#knop-filter-sluiten {
+  position: sticky;
+  background: none;
+  border: none;
+  display: block;
+}
+
+#knop-filter-sluiten svg {
+  width: 4em;
+}
+
+.pijltje{
+     fill: var(--kleur-svg);
+ top: 0;
+width: 2em;
+transition: transform 0.3s ease;
+}
+
+.filter-opties.active .pijltje {
+  transform: rotate(180deg);
+}
+
+
+.button {
+  display: flex;
+  background: none;
+  border: none;
+  color: var(--kleur-tekst);
+  text-align: left;
+  font-weight: bold;
+  margin-left: 2em;
+    margin-right: 2em;
+  font-size: 1.3em;
+  justify-content: space-between;
+}
+
+.button:focus {
+  outline: none;
+}
+
+/* Alles onder de titel */
+.filter-opties label,
+.filter-opties select,
+.filter-opties input {
+  margin-left: 1.6em;
+}
+
+.checkbox {
+  color: var(--kleur-tekst);
+   font-size: 1.2em;
+}
+
+.input-veld {
+  width: 30%;
+ font-size: 1.2em;
+ background-color: var(--kleur-blok-matching);
+ border: solid var(--kleur-tekst);
+ color: var(--kleur-tekst);
+}
+
+.van-tot {
+  display: flex;
+
+}
+
+#resultaten-weergeven {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2em 0;
+   bottom: 3em;
+  position: sticky;
+}
+
+#resultaten-weergeven button {
+  color: var(--kleur-tekst);
+  background-color: var(--kleur-accent);
+  font-weight: bold;
+  border: none;
+  width: 80%;
+  height: 3em;
+
+}
+
+
+/* standaard dicht */
+.filter-opties > *:not(.button) {
+  display: none;
+}
+
+/* open wanneer active */
+.filter-opties.open > *:not(.button) {
+  display: block;
+}
+

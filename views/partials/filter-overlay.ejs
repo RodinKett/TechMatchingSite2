@@ -1,0 +1,103 @@
+<form action="/matching" method="GET">
+<section id="knoppen-filter">
+     <button id="button-reset">
+        <p>Reset filters</p>
+        <!-- data ophalen van hoeveelheid filters -->
+        <p id="telling-filter"></p>
+      </button>
+
+<button id="knop-filter-sluiten"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="var(--kleur-icons)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m16 8-8 8m0-8 8 8"/></svg></button>
+
+</section>
+
+<section id="parent-alles">
+  <!-- jaartal -->
+  <section class="filter-opties">
+    <button class="button" type="button">Jaartal  <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path fill="var(--kleur-icons)" fill-rule="evenodd" d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z" clip-rule="evenodd"/>
+      </svg></button>
+    <input class="input-veld" type="number" name="jaartal" placeholder="Bijv 2023"/>
+  </section>
+
+  <!-- vaardigheid -->
+  <section class="filter-opties">
+    <button class="button" type="button">Vaardigheid  <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path fill="var(--kleur-icons)" fill-rule="evenodd" d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z" clip-rule="evenodd"/>
+      </svg></button>
+    <label class="checkbox"><input type="checkbox" name="skillLevel" value="beginner"/> Beginner</label>
+    <label class="checkbox"><input type="checkbox" name="skillLevel" value="bevorderd"/> Bevorderd</label>
+    <label class="checkbox"><input type="checkbox" name="skillLevel" value="ervaren"/> Ervaren</label>
+    <label class="checkbox"><input type="checkbox" name="skillLevel" value="expert"/> Expert</label>
+  </section>
+
+  <!-- wielaandrijving -->
+  <section class="filter-opties">
+    <button class="button" type="button">Wielaandrijving  <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path fill="var(--kleur-icons)" fill-rule="evenodd" d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z" clip-rule="evenodd"/>
+      </svg></button>
+    <label class="checkbox"><input type="checkbox" name="wielaandrijving" value="fwd"/> FWD</label>
+    <label class="checkbox"><input type="checkbox" name="wielaandrijving" value="rwd"/> RWD</label>
+    <label class="checkbox"><input type="checkbox" name="wielaandrijving" value="awd"/> AWD</label>
+    <label class="checkbox"><input type="checkbox" name="wielaandrijving" value="4wd"/> 4WD</label>
+  </section>
+
+  <!-- specialisatie -->
+  <section class="filter-opties">
+    <button class="button" type="button">Specialisatie  <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path fill="var(--kleur-icons)" fill-rule="evenodd" d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z" clip-rule="evenodd"/>
+      </svg></button>
+    <label class="checkbox"><input type="checkbox" name="specialisatie" value="circuit racing"/> Circuit racing</label>
+    <label class="checkbox"><input type="checkbox" name="specialisatie" value="drag racing"/> Drag racing</label>
+    <label class="checkbox"><input type="checkbox" name="specialisatie" value="drift racing"/> Drift racing</label>
+    <label class="checkbox"><input type="checkbox" name="specialisatie" value="rally"/> Rally</label>
+    <label class="checkbox"><input type="checkbox" name="specialisatie" value="uithoudingsracen"/> Uithoudingsracen</label>
+  </section>
+
+  <!-- pk -->
+  <section class="filter-opties">
+    <button class="button" type="button">PK <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path fill="var(--kleur-icons)" fill-rule="evenodd" d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z" clip-rule="evenodd"/>
+      </svg></button>
+    <section class="van-tot">
+      <select class="input-veld" name="pkVan">
+        <option value="">van</option>
+        <option value="100">100</option>
+        <option value="150">150</option>
+        <option value="200">200</option>
+        <option value="250">250</option>
+      </select>
+      <select class="input-veld" name="pkTot">
+        <option value="">tot</option>
+        <option value="100">100</option>
+        <option value="150">150</option>
+        <option value="200">200</option>
+        <option value="250">250</option>
+      </select>
+    </section>
+  </section>
+
+  <!-- ervaring -->
+  <section class="filter-opties">
+    <button class="button" type="button">Jaren ervaring  <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path fill="var(--kleur-icons)" fill-rule="evenodd" d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z" clip-rule="evenodd"/>
+      </svg></button>
+    <input class="input-veld" type="number" name="jarenErvaring" placeholder="Bijvoorbeeld 5"/>
+  </section>
+
+  <!-- mods -->
+  <section class="filter-opties">
+    <button class="button" type="button">Mods <svg class="pijltje" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path fill="var(--kleur-icons)" fill-rule="evenodd" d="M12.707 14.707a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414L12 12.586l4.293-4.293a1 1 0 1 1 1.414 1.414z" clip-rule="evenodd"/>
+      </svg></button>
+    <label class="checkbox"><input type="checkbox" name="mods" value="banden"/> Banden</label>
+    <label class="checkbox"><input type="checkbox" name="mods" value="suspensie"/> Suspensie</label>
+    <label class="checkbox"><input type="checkbox" name="mods" value="remmen"/> Remmen</label>
+    <label class="checkbox"><input type="checkbox" name="mods" value="power modus"/> Power modus</label>
+    <label class="checkbox"><input type="checkbox" name="mods" value="aero"/> Aero</label>
+  </section>
+</section>
+
+  <section id="resultaten-weergeven">
+    <button type="submit" id="knop-resultaten">Resultaten weergeven</button>
+  </section>
+</form>

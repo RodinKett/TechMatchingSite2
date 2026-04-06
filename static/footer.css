@@ -3,6 +3,7 @@ footer {
   position: sticky;
   bottom: 0;
   height: 4em;
+  z-index: 4;
   
 }
 
@@ -10,4 +11,9 @@ footer section {
   display: flex;
   justify-content: space-evenly; 
   align-items: center;           
+}
+
+.footer-icon.actief svg path,
+.footer-icon.actief svg rect {
+  fill: var(--kleur-footer-actief);
 }

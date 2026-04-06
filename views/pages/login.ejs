@@ -20,6 +20,7 @@
         <h2 id="titel-inloggen">Inloggen</h2>
 
         <label for="inlog-gebruikersnaam">Gebruikersnaam</label>
+
         <input id="inlog-gebruikersnaam" type="text" name="username" required>
         <p class="error-inlog-gebruikersnaam" style="display:none;"></p>
         
@@ -30,6 +31,7 @@
 
         <button type="submit" onclick="validateLogin(event)">Inloggen</button>
 
+
         <button type="button" class="link" onclick="gaNaar(1)">
           Nog geen account? <u><strong>Registreer</strong></u>
         </button>
@@ -38,12 +40,15 @@
 
     <!-- Registratie Stap 1 -->
     <section class="sectie" aria-labelledby="titel-registratie-stap1">
+
       <form class="formulier-box formulier-box-register" id="formulier-registratie" action="/register" method="POST" enctype="multipart/form-data">
+>>>>>>> 594ea18230ef62ed8336c1bae9243194d0366906
 
       <fieldset class="stap" id="stap1" style="display:none;">
         <h2 id="titel-registratie-stap1">Registreren - Stap 1</h2>
 
         <label for="reg-gebruikersnaam">Gebruikersnaam</label>
+
         <input id="reg-gebruikersnaam" type="text" name="reg-gebruikersnaam" required>
         <p class="error-reg-gebruikersnaam" style="display:none;"></p>
 
@@ -53,6 +58,7 @@
 
         <div>
           <button type="button" class="knop-primaire" onclick="if(validateRegisterStep1()) gaNaar(2)">Volgende</button>
+
           <button type="button" class="link" onclick="gaTerugNaar(0)">
             Heb je al een account <u><strong>log hier in</strong></u>      
           </button>
@@ -65,6 +71,8 @@
 
         <label for="reg-geboortedatum">Geboortedatum</label>
         <input id="reg-geboortedatum" type="date" name="dob" required>
+
+
         <p class="error-reg-dob" style="display:none;"></p>
 
         <label for="profielUpload">Upload profielfoto</label>
@@ -78,10 +86,12 @@
         </label>
         <p class="error-upload-foto" style="display:none;"></p>
 
+
         <div>
           <div class="knoppen-rij">
             <button type="button" class="knop-secundaire" onclick="gaNaar(1)">Terug</button>
             <button type="button" class="knop-primaire" onclick="if(validateRegisterStep2()) gaNaar(3)">Volgende</button>
+
           </div>
           <button type="button" class="link" onclick="gaTerugNaar(0)">
             Heb je al een account <u><strong>log hier in</strong></u>       
@@ -94,6 +104,7 @@
         <h2 id="titel-registratie-stap3">Registreren - Stap 3</h2>
 
         <label for="reg-wachtwoord">Wachtwoord</label>
+
         <input id="reg-wachtwoord" type="password" name="reg-password" required >
         <p class="error-reg-password" style="display:none;"></p>
 
@@ -101,12 +112,14 @@
         <input id="reg-wachtwoord-bevestigen" type="password" name="reg-wachtwoord-bevestigen" required >
         <p class="error-reg-password-bevestigen" style="display:none;"></p>
 
+
         <div>
           <div class="knoppen-rij">
             <button type="button" class="knop-secundaire" onclick="gaNaar(2)">Terug</button>
             <button type="submit" class="knop-primaire" onclick="validateRegisterStep3(event)">Registreren</button>
           </div>
           <p class="error-reg-general " style="display:none; "></p>
+
           <button type="button" class="link" onclick="gaTerugNaar(0)">
             Heb je al een account <u><strong>log hier in</strong></u>       
           </button>

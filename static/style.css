@@ -12,7 +12,7 @@
     --kleur-leaderbord-1:hsl(41deg 93% 52%);
     --kleur-leaderbord-2:hsl(206deg 4% 65%);
     --kleur-leaderbord-3:hsl(30deg 70% 45%);
-    --kleur-rank:hsl(41deg 93% 52%);
+    --kleur-footer-actief:hsl(41deg 93% 52%);
     --kleur-footer-achtergrond:hsl(205deg 58% 21%);
     --kleur-footer-aangeklikt:hsl(41deg 93% 52%);
     --kleur-corner-border:hsl(202deg 26% 12%);
@@ -122,41 +122,3 @@
 
 }
 
-
-/* ------------------- Buttons ------------------- */
-button {
-    width: 100%;
-    background: var(--kleur-secundair-button-bg);
-    color: var(--kleur-secundair-button-text);
-    padding: var(--wit-ruimte-s-m);
-    font-size: var(--font-size-normal);
-    cursor: pointer;
-    font-family: var(--font-family-kopjes);
-}
-
-.knop-primaire {
-  background: var(--kleur-primair-button-bg);
-  color: var(--kleur-primair-button-text);
-  width: 50%;
-  align-self: flex-end;
-  border-radius: 0.5em;
-}
-
-.knop-secundaire {
-  background: var(--kleur-secundair-button-bg);
-  color: var(--kleur-secundair-button-text);
-  width: 50%;
-  align-self: flex-start;
-  border-radius: 0.5em;
-}
-
-.knoppen-rij {
-  display: flex;
-  justify-content: space-between;
-  margin-top: var(--lijn-hoogte-xl);
-}
-
-.knoppen-rij button {
-  width: 48%;
-  margin: 0;
-}

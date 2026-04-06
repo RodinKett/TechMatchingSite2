@@ -274,3 +274,40 @@ router.post("/updateAccount", isLoggedIn, upload.single("profielFoto"), async fu
 });
 
 module.exports = router;
+
+
+  // ================================
+    // profile
+    // ================================
+   router.get("/profiel", isLoggedIn, async (req, res) => {
+  try {
+    const db = req.app.locals.db;
+    const gebruikers = db.collection("users");
+
+    const data = await gebruikers.findOne({ _id: new ObjectId(req.session.user.id) });
+
+    const user = {
+      id:            data._id.toString(),
+      profielFoto:   data.profielFoto           || "-",
+      username:      data.username              || "Onbekend",
+      merk:          data.voertuig?.merk        || "-",
+      model:         data.voertuig?.model       || "-",
+      jaartal:       data.voertuig?.jaartal     || "-",
+      pk:            data.voertuig?.pk          || "-",
+      aandrijving:   data.voertuig?.aandrijving || "-",
+      mods:          data.mods                  || [],
+      specialisatie: data.specialisatie         || "-",
+      jarenErvaring: data.jarenErvaring         || "-",
+      skillLevel:    data.skillLevel            || "-",
+      opmerkingen:   data.opmerkingen           || "Geen opmerkingen",
+    };
+
+    res.render("Pages/profiel", { user });
+
+  } catch (err) {
+    console.error("Fout bij ophalen profiel:", err);
+    res.status(500).render("pages/500");
+  }
+});
+
+module.exports = router; // altijd als laatste
