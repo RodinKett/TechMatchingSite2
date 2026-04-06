@@ -81,15 +81,19 @@ app.get("/", (req, res) => {
 });
 
 app.get("/berichtenlijst", (req, res) => {
-  res.render("Pages/berichtenlijst");
+   const verzoekAantal = 2; 
+
+  res.render("pages/berichtenlijst", {
+    verzoekAantal: verzoekAantal
+  });
 });
 
 app.get("/bericht", (req, res) => {
-  res.render("Pages/bericht");
+  res.render("pages/bericht");
 });
 
 app.get("/verzoeken", (req, res) => {
-  res.render("Pages/verzoeken");
+  res.render("pages/verzoeken");
 });
 
 

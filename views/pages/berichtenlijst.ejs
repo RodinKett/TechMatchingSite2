@@ -20,14 +20,14 @@
 <body class="page">
 
 <header>
-  <%- include('../partials/headerbasis'); %>
+  <%- include('../partials/headerchats'); %>
 </header>
 
 <main class="messages-page">
   <h1 class="messages-title">Berichten</h1>
 
   <!-- NIEUWSTE (3 uur geleden) -->
-  <section class="chat-preview">
+  <section class="chat-preview" onclick="window.location.href='/bericht'">
     <img src="/uploads/1774121279467-881089780.jpeg">
 
     <div class="chat-preview-content">
@@ -42,7 +42,7 @@
   </section>
 
   <!-- VANDAAG -->
-  <section class="chat-preview">
+  <section class="chat-preview" onclick="window.location.href='/bericht'">
     <img src="/uploads/1774121279467-881089780.jpeg">
 
     <div class="chat-preview-content">
@@ -57,7 +57,7 @@
   </section>
 
   <!-- GISTEREN -->
-  <section class="chat-preview">
+  <section class="chat-preview" onclick="window.location.href='/bericht'">
     <img src="/uploads/1774121279467-881089780.jpeg">
 
     <div class="chat-preview-content">
@@ -71,7 +71,7 @@
   </section>
 
   <!-- OUDER -->
-  <section class="chat-preview">
+  <section class="chat-preview" onclick="window.location.href='/bericht'">
     <img src="/uploads/1774121279467-881089780.jpeg">
 
     <div class="chat-preview-content">
