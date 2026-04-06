@@ -605,7 +605,9 @@ app.get("/profiel", async (req, res) => {
     const db = client.db("StreetracerApp");
     const gebruikers = db.collection("users");
 
-const data = await gebruikers.findOne({ _id: new ObjectId(req.session.user.id) });
+    const data = await gebruikers.findOne({});
+
+// const data = await gebruikers.findOne({ _id: new ObjectId(req.session.user.id) });
 
     console.log("gevonden data:", data);
 
@@ -629,7 +631,6 @@ const data = await gebruikers.findOne({ _id: new ObjectId(req.session.user.id) }
 
   } catch (err) {
     console.error("Fout bij ophalen profiel:", err);
-    res.status(500).console.log ("Er ging iets mis bij het ophalen van het profiel.");
   }
 });
 

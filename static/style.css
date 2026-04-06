@@ -19,6 +19,7 @@
     --kleur-chatbericht-hun:hsl(0deg 0% 100%);
     --kleur-corner-border:hsl(0deg 0% 100%);
     --kleur-blok-matching: hsl(204deg 55% 18%);
+    --kleur-svg: hsl(0deg 0% 100%);
 
     /* Font */
     --font-size-form-title: 3rem;
