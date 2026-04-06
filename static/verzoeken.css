@@ -1,0 +1,132 @@
+/* BODY */
+body {
+  background: var(--kleur-achtergrond);
+  color: var(--kleur-tekst);
+  font-family: var(--font-family-text);
+}
+
+/* CONTAINER */
+.container {
+  padding: var(--wit-ruimte-xs);
+}
+
+/* RUIMTE TUSSEN VERZOEKEN */
+.request-section {
+  margin-bottom: var(--wit-ruimte-l);
+}
+
+/* ========================= */
+/* CARD */
+/* ========================= */
+.request-card {
+  display: flex;
+  align-items: stretch; /* zorgt dat image hoogte klopt */
+  gap: var(--wit-ruimte-s);
+  background: var(--kleur-invulveld);
+  border: 3px solid var(--kleur-corner-border); /* kan niet responsive, moet 2px zijn */
+  padding: var(--wit-ruimte-s);
+}
+
+/* ========================= */
+/* AFBEELDING */
+/* ========================= */
+.request-image {
+  display: flex;
+}
+
+.request-image img {
+  height: 200px;              /* vult hoogte */
+  aspect-ratio: 1 / 1;       /* perfect vierkant */
+  object-fit: cover;
+}
+
+/* ========================= */
+/* INFO */
+/* ========================= */
+.request-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--lijn-hoogte-xs);
+}
+
+/* NAAM */
+.name {
+  font-size: var(--font-size-form-label); /* groter */
+  margin-bottom: var(--lijn-hoogte-s);
+}
+
+/* INFO TEKST */
+.request-info p {
+  font-size: 1.5em;
+}
+
+/* ========================= */
+/* STATS */
+/* ========================= */
+.request-stats {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* boven + onder */
+  align-items: flex-end;
+}
+
+/* RANG */
+.rank {
+  text-align: right;
+}
+
+.rank span {
+  font-size: var(--font-size-normal);
+  color: var(--kleur-rank);
+}
+
+.rank strong {
+  display: block;
+  font-size: var(--font-size-normal); /* groot */
+  color: var(--kleur-rank);
+}
+
+/* WINRATE */
+.winrate {
+  text-align: right;
+}
+
+.winrate strong {
+  display: block;
+  font-size: var(--font-size-normal);
+}
+
+.winrate span {
+  font-size: var(--font-size-normal);
+}
+
+/* ========================= */
+/* KNOPPEN */
+/* ========================= */
+.actions {
+  display: flex;
+  gap: var(--wit-ruimte-m);
+  margin-top: var(--wit-ruimte-s);
+  padding: 0 10px; /* smaller dan card */
+}
+
+.actions button {
+  flex: 1;
+  padding: 16px; /* langer */
+  border: none;
+  font-size: var(--font-size-normal);
+}
+
+/* NEGEER */
+.btn-decline {
+  background: var(--kleur-achtergrond-linker-knop);
+  color: var(--kleur-tekst-links-knop);
+}
+
+/* ACCEPTEER */
+.btn-accept {
+  background: var(--kleur-accent);
+  color: var(--kleur-tekst);
+}

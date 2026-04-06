@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>500 error</title>
+
+  <!-- CSS (load bootstrap from a CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/header.css">
+
+  <link rel="stylesheet" href="/500.css" />
+</head>
+<body>
+
+<header>
+  <%- include('../partials/headerbasis'); %>
+</header>
+
+<main class="container">
+  <h1>
+    Oops, er is iets mis gegaan aan onze kant
+  </h1>
+  <picture>
+          <source
+          srcset="/afbeeldingen/500.svg"
+          media="(prefers-color-scheme: dark)"
+          />
+          <img
+          src="/afbeeldingen/500licht.svg"
+          alt="Afbeelding van een motor"
+          />
+        </picture>
+  <p>
+    Helaas is er iets mis gegaan met deze pagina, probeer het later opnieuw
+  </p>
+  <a href="/">klik hier om terug te gaan naar de startpagina</a>
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

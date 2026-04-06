@@ -1,0 +1,37 @@
+body {
+  background-color: var(--kleur-achtergrond);
+  margin: 0;
+  padding: var(--wit-ruimte-m-geen);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  padding: var(--wit-ruimte-xl-geen);
+}
+
+main img {
+  max-width: 40em;
+  padding: var(--wit-ruimte-xl-geen);
+}
+
+h1,
+p {
+  color: var(--kleur-tekst);
+}
+
+h1 {
+  font-size: var(--font-size-form-title);
+}
+
+p {
+  font-size: var(--font-size-normal);
+}
+
+a {
+  font-size: var(--font-size-form-label);
+  color: var(--kleur-link);
+  text-decoration: underline;  
+}

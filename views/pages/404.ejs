@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Loading</title>
+
+  <!-- CSS (load bootstrap from a CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/header.css">
+
+  <link rel="stylesheet" href="/404.css" />
+</head>
+<body>
+
+<header>
+  <%- include('../partials/headerbasis'); %>
+</header>
+
+<main class="container">
+  <h1>
+    404 Pagina niet gevonden
+  </h1>
+  <!-- <img src="/afbeeldingen/404error.svg" alt="Afbeelding van een bord met wegwijzers die aangeven dat de wegen doodlopen"> -->
+  <picture>
+          <source
+          srcset="/afbeeldingen/404error.svg"
+          media="(prefers-color-scheme: dark)"
+          />
+          <img
+          src="/afbeeldingen/404licht.svg"
+          alt="Afbeelding van een bord met wegwijzers die aangeven dat de wegen doodlopen"
+          />
+        </picture>
+  <p>
+    Deze pagina bestaat niet meer of is verplaatst
+  </p>
+  <a href="/">klik hier om terug te gaan naar de startpagina</a>
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

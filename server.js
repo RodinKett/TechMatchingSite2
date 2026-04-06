@@ -1,170 +1,104 @@
-////////////////////////////////////////////////////////////////////////////////////
-//////////                            Setup                               //////////
-////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Hoofdserverbestand (app.js)
+ * -----------------------
+ * Dit bestand start de Express-server, configureert middleware, routes en 
+ * verbindt met de MongoDB-database.
+ * 
+ * Functionaliteit:
+ * 1. Laadt environment variables via dotenv.
+ * 2. Verbindt met MongoDB en maakt de database beschikbaar via app.locals.db.
+ * 3. Configureert Express:
+ *    - Statische bestanden in "static" map
+ *    - EJS als view engine
+ *    - JSON- en URL-encoded body parsing
+ *    - Sessiebeheer met express-session
+ * 4. Importeert en gebruikt routes:
+ *    - /api -> apiRoutes
+ *    - / -> authRoutes & userRoutes
+ * 5. Definieert basisroutes:
+ *    - / -> indexpagina
+ *    - /loadingpage -> loadingpagina
+ * 6. Start de server op poort 3000
+ */
 
-require("dotenv").config();
+/////connectie met data/////
+require("node:dns/promises").setServers(["1.1.1.1", "8.8.8.8"]);
+
+
+require("dotenv").config(); // Load environment variables
 
 const path = require("path");
-const { MongoClient, ObjectId } = require("mongodb");
-const validator = require("validator");
+const { MongoClient } = require("mongodb");
 const express = require("express");
 const session = require("express-session");
-const multer = require("multer");
-const bcrypt = require("bcrypt");
-const fs = require("fs");
+
+// Routes importeren
+const apiRoutes = require("./routes/apiRoutes");
+const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 const port = 3000;
 
+// MongoDB connectie instellen
 const uri = process.env.URI;
 const client = new MongoClient(uri);
 
+// ------------------- Middleware -------------------
+// Statische bestanden serveren vanuit de "static" map
 app.use(express.static(path.join(__dirname, "static")));
+
+// EJS als view engine instellen
 app.set("view engine", "ejs");
+
+// Body parsing middleware       
+// Body parsing middleware leest en converteert de request body (bijv. JSON of form-data) naar een bruikbaar object voor de server.
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Sessies configureren
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
+    secret: process.env.SESSION_SECRET, // secret voor sessie
+    resave: false, // sessie niet opnieuw opslaan als deze niet veranderd is
+    saveUninitialized: false, // niet opslaan van lege sessies
   }),
 );
 
+// ------------------- Routes -------------------
+// API routes
+app.use("/api", apiRoutes);
 
+// Auth routes (login, register, logout)
+app.use("/", authRoutes);
 
+// User routes (aanvullende info, update account)
+app.use("/", userRoutes);
 
-////////////////////////////////////////////////////////////////////////////////////
-//////////                      miscellaneous js                          //////////
-////////////////////////////////////////////////////////////////////////////////////
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "static/uploads/");
-  },
-  filename: (req, file, cb) => {
-    const uniqueName =
-      Date.now() + "-" + Math.round(Math.random() * 1e9) + path.extname(file.originalname);
-    cb(null, uniqueName);
-  },
-});
-
-
-
-
-
-const upload = multer({
-  storage: storage,
-  fileFilter: (req, file, cb) => {
-    if (file.mimetype.startsWith("image/")) {
-      cb(null, true);
-    } else {
-      cb(new Error("Alleen afbeeldingen toegestaan"), false);
-    }
-  },
-});
-
-
-
-
-////////////////////////////////////////////////////////////////////////////////////
-//////////                            App.Get                             //////////
-////////////////////////////////////////////////////////////////////////////////////
-
-app.get("/api/car-brands", async (req, res) => {
-  try {
-    const response = await fetch("https://www.carqueryapi.com/api/0.3/?cmd=getMakes");
-    const text = await response.text();
-
-    const data = JSON.parse(text.replace("var data = ", "").replace(";", ""));
-
-    res.json(data.Makes);
-  } catch (err) {
-    res.status(500).json({ error: "Het laden van merken is mislukt." });
-  }
-});
-
-app.get("/api/car-models/:make/:year", async (req, res) => {
-  const { make, year } = req.params;
-
-  try {
-    const response = await fetch(
-      `https://www.carqueryapi.com/api/0.3/?cmd=getModels&make=${make}&year=${year}`
-    );
-
-    const text = await response.text();
-    const data = JSON.parse(text.replace("var data = ", "").replace(";", ""));
-
-    res.json(data.Models);
-  } catch (err) {
-    res.status(500).json({ error: "Modellen laden mislukt." });
-  }
-});
-
-app.get("/api/car-specs/:make/:model/:year", async (req, res) => {
-  const { make, model, year } = req.params;
-
-  try {
-    const response = await fetch(
-      `https://www.carqueryapi.com/api/0.3/?cmd=getTrims&make=${make}&model=${model}&year=${year}`
-    );
-
-    const text = await response.text();
-    const data = JSON.parse(text.replace("var data = ", "").replace(";", ""));
-
-    res.json(data.Trims);
-  } catch (err) {
-    res.status(500).json({ error: "Specificaties laden mislukt" });
-  }
-});
-
+// Basis routes
 app.get("/", (req, res) => {
-  res.render("Pages/index");
+  res.render("pages/index");
 });
 
-app.get("/login", (req, res) => {
-  res.render("Pages/Login");
-});
+app.get("/berichtenlijst", (req, res) => {
+   const verzoekAantal = 2; 
 
-app.get("/aanvullendeInformatie", (req, res) => {
-  if (!req.session.user) {
-    return res.redirect("/login");
-  }
-
-  res.render("Pages/AanvullendeInformatie", { user: req.session.user });
-});
-
-app.get("/logout", (req, res) => {
-  req.session.destroy(err => {
-    if (err) return res.status(500).send("Kan niet uitloggen");
-    res.redirect("/login");
+  res.render("pages/berichtenlijst", {
+    verzoekAantal: verzoekAantal
   });
 });
 
-app.get("/updateAccount", async (req, res) => {
+app.get("/bericht", (req, res) => {
+  res.render("pages/bericht");
+});
 
-  if (!req.session.user) {
-    return res.redirect("/login");
-  }
-
-  const db = client.db("StreetracerApp");
-  const users = db.collection("users");
-
-  const user = await users.findOne({
-    _id: new ObjectId(req.session.user.id)
-  });
-
-  res.render("Pages/updateAccount", { user });
-
+app.get("/verzoeken", (req, res) => {
+  res.render("pages/verzoeken");
 });
 
 app.get("/filter", (req, res) => {
   res.render("Pages/filter");
 });
-
-
-
 
 
 
@@ -537,10 +471,19 @@ app.get("/", (req, res) => {
 });
 
 
+// ------------------- Feedback handeling ------------------
 app.get("/loadingpage", (req, res) => {
-  res.render("Pages/loadingpage");
+  res.render("pages/loadingpage");
 });
 
+app.use((req, res) => {
+  res.status(404).render("pages/404");
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).render("pages/500");
+});
 
 
 
@@ -635,11 +578,17 @@ app.get("/profiel", async (req, res) => {
 });
 
 
+
+// ------------------- Server starten -------------------
 async function startServer() {
   try {
+    // Verbinden met MongoDB
     await client.connect();
+    app.locals.db = client.db("StreetracerApp"); // database beschikbaar maken in routes
+
     console.log("Connected to MongoDB");
 
+    // Server starten
     app.listen(port, () => {
       console.log(`Server running on http://localhost:${port}`);
     });
@@ -647,5 +596,7 @@ async function startServer() {
     console.error("Failed to connect to MongoDB:", error);
   }
 }
+
+// Start de server
 
 startServer();
