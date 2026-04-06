@@ -128,7 +128,8 @@ router.post("/register", upload.single("profielFoto"), async (req, res) => {
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({ general: "Fout bij registreren" });
+    console.log("error met het aanmaken van een account")
+    res.status(500).render("pages/500");
   }
 });
 
@@ -155,7 +156,8 @@ router.post("/login", async function(req, res) {
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({ field: "general", message: "Login fout" });
+    console.log("error met het inloggen")
+    res.status(500).render("pages/500");
   }
 });
 

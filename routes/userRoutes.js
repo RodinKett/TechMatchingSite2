@@ -47,7 +47,8 @@ router.get("/updateAccount", isLoggedIn, async function(req, res) {
     res.render("pages/updateAccount", { user }); // pass user to template
   } catch (error) {
     console.error(error);
-    res.status(500).send("Fout bij laden accountgegevens");
+    console.log("error met ophalen van de user")
+    res.status(500).render("pages/500");
   }
 });
 
@@ -147,7 +148,8 @@ router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profielFoto"), 
     res.json({ success: true, redirect: "/loadingpage?next=/" });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ general: "Fout bij opslaan aanvullende gegevens" });
+    console.log("Error met het toevoegen van aanvullende gegevens")
+    res.status(500).render("pages/500");
   }
 });
 
@@ -266,7 +268,8 @@ router.post("/updateAccount", isLoggedIn, upload.single("profielFoto"), async fu
     res.json({ success: true, redirect: "/loadingpage?next=/" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ general: "Fout bij updaten accountgegevens" });
+    console.log("Error met updaten van account")
+    res.status(500).render("pages/500");
   }
 });
 
