@@ -1,3 +1,22 @@
+.header-nav {
+  display: flex;
+  justify-content: center;
+}
+
+.header-lijst {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+
+.header-midden {
+  position: relative;
+  left: 40%;
+  transform: translateX(-50%);
+  list-style: none;
+}
+
 /* filter css */
 #filter-overlay {
   position: fixed;
@@ -12,7 +31,6 @@
   transition: transform 0.3s ease;
 }
 
-
 #filter-overlay.zichtbaar {
   transform: translateX(0);
 }
@@ -23,7 +41,8 @@
 
 #p-filter {
   color: var(--kleur-tekst);
-  font-weight: bold;
+  font-family: var(--font-family-kopjes);
+  font-weight: 400;
   margin: 0.5em;
 }
 
@@ -35,20 +54,19 @@
 .alle-kaarten {
   position: relative;
   width: 100%;
-  max-width: 100%; /* responsief */
-  height: 80vh; /* geen px, maar % van schermhoogte */
+  max-width: 100%;
+  height: 100vh;
   margin: 0 auto;
 }
 
-#button-filter {
+#knop-filter {
   display: flex;
   background-color: var(--kleur-blok-matching);
   color: var(--kleur-tekst);
   border: none;
   justify-content: space-evenly;
-  padding: 0.5em ;
+  padding: 0.5em;
 }
-
 
 .veeg-kaart {
   position: absolute;
@@ -62,7 +80,7 @@
     opacity 0.35s ease;
   z-index: 1;
   outline: solid 0.05em var(--kleur-tekst);
-    outline-offset: 0.5em;
+  outline-offset: 0.5em;
 }
 
 .veeg-kaart:nth-child(1) {
@@ -92,10 +110,20 @@
   margin: 1rem auto;
 }
 
+dt {
+  font-family: var(--font-family-text);
+  font-weight: 800;
+}
+
 dl {
   display: grid;
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
+}
+
+dd {
+  font-family: var(--font-family-text);
+  font-weight: 400;
 }
 
 dt,
@@ -107,17 +135,18 @@ dd {
 .naam-gebruiker {
   color: var(--kleur-tekst);
   margin: 1em 0;
+  font-family: var(--font-family-kopjes);
+  font-weight: 400;
 }
 
 .info-blok {
   background-color: var(--kleur-blok-matching);
-
+  overflow: hidden;
 }
 
 .info-blok:nth-child(10) {
- grid-column: 1 / 4;
+  grid-column: 1 / 4;
 }
-
 
 .tekst {
   color: var(--kleur-tekst);
@@ -139,6 +168,9 @@ dd {
   height: 3em;
   border: none;
   border-radius: 0.5em;
+  font-family: var(--font-family-kopjes);
+  font-weight: 400;
+  font-size: 1.2em;
 }
 
 #knop-volgende {
@@ -161,4 +193,3 @@ dd {
   margin-top: 2em;
   font-size: 3em;
 }
-

@@ -13,26 +13,26 @@ buttons.forEach(button => {
 });
 
 //   telling hoeveel filters er aan staan 
-const inputs = document.querySelectorAll(".filter-opties input, .filter-opties select");
-const teller = document.getElementById("telling-filter");
+// const inputs = document.querySelectorAll(".filter-opties input, .filter-opties select");
+// const teller = document.getElementById("telling-filter");
 
-function filterTelling() {
-  let count = 0;
+// function filterTelling() {
+//   let count = 0;
 
-  inputs.forEach(input => {
-    if (input.type === "checkbox" && input.checked) {
-      count++;
-    } else if (input.tagName === "SELECT" && input.value !== "") {
-      count++;
-    } else if (input.type === "number" && input.value !== "") {
-      count++;
-    }
-  });
+//   inputs.forEach(input => {
+//     if (input.type === "checkbox" && input.checked) {
+//       count++;
+//     } else if (input.tagName === "SELECT" && input.value !== "") {
+//       count++;
+//     } else if (input.type === "number" && input.value !== "") {
+//       count++;
+//     }
+//   });
 
-  teller.textContent = `(${count})`;
-}
+//   teller.textContent = `(${count})`;
+// }
 
 // event listener op alle inputs
-inputs.forEach(input => {
-  input.addEventListener("change", filterTelling);
-});
+// inputs.forEach(input => {
+//   input.addEventListener("change", filterTelling);
+// });

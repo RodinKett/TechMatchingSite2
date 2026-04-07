@@ -2,6 +2,9 @@ body {
   overflow-y: auto;
   background-color: var(--kleur-achtergrond);
   padding-bottom: var(--wit-ruimte-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 
@@ -9,6 +12,7 @@ h1,
 p,
 span {
   color: var(--kleur-tekst);
+  font-family: var(--font-family-kopjes);
   font-size: var(--font-size-normal)
 }
 
@@ -184,8 +188,7 @@ button {
 
 /* Jij highlight */
 .mij {
-  outline: 0.13em solid var(--kleur-accent);
-  background: var(--kleur-tekst-op-donker);
+  outline: 1em dashed var(--kleur-accent);
 }
 
 .leaderbord-jij {

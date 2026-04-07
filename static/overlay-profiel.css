@@ -4,6 +4,7 @@
   position: absolute;
   background-color: var(--kleur-blok-matching);
   border: none;
+ margin-top: 50%;
   padding: 2em ;
   right: 20%;
   z-index: 10;
