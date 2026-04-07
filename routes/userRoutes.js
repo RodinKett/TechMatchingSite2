@@ -215,7 +215,8 @@ router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profielFoto"), 
 
     if (req.file) updateData.profielFoto = req.file.filename;
 
-    res.render("pages/Matching");
+   res.redirect("/matching");
+    
     
   } catch (err) {
     console.error(err);
@@ -373,7 +374,7 @@ module.exports = router;
       opmerkingen:   data.opmerkingen           || "Geen opmerkingen",
     };
 
-    res.render("Pages/profiel", { user });
+    res.render("pages/profiel", { user });
 
   } catch (err) {
     console.error("Fout bij ophalen profiel:", err);
