@@ -1,17 +1,19 @@
 const express = require("express");
 const router = express.Router();
-const { MongoClient } = require("mongodb");
+const { ObjectId } = require("mongodb");
 
 // Matching pagina met filters
 router.get("/matching", async (req, res) => {
   try {
-    const db = req.app.locals.db; // gebruik app.locals.db in plaats van client
+    const db = req.app.locals.db;
     const gebruikers = db.collection("users");
 
     const q = req.query;
     const meerdere = (val) => Array.isArray(val) ? val : [val];
 
     const query = {
+      // Filter eigen profiel eruit als ingelogd
+      ...(req.session.user && { _id: { $ne: new ObjectId(req.session.user.id) } }),
       ...(q.jaartal         && { "voertuig.jaartal":    q.jaartal }),
       ...(q.skillLevel      && { skillLevel:            { $in: meerdere(q.skillLevel) } }),
       ...(q.wielaandrijving && { "voertuig.aandrijving": { $in: meerdere(q.wielaandrijving) } }),
@@ -52,4 +54,4 @@ router.get("/matching", async (req, res) => {
   }
 });
 
-module.exports = router; // altijd als laatste
+module.exports = router;
