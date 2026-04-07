@@ -1,3 +1,4 @@
+
 .body-matching {
   padding: 0;
   background-color: var(--kleur-achtergrond);
@@ -11,12 +12,9 @@
   margin: 0 2em;
 }
 
-.foto-section {
-  display: grid;
-  grid-template-rows: auto auto auto;
-
+.profiel-foto{
+  width: 100%;
 }
-
 
 #button-edit-profiel{
   background-color: transparent;
@@ -55,7 +53,7 @@ border: none;
 
 dl {
   display: grid;
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 
 }
@@ -71,8 +69,12 @@ dd {
   margin: 1em 0;
 }
 
+
+
 .info-blok {
   background-color: var(--kleur-blok-matching);
+   overflow: hidden;
+  min-width: 0;
 
 }
 
@@ -83,3 +85,10 @@ dd {
 #tekst {
   color: var(--kleur-tekst);
 }
+
+* {
+  box-sizing: border-box;
+}
+
+
+

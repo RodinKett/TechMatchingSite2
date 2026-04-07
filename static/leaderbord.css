@@ -2,11 +2,13 @@ body {
   overflow-y: auto;
   background-color: var(--kleur-achtergrond);
   padding-bottom: var(--wit-ruimte-xl);
+}
+
+main {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
 
 h1,
 p,

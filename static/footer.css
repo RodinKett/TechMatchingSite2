@@ -5,11 +5,20 @@ footer {
   bottom: 0;
   height: 8%;
   z-index: 4;
+
+
   
+}
+
+.footer-icon {
+  color: unset;
+  text-decoration: none;
 }
 
 .footer-icon svg {
   flex-shrink: 0;
+  color: unset;
+  text-decoration: none;
 }
 
 
