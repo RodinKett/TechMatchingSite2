@@ -131,3 +131,8 @@
     --kleur-link: hsl(41deg 93% 52%);
   }
 }
+
+.verstop {
+  position: absolute;
+  left: -9999em;
+}
