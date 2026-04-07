@@ -1,4 +1,25 @@
 
+.header-nav {
+  display: flex;
+  justify-content: center;
+}
+
+.header-lijst {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+ 
+}
+
+.header-midden {
+  position: relative;
+  left: 40%;
+  transform: translateX(-50%);
+  list-style: none;
+}
+
+
 .body-matching {
   padding: 0;
   background-color: var(--kleur-achtergrond);
@@ -41,6 +62,8 @@ border: none;
 
 .naam-gebruiker {
   color: var(--kleur-tekst);
+  font-family: var(--font-family-kopjes);
+  font-weight: 400;
 }
 
   #edit-profiel{
@@ -51,10 +74,21 @@ border: none;
   margin: 1em 0;
 }
 
+dt{
+    font-family: var(--font-family-text);
+  font-weight: 800;
+}
+
+dd{
+     font-family: var(--font-family-text);
+  font-weight: 400;
+}
+
 dl {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
+
 
 }
 
@@ -62,6 +96,7 @@ dt,
 dd {
   color: var(--kleur-tekst);
   text-align: center;
+
 }
 
 #naam-gebruiker {
