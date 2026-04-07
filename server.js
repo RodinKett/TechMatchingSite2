@@ -27,6 +27,7 @@ const path = require("path");
 const { MongoClient } = require("mongodb");
 const express = require("express");
 const session = require("express-session");
+const { isLoggedIn } = require("./middleware/authMiddleware");
 // Routes importeren
 const apiRoutes = require("./routes/apiRoutes");
 const authRoutes = require("./routes/authRoutes");
@@ -65,31 +66,20 @@ app.use("/", userRoutes);
 app.use("/", matchingRoutes);
 
 // Basis routes
-app.get("/", (req, res) => {
-  res.render("pages/index");
-});
-app.get("/berichtenlijst", (req, res) => {
+app.get("/berichtenlijst", isLoggedIn, (req, res) => {
    const verzoekAantal = 2;
   res.render("pages/berichtenlijst", {
     verzoekAantal: verzoekAantal
   });
 });
-app.get("/bericht", (req, res) => {
+app.get("/bericht", isLoggedIn, (req, res) => {
   res.render("pages/bericht");
 });
-app.get("/verzoeken", (req, res) => {
+app.get("/verzoeken", isLoggedIn, (req, res) => {
   res.render("pages/verzoeken");
 });
 
-app.get("/matching", (req, res) => {
-  res.render("pages/matching");
-});
-
-app.get("/profiel", (req, res) => {
-  res.render("pages/profiel");
-});
-
-app.get("/loadingpage", (req, res) => {
+app.get("/loadingpage", isLoggedIn, (req, res) => {
   res.render("pages/loadingpage");
 });
 
