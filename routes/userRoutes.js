@@ -36,7 +36,7 @@ const upload = require("../middleware/upload");
 
 // BRONVERMELDING: Voor de missende data en hulp met fouten corrigeren: CHATGPT, co-pilot (BR, staat voor bronvermelding)
 // Dat includes de username, spelers sort a en b en de math.floor, jij als speler de req.session
-router.get("/leaderboard", async function (req, res) {
+router.get("/leaderboard", isLoggedIn, async function (req, res) {
   try {
     const db = req.app.locals.db;
     const gebruikers = db.collection("users");
