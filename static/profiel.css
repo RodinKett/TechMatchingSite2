@@ -1,3 +1,25 @@
+
+.header-nav {
+  display: flex;
+  justify-content: center;
+}
+
+.header-lijst {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+ 
+}
+
+.header-midden {
+  position: relative;
+  left: 40%;
+  transform: translateX(-50%);
+  list-style: none;
+}
+
+
 .body-matching {
   padding: 0;
   background-color: var(--kleur-achtergrond);
@@ -11,13 +33,9 @@
   margin: 0 2em;
 }
 
-
-.foto-section {
-  display: grid;
-  grid-template-rows: auto auto auto;
-
+.profiel-foto{
+  width: 100%;
 }
-
 
 #button-edit-profiel{
   background-color: transparent;
@@ -31,7 +49,7 @@ border: none;
 
 #foto-section img {
   max-width: 100%;
-  max-height: 40em;
+  height: auto;
   display: block;
   margin: 1rem auto;
 }
@@ -44,6 +62,8 @@ border: none;
 
 .naam-gebruiker {
   color: var(--kleur-tekst);
+  font-family: var(--font-family-kopjes);
+  font-weight: 400;
 }
 
   #edit-profiel{
@@ -54,10 +74,21 @@ border: none;
   margin: 1em 0;
 }
 
+dt{
+    font-family: var(--font-family-text);
+  font-weight: 800;
+}
+
+dd{
+     font-family: var(--font-family-text);
+  font-weight: 400;
+}
+
 dl {
   display: grid;
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
+
 
 }
 
@@ -65,6 +96,7 @@ dt,
 dd {
   color: var(--kleur-tekst);
   text-align: center;
+
 }
 
 #naam-gebruiker {
@@ -72,8 +104,12 @@ dd {
   margin: 1em 0;
 }
 
+
+
 .info-blok {
   background-color: var(--kleur-blok-matching);
+   overflow: hidden;
+  min-width: 0;
 
 }
 
@@ -84,3 +120,10 @@ dd {
 #tekst {
   color: var(--kleur-tekst);
 }
+
+* {
+  box-sizing: border-box;
+}
+
+
+

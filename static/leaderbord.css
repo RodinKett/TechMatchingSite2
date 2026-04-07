@@ -12,6 +12,7 @@ h1,
 p,
 span {
   color: var(--kleur-tekst);
+  font-family: var(--font-family-kopjes);
   font-size: var(--font-size-normal)
 }
 
