@@ -153,7 +153,7 @@ router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profielFoto"), 
       errors.jarenErvaring = "Voer een geldig aantal jaren ervaring in (0-99).";
     }
 
-    if (!specialisatie.length || specialisatie.includes("Geen")) {
+    if (!specialisatie.length) {
       errors.specialisatie = "Selecteer minimaal één specialisatie.";
     }
 
@@ -173,7 +173,7 @@ router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profielFoto"), 
       errors.voertuigModel = "Selecteer een model.";
     }
 
-    if (!mods.length || mods.includes("Geen")) {
+    if (!mods.length) {
       errors.mods = "Selecteer minimaal één mod.";
     }
 
@@ -216,8 +216,7 @@ router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profielFoto"), 
     if (req.file) updateData.profielFoto = req.file.filename;
 
     await users.updateOne({ _id: userId }, { $set: updateData });
-
-    res.json({ success: true, redirect: "/loadingpage?next=/" });
+    
   } catch (err) {
     console.error(err);
     console.log("Error met het toevoegen van aanvullende gegevens")
@@ -337,7 +336,7 @@ router.post("/updateAccount", isLoggedIn, upload.single("profielFoto"), async fu
 
     await users.updateOne({ _id: userId }, { $set: updateData });
 
-    res.json({ success: true, redirect: "/loadingpage?next=/" });
+    res.redirect("/profiel");
   } catch (error) {
     console.error(error);
     console.log("Error met updaten van account")
@@ -367,7 +366,7 @@ module.exports = router;
       jaartal:       data.voertuig?.jaartal     || "-",
       pk:            data.voertuig?.pk          || "-",
       aandrijving:   data.voertuig?.aandrijving || "-",
-      mods:          data.mods                  || [],
+      mods:          data.voertuig?.mods        || [],
       specialisatie: data.specialisatie         || "-",
       jarenErvaring: data.jarenErvaring         || "-",
       skillLevel:    data.skillLevel            || "-",
