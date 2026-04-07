@@ -81,13 +81,6 @@ app.get("/verzoeken", (req, res) => {
   res.render("pages/verzoeken");
 });
 
-app.get("/matching", (req, res) => {
-  res.render("pages/matching");
-});
-
-app.get("/profiel", (req, res) => {
-  res.render("pages/profiel");
-});
 
 app.get("/loadingpage", (req, res) => {
   res.render("pages/loadingpage");
