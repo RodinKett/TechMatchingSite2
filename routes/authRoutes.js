@@ -152,7 +152,7 @@ router.post("/login", async function(req, res) {
     }
 
     req.session.user = { id: user._id, username: user.username };
-    res.json({ success: true, redirect: "/loadingpage?next=/" });
+    res.json({ success: true, redirect: "/loadingpage?next=/matching" });
 
   } catch (error) {
     console.error(error);
