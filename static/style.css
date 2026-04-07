@@ -1,3 +1,7 @@
+/* Racing Sans One */
+@import url('https://fonts.googleapis.com/css2?family=Expletus+Sans:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Racing+Sans+One&family=Saira+Condensed:wght@100;200;300;400;500;600;700;800;900&family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
 :root{
     /* Kleur */
     --kleur-tekst:hsl(202deg 26% 12%);

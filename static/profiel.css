@@ -15,6 +15,7 @@
 .foto-section {
   display: grid;
   grid-template-rows: auto auto auto;
+  max-width: 100vw;
 
 }
 
@@ -30,7 +31,7 @@ border: none;
 }
 
 #foto-section img {
-  max-width: 100%;
+  max-width: 100vw;
   max-height: 40em;
   display: block;
   margin: 1rem auto;

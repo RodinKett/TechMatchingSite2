@@ -87,14 +87,11 @@ body.page {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-
   width: 2em;
   height: 2em;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   font-size: var(--font-size-normal);
   color: var(--kleur-tekst);
 }
