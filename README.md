@@ -35,21 +35,6 @@ Talenverdeling volgens GitHub-statistieken:
 
 ---
 
-## Projectstructuur
-/
-├── middleware/ # Express middleware
-├── routes/ # Route handlers van de app
-├── static/ # CSS, JS, afbeeldingen, etc.
-├── views/ # EJS templates
-├── .gitignore
-├── LICENSE
-├── package.json
-├── server.js # Hoofdserver
-└── README.md
-
-
----
-
 ## Vereisten
 Zorg dat je het volgende geïnstalleerd hebt:
 * Node.js (v14+)  
