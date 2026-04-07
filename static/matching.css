@@ -1,4 +1,24 @@
 /* filter css */
+.header-nav {
+  display: flex;
+  justify-content: center;
+}
+
+.header-lijst {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+ 
+}
+
+.header-midden {
+  position: relative;
+  left: 40%;
+  transform: translateX(-50%);
+  list-style: none;
+}
+
 #filter-overlay {
   position: fixed;
   top: 0;

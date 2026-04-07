@@ -1,3 +1,23 @@
+.header-nav {
+  display: flex;
+  justify-content: center;
+}
+
+.header-lijst {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+ 
+}
+
+.header-midden {
+  position: relative;
+  left: 40%;
+  transform: translateX(-50%);
+  list-style: none;
+}
+
 .body-matching {
   padding: 0;
   background-color: var(--kleur-achtergrond);
