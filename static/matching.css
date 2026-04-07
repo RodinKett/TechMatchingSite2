@@ -35,8 +35,8 @@
 .alle-kaarten {
   position: relative;
   width: 100%;
-  max-width: 100%; /* responsief */
-  height: 80vh; /* geen px, maar % van schermhoogte */
+  max-width: 100%; 
+  height: 100vh; 
   margin: 0 auto;
 }
 
@@ -111,6 +111,8 @@ dd {
 
 .info-blok {
   background-color: var(--kleur-blok-matching);
+   overflow: hidden;
+
 
 }
 

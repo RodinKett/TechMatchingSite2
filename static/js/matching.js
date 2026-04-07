@@ -1,4 +1,4 @@
-
+console.log(document.getElementById("knop-filter"));
 ////haalt de buttons up en bij click dat het een kant opgaat////
 document.getElementById("knop-volgende")
   .addEventListener("click", () => swipe("left"));
@@ -8,17 +8,14 @@ document.getElementById("knop-challenge")
 
 
   ///reset button filter///
-  document.getElementById("knop-reset").addEventListener("click", () => {
-  window.location.href = "/matching";
-});
+  // document.getElementById("knop-reset").addEventListener("click", () => {
+  // window.location.href = "/matching";
+// });
 
-document.getElementById("knop-filter").addEventListener("click", () => {
-  console.log("filter knop geklikt");
-  document.getElementById("filter-overlay").classList.add("zichtbaar");
-});
 
-const params = new URLSearchParams(window.location.search);
-document.getElementById("telling-filter").textContent = params.size || "";
+
+// const params = new URLSearchParams(window.location.search);
+// document.getElementById("telling-filter").textContent = params.size || "";
 
 
 ////filter overlay open en dicht kunnen doen////

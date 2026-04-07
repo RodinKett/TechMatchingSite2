@@ -2,7 +2,7 @@
   transform: rotate(180deg);
 }
 
-#button-reset{
+#knop-reset{
   position: relative;
   background-color: var(--kleur-blok-matching);
   color: var(--kleur-tekst);
