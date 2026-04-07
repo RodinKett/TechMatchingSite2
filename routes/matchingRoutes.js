@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const { ObjectId } = require("mongodb");
+const { isLoggedIn } = require("../middleware/authMiddleware");
 
 // Matching pagina met filters
-router.get("/matching", async (req, res) => {
+router.get("/matching", isLoggedIn, async (req, res) => {
   try {
     const db = req.app.locals.db;
     const gebruikers = db.collection("users");
@@ -46,7 +47,7 @@ router.get("/matching", async (req, res) => {
       opmerkingen:   user.opmerkingen           || "Geen opmerkingen",
     }));
 
-    res.render("Pages/matching", { users });
+    res.render("pages/matching", { users });
 
   } catch (err) {
     console.error("Fout bij ophalen matching-profielen:", err);
