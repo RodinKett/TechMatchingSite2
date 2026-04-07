@@ -215,7 +215,7 @@ router.post("/aanvullendeInformatie", isLoggedIn, upload.single("profielFoto"), 
 
     if (req.file) updateData.profielFoto = req.file.filename;
 
-    await users.updateOne({ _id: userId }, { $set: updateData });
+    res.render("pages/Matching");
     
   } catch (err) {
     console.error(err);
