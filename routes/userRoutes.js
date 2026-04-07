@@ -36,7 +36,7 @@ const upload = require("../middleware/upload");
 
 // BRONVERMELDING: Voor de missende data en hulp met fouten corrigeren: CHATGPT, co-pilot (BR, staat voor bronvermelding)
 // Dat includes de username, spelers sort a en b en de math.floor, jij als speler de req.session
-router.get("/leaderbord", async function (req, res) {
+router.get("/leaderboard", async function (req, res) {
   try {
     const db = req.app.locals.db;
     const gebruikers = db.collection("users");
@@ -93,11 +93,11 @@ router.get("/leaderbord", async function (req, res) {
       jij = spelers.find(s => s.id === req.session.user.id?.toString());
     }
 
-    res.render("pages/leaderbord", { spelers, jij });
+    res.render("pages/leaderboard", { spelers, jij });
 
   } catch (error) {
     console.error(error);
-    res.status(500).send("Er is iets fout gegaan bij het ophalen van het leaderbord");
+    res.status(500).send("Er is iets fout gegaan bij het ophalen van het leaderboard");
   }
 });
 
