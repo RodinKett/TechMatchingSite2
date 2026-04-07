@@ -40,7 +40,7 @@
   margin: 0 auto;
 }
 
-#button-filter {
+#knop-filter {
   display: flex;
   background-color: var(--kleur-blok-matching);
   color: var(--kleur-tekst);

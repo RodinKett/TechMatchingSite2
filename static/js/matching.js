@@ -12,12 +12,17 @@ document.getElementById("knop-challenge")
   window.location.href = "/matching";
 });
 
+document.getElementById("knop-filter").addEventListener("click", () => {
+  console.log("filter knop geklikt");
+  document.getElementById("filter-overlay").classList.add("zichtbaar");
+});
+
 const params = new URLSearchParams(window.location.search);
 document.getElementById("telling-filter").textContent = params.size || "";
 
 
 ////filter overlay open en dicht kunnen doen////
-document.getElementById("button-filter")
+document.getElementById("knop-filter")
   .addEventListener("click", () => {
     document.getElementById("filter-overlay").classList.add("zichtbaar");
   });
