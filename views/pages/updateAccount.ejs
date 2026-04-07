@@ -80,7 +80,7 @@
           <p class="error-specialisatie" style="display:none;"></p>
 
           <label for="aanvullendeOpmerkingen">Over mij</label>
-          <input id="aanvullendeOpmerkingen" type="text" name="aanvullendeOpmerkingen" value="<%= user.voertuig?.opmerkingen || '' %>">
+          <input id="aanvullendeOpmerkingen" type="text" name="aanvullendeOpmerkingen" value="<%= user.opmerkingen || '' %>">
           <p class="error-aanvullendeOpmerkingen" style="display:none;"></p>
 
         </div>
@@ -116,12 +116,12 @@
           <fieldset >
             <legend>Mods</legend>
 
-            <label class="checkbox"><input type="checkbox" name="mods" value="Tires" <%= user.mods?.includes("Tires") ? "checked" : "" %>> Tires</label>
-            <label class="checkbox"><input type="checkbox" name="mods" value="Suspension" <%= user.mods?.includes("Suspension") ? "checked" : "" %>> Suspension</label>
-            <label class="checkbox"><input type="checkbox" name="mods" value="Brakes" <%= user.mods?.includes("Brakes") ? "checked" : "" %>> Brakes</label>
-            <label class="checkbox"><input type="checkbox" name="mods" value="Power" <%= user.mods?.includes("Power") ? "checked" : "" %>> Power</label>
-            <label class="checkbox"><input type="checkbox" name="mods" value="Aero" <%= user.mods?.includes("Aero") ? "checked" : "" %>> Aero</label>
-            <label class="checkbox"><input type="checkbox" name="mods" value="Geen" <%= user.mods?.includes("Geen") ? "checked" : "" %>> Geen</label>
+            <label class="checkbox"><input type="checkbox" name="mods" value="Tires" <%= user.voertuig?.mods?.includes("Tires") ? "checked" : "" %>> Tires</label>
+            <label class="checkbox"><input type="checkbox" name="mods" value="Suspension" <%= user.voertuig?.mods?.includes("Suspension") ? "checked" : "" %>> Suspension</label>
+            <label class="checkbox"><input type="checkbox" name="mods" value="Brakes" <%= user.voertuig?.mods?.includes("Brakes") ? "checked" : "" %>> Brakes</label>
+            <label class="checkbox"><input type="checkbox" name="mods" value="Power" <%= user.voertuig?.mods?.includes("Power") ? "checked" : "" %>> Power</label>
+            <label class="checkbox"><input type="checkbox" name="mods" value="Aero" <%= user.voertuig?.mods?.includes("Aero") ? "checked" : "" %>> Aero</label>
+            <label class="checkbox"><input type="checkbox" name="mods" value="Geen" <%= user.voertuig?.mods?.includes("Geen") ? "checked" : "" %>> Geen</label>
           </fieldset>
           <p class="error-mods" style="display:none;"></p>
 
