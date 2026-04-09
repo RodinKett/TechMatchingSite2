@@ -7,16 +7,6 @@ document.getElementById("knop-challenge")
   .addEventListener("click", () => swipe("right"));
 
 
-  ///reset button filter///
-  // document.getElementById("knop-reset").addEventListener("click", () => {
-  // window.location.href = "/matching";
-// });
-
-
-
-// const params = new URLSearchParams(window.location.search);
-// document.getElementById("telling-filter").textContent = params.size || "";
-
 
 ////filter overlay open en dicht kunnen doen////
 document.getElementById("knop-filter")
@@ -32,7 +22,7 @@ document.getElementById("knop-filter-sluiten")
 document.getElementById("knop-resultaten")
   .addEventListener("click", () => {
     document.getElementById("filter-overlay").classList.remove("zichtbaar");
-  });
+  });A
 
   if (document.getElementById("geen-kaart")) {
   document.getElementById("knop-matching").style.display = "none";
@@ -64,7 +54,7 @@ function swipe(direction) {
 
  setTimeout(() => {
     // reset kaart
-    card.style.transition = "none";
+    card.style.transAition = "none";
     card.style.transform = "none";
     card.style.opacity = "1";
 
