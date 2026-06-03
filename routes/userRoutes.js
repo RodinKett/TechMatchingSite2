@@ -51,11 +51,11 @@ router.get("/leaderboard", isLoggedIn, async function (req, res) {
     };
 
     // Maak een nieuw array 'spelers' met alle benodigde info BR: chatgpt
-    // Random wins, losses en ties genereren
+    // Haal wins, losses en ties van iedere speler op
     const spelers = data.map(user => {
-      const wins = Math.floor(Math.random() *90);
-      const loss = Math.floor(Math.random() *30);
-      const ties = Math.floor(Math.random() *50);
+      const wins = user.wins ?? 0;
+      const loss = user.losses ?? 0;
+      const ties = user.ties ?? 0;
 
       // Bereken totaal aantal games en punten BR: Chatgpt (hulp som)
       const totaalGames = wins + loss + ties;
@@ -121,6 +121,53 @@ router.get("/updateAccount", isLoggedIn, async function(req, res) {
     console.error(error);
     console.log("error met ophalen van de user")
     res.status(500).render("pages/500");
+  }
+});
+
+// ------------------- POST /leaderbord opslaan -------------------
+router.post("/leadermatch", isLoggedIn, async (req, res) => {
+  try {
+    const db = req.app.locals.db;
+    const gebruikers = db.collection("users");
+
+    const userId = req.session.user.id;
+
+    const user = await gebruikers.findOne({_id: new ObjectId(userId)});
+
+    let wins = user.wins ?? 0;
+    let losses = user.losses ?? 0;
+    let ties = user.ties ?? 0;
+
+    const random = Math.random();
+    let result;
+
+    if (random < 0.5) {
+      wins++;
+      result = "win";
+    } else if (random < 0.8) {
+      losses++;
+      result = "loss"
+    } else {
+      ties++;
+      result = "tie";
+    }
+
+    await gebruikers.updateOne(
+      { _id: new ObjectId(userId) },
+      {
+        $set: {
+          wins: wins,
+          losses: losses,
+          ties: ties
+        }
+      }
+    );
+
+    res.json({ result });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Er is een fout opgetreden bij het matchen")
   }
 });
 

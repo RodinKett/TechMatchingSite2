@@ -119,6 +119,12 @@ button {
   grid-column: 3 / span 2;
 }
 
+#start-challenge {
+  color: var(--kleur-tekst-op-donker);
+  background-color: var(--kleur-accent);
+  border-radius: .7em;
+}
+
 /* Container van elke speler */
 .leaderbord-speler {
   display: flex;
@@ -194,7 +200,7 @@ button {
 .leaderbord-jij {
   padding: var(--wit-ruimte-s);
   position: fixed;
-  bottom: 15em;
+  bottom: 9em;
   left: 0;
   z-index: 100;
   width: 100%;
