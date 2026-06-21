@@ -5,19 +5,7 @@ document.getElementById("knop-volgende")
 
 document.getElementById("knop-challenge")
   .addEventListener("click", () => swipe("right"));
-
-
-  ///reset button filter///
-  // document.getElementById("knop-reset").addEventListener("click", () => {
-  // window.location.href = "/matching";
-// });
-
-
-
-// const params = new URLSearchParams(window.location.search);
-// document.getElementById("telling-filter").textContent = params.size || "";
-
-
+  
 ////filter overlay open en dicht kunnen doen////
 document.getElementById("knop-filter")
   .addEventListener("click", () => {
@@ -40,8 +28,6 @@ document.getElementById("knop-resultaten")
 
 
 
-
-
   ////pakt de bovenste kaart
   function pakEersteKaart() {
   const cards = [...document.querySelectorAll(".veeg-kaart")]; // ← update selector
@@ -58,6 +44,19 @@ function swipe(direction) {
 
   const offset = direction === "right" ? "120%" : "-120%";
   const angle = direction === "right" ? 20 : -20;
+
+ if (direction === "right") {
+   const ontvangerId = card.dataset.userId;
+  fetch("/verzoeken", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ontvangerId }),
+  })     .then((res) => res.json())
+    .then((data) => {
+      if (!data.success) console.error("Verzoek opslaan mislukt:", data.error);
+    })
+    .catch((err) => console.error("Verzoek opslaan mislukt:", err));
+ }
 
   card.style.transform = `translateX(${offset}) rotate(${angle}deg)`;
   card.style.opacity = "0";

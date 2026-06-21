@@ -55,4 +55,19 @@ router.get("/matching", isLoggedIn, async (req, res) => {
   }
 });
 
+// Sla een 'verzoek' op wanneer naar rechts geswiped wordt
+router.post("/verzoeken", isLoggedIn, async (req, res) => {
+  const db = req.app.locals.db;
+  const verzoeken = db.collection("verzoeken");
+
+  await verzoeken.insertOne({
+    verzenderId: new ObjectId(req.session.user.id),
+    ontvangerId: new ObjectId(req.body.ontvangerId),
+    status: "pending",
+    createdAt: new Date(),
+  });
+
+  res.json({ success: true });
+});
+
 module.exports = router;

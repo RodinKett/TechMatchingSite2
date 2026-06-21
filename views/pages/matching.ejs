@@ -43,7 +43,7 @@
     <% users.forEach(user => { %>
 
     
-    <section class="veeg-kaart">
+    <section class="veeg-kaart" data-user-id="<%= user.id %>">
    
     <section class="foto-section">
      <img class="profiel-foto" src="/uploads/<%= user.profielFoto %>" alt="foto">
