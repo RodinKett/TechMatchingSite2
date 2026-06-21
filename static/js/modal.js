@@ -47,6 +47,16 @@ function updateRanking() {
 
       plaats.textContent = positie;
 
+      speler.classList.remove("eerste", "tweede", "derde");
+
+      if (positie === 1) {
+        speler.classList.add("eerste");
+      } else if (positie === 2) {
+        speler.classList.add("tweede");
+      } else if (positie === 3) {
+        speler.classList.add("derde");
+      }
+
       positie++;
     }
   });
